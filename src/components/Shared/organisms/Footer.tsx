@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import GrupoRedes from "../molecules/GrupoRedes";
 import ListaEnlaces from "../molecules/ListaEnlaces";
 import TextoFooter from "../atoms/TextoFooter";
 import TituloSeccion from "../atoms/TituloSeccion";
 import Copyright from "../atoms/Copyright";
-import logo from "../../../assets/logos/logo-udlaverso.png";
+import logo from "../../../assets/logos/logo.png";
 
 const Footer: React.FC = () => {
   return (
@@ -12,7 +13,15 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto py-10 px-6 justify-center sm:justify-normal grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {/* Logo + Redes */}
         <div className="flex flex-col items-start gap-4">
-          <img src={logo} alt="Logo UDLAVERSO" className="h-12 w-auto" />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="Logo UDLAVERSO"
+              className="h-14 w-auto"
+              title="Inicio"
+            />
+          </Link>
+
           <GrupoRedes />
         </div>
 

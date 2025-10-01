@@ -3,7 +3,7 @@ import React from "react";
 interface PropiedadesBoton {
   texto: string;
   onClick?: () => void;
-  variante?: "principal" | "secundario";
+  variante?: "principal" | "secundario" | "terciario";
 }
 
 const Boton: React.FC<PropiedadesBoton> = ({
@@ -16,8 +16,9 @@ const Boton: React.FC<PropiedadesBoton> = ({
 
   const estilos: Record<string, string> = {
     principal: "bg-udlaverso-verde text-white hover:bg-udlaverso-verdeOscuro",
-    secundario:
-      "text-udlaverso-verde hover:bg-udlaverso-verdeClaro hover:text-white",
+    secundario: "hover:bg-udlaverso-verdeClaro hover:text-white",
+    terciario:
+      "text-white border-white hover:bg-udlaverso-verdeClaro hover:text-white",
   };
 
   return (

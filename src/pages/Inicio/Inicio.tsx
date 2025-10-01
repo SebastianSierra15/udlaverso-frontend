@@ -1,18 +1,10 @@
 import TarjetaProyecto from "../../components/Shared/molecules/TarjetaProyecto";
-import Boton from "../../components/Shared/atoms/Boton";
+import Hero from "../../components/Inicio/organisms/Hero";
 
 function Inicio() {
   return (
     <>
-      <div className="h-[60vh] flex flex-col items-center justify-center text-center bg-gray-100 z-0">
-        <h1 className="text-4xl font-bold">
-          Laboratorio Amazónico de Realidad Aumentada
-        </h1>
-        <div className="mt-4 flex gap-4">
-          <Boton texto="Descargar visor" variante="principal" />
-          <Boton texto="Nuestros proyectos" variante="secundario" />
-        </div>
-      </div>
+      <Hero />
 
       <section className="p-8">
         <h2 className="text-2xl font-bold mb-4">Proyectos Destacados</h2>

@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import Boton from "../atoms/Boton";
-import logo from "../../../assets/logos/logo-udlaverso.png";
+import logo from "../../../assets/logos/logo.png";
 
 const Header = () => {
   return (
@@ -12,6 +12,7 @@ const Header = () => {
             src={logo}
             alt="Logo UDLAVERSO"
             className="h-10 w-auto object-contain md:h-12"
+            title="Inicio"
           />
         </Link>
 
@@ -23,7 +24,9 @@ const Header = () => {
                 to="/"
                 className={({ isActive }) =>
                   `hover:text-udlaverso-verde ${
-                    isActive ? "border-b-2 border-udlaverso-verde" : ""
+                    isActive
+                      ? "border-b-2 font-bold border-udlaverso-verde"
+                      : ""
                   }`
                 }
               >
@@ -35,7 +38,9 @@ const Header = () => {
                 to="/proyectos"
                 className={({ isActive }) =>
                   `hover:text-udlaverso-verde ${
-                    isActive ? "border-b-2 border-udlaverso-verde" : ""
+                    isActive
+                      ? "border-b-2 font-bold border-udlaverso-verde"
+                      : ""
                   }`
                 }
               >
@@ -47,7 +52,9 @@ const Header = () => {
                 to="/acerca"
                 className={({ isActive }) =>
                   `hover:text-udlaverso-verde ${
-                    isActive ? "border-b-2 border-udlaverso-verde" : ""
+                    isActive
+                      ? "border-b-2 font-bold border-udlaverso-verde"
+                      : ""
                   }`
                 }
               >
@@ -59,7 +66,9 @@ const Header = () => {
                 to="/noticias"
                 className={({ isActive }) =>
                   `hover:text-udlaverso-verde ${
-                    isActive ? "border-b-2 border-udlaverso-verde" : ""
+                    isActive
+                      ? "border-b-2 font-bold border-udlaverso-verde"
+                      : ""
                   }`
                 }
               >
