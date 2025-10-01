@@ -1,13 +1,10 @@
-import BarraNavegacion from "../../components/organisms/BarraNavegacion";
-import TarjetaProyecto from "../../components/molecules/TarjetaProyecto";
-import Boton from "../../components/atoms/Boton";
+import TarjetaProyecto from "../../components/Shared/molecules/TarjetaProyecto";
+import Boton from "../../components/Shared/atoms/Boton";
 
 function Inicio() {
   return (
     <>
-      <BarraNavegacion />
-
-      <header className="h-[60vh] flex flex-col items-center justify-center text-center bg-gray-100">
+      <div className="h-[60vh] flex flex-col items-center justify-center text-center bg-gray-100 z-0">
         <h1 className="text-4xl font-bold">
           Laboratorio Amazónico de Realidad Aumentada
         </h1>
@@ -15,7 +12,7 @@ function Inicio() {
           <Boton texto="Descargar visor" variante="principal" />
           <Boton texto="Nuestros proyectos" variante="secundario" />
         </div>
-      </header>
+      </div>
 
       <section className="p-8">
         <h2 className="text-2xl font-bold mb-4">Proyectos Destacados</h2>

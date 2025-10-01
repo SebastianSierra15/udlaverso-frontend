@@ -1,10 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import Boton from "../atoms/Boton";
-import logo from "../../assets/logos/logo-udlaverso.png";
+import logo from "../../../assets/logos/logo-udlaverso.png";
 
-const BarraNavegacion = () => {
+const Header = () => {
   return (
-    <header className="bg-udlaverso-blanco shadow">
+    <header className="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
       <nav className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
@@ -16,8 +16,8 @@ const BarraNavegacion = () => {
         </Link>
 
         {/* Menú */}
-        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full md:w-auto">
-          <ul className="flex flex-col md:flex-row gap-4 md:gap-8 text-udlaverso-gris font-medium">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 w-full md:w-auto">
+          <ul className="flex flex-col md:flex-row gap-2 md:gap-4 text-udlaverso-gris font-medium">
             <li>
               <NavLink
                 to="/"
@@ -79,4 +79,4 @@ const BarraNavegacion = () => {
   );
 };
 
-export default BarraNavegacion;
+export default Header;
