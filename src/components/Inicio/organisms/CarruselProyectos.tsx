@@ -70,9 +70,9 @@ const CarruselProyectos: React.FC = () => {
   const listaDuplicada = [...proyectos, ...proyectos];
 
   return (
-    <section className="p-8 overflow-hidden">
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        Proyectos Destacados
+    <section className="p-8 overflow-hidden space-y-16">
+      <h2 className="text-3xl md:text-3xl text-center font-extrabold text-udlaverso-negro leading-tight">
+        Proyectos destacados
       </h2>
 
       <div className="relative w-full group">

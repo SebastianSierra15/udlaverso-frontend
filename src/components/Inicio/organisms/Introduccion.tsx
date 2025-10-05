@@ -3,7 +3,10 @@ import Descripcion from "../molecules/Descripcion";
 
 const Introduccion: React.FC = () => {
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between gap-12 px-20 py-12 max-w-7xl mx-auto">
+    <section
+      id="introduccion"
+      className="flex flex-col md:flex-row items-center justify-between gap-12 px-20 py-12 max-w-7xl mx-auto"
+    >
       <Descripcion />
 
       {/* Video */}

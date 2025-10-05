@@ -1,11 +1,21 @@
 import { FaChevronDown } from "react-icons/fa";
+import { animate } from "framer-motion";
 import Boton from "../../Shared/atoms/Boton";
 
 const Hero = () => {
   const scrollToNext = () => {
-    const nextSection = document.getElementById("next-section");
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById("introduccion");
+    if (target) {
+      const startY = window.scrollY;
+      const endY = target.getBoundingClientRect().top + window.scrollY - 70;
+
+      const controls = animate(startY, endY, {
+        duration: 1,
+        ease: "easeInOut",
+        onUpdate: (value) => window.scrollTo(0, value),
+      });
+
+      return () => controls.stop();
     }
   };
 
@@ -21,7 +31,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/30 -z-10" />
 
       {/* Contenido alineado a la izquierda */}
-      <div className="w-full max-w-7xl mx-auto flex flex-col items-start text-left">
+      <div className="w-full max-w-7xl mx-auto flex flex-col items-start text-left pl-12">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
           UdlaVerso
         </h1>

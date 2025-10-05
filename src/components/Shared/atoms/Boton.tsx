@@ -3,7 +3,7 @@ import React from "react";
 interface PropiedadesBoton {
   texto: string;
   onClick?: () => void;
-  variante?: "principal" | "secundario";
+  variante?: "principal" | "secundario" | "alternativo";
   modo?: "default" | "light";
 }
 
@@ -28,6 +28,10 @@ const Boton: React.FC<PropiedadesBoton> = ({
         "text-udlaverso-verde border-black hover:bg-udlaverso-verde hover:text-white",
       light:
         "text-white border-white hover:bg-udlaverso-verde hover:text-white",
+    },
+    alternativo: {
+      default:
+        "text-udlaverso-verde border-2 border-udlaverso-verde hover:bg-udlaverso-verde hover:text-white",
     },
   };
 
