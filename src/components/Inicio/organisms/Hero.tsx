@@ -10,7 +10,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-[calc(100vh-70px)] flex items-center text-white overflow-hidden">
+    <section className="relative -mt-[70px] h-screen flex items-center text-white overflow-hidden">
       {/* Imagen de fondo */}
       <img
         className="absolute top-0 left-0 w-full h-full object-cover -z-10"
@@ -32,15 +32,19 @@ const Hero = () => {
         </p>
 
         <div className="flex gap-4">
-          <Boton texto="Descargar visor" variante="principal" />
-          <Boton texto="Nuestros Proyectos" variante="terciario" />
+          <Boton texto="Descargar visor" variante="principal" modo="light" />
+          <Boton
+            texto="Nuestros Proyectos"
+            variante="secundario"
+            modo="light"
+          />
         </div>
       </div>
 
       {/* Flecha centrada abajo */}
       <button
         onClick={scrollToNext}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-3xl"
+        className="absolute hover:text-udlaverso-verdeClaro duration-300 transition-colors bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-3xl"
       >
         <FaChevronDown />
       </button>

@@ -5,7 +5,6 @@ import ListaEnlaces from "../molecules/ListaEnlaces";
 import TextoFooter from "../atoms/TextoFooter";
 import TituloSeccion from "../atoms/TituloSeccion";
 import Copyright from "../atoms/Copyright";
-import logo from "../../../assets/logos/logo.png";
 
 const Footer: React.FC = () => {
   return (
@@ -15,7 +14,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col items-start gap-4">
           <Link to="/">
             <img
-              src={logo}
+              src="/logos/logo.png"
               alt="Logo UDLAVERSO"
               className="h-14 w-auto"
               title="Inicio"

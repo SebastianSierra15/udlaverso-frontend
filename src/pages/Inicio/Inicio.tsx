@@ -1,10 +1,16 @@
 import TarjetaProyecto from "../../components/Shared/molecules/TarjetaProyecto";
 import Hero from "../../components/Inicio/organisms/Hero";
+import Introduccion from "../../components/Inicio/organisms/Introduccion";
+import CarruselProyectos from "../../components/Inicio/organisms/CarruselProyectos";
 
 function Inicio() {
   return (
     <>
       <Hero />
+
+      <Introduccion />
+
+      <CarruselProyectos />
 
       <section className="p-8">
         <h2 className="text-2xl font-bold mb-4">Proyectos Destacados</h2>

@@ -1,15 +1,37 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Boton from "../atoms/Boton";
-import logo from "../../../assets/logos/logo.png";
 
 const Header = () => {
+  const location = useLocation();
+  const [isTop, setIsTop] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsTop(window.scrollY < 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        location.pathname === "/" && isTop
+          ? "bg-transparent shadow-none"
+          : "bg-white shadow-sm"
+      }`}
+    >
       <nav className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
           <img
-            src={logo}
+            src={
+              location.pathname === "/" && isTop
+                ? "/logos/logo-white.png"
+                : "/logos/logo.png"
+            }
             alt="Logo UDLAVERSO"
             className="h-10 w-auto object-contain md:h-12"
             title="Inicio"
@@ -18,7 +40,13 @@ const Header = () => {
 
         {/* Menú */}
         <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 w-full md:w-auto">
-          <ul className="flex flex-col md:flex-row gap-2 md:gap-4 text-udlaverso-gris font-medium">
+          <ul
+            className={`flex flex-col md:flex-row gap-2 md:gap-4 font-medium ${
+              location.pathname === "/" && isTop
+                ? "text-white"
+                : "text-udlaverso-gris"
+            }`}
+          >
             <li>
               <NavLink
                 to="/"
@@ -79,8 +107,17 @@ const Header = () => {
 
           {/* Botones */}
           <div className="flex flex-col md:flex-row gap-3">
-            <Boton texto="Iniciar sesión" variante="secundario" />
-            <Boton texto="Registrarse" variante="principal" />
+            <Boton
+              texto="Iniciar sesión"
+              variante="secundario"
+              modo={location.pathname === "/" && isTop ? "light" : "default"}
+            />
+
+            <Boton
+              texto="Registrarse"
+              variante="principal"
+              modo={location.pathname === "/" && isTop ? "light" : "default"}
+            />
           </div>
         </div>
       </nav>
