@@ -5,6 +5,7 @@ interface PropiedadesBoton {
   onClick?: () => void;
   variante?: "principal" | "secundario" | "alternativo";
   modo?: "default" | "light";
+  claseExtra?: string;
 }
 
 const Boton: React.FC<PropiedadesBoton> = ({
@@ -12,6 +13,7 @@ const Boton: React.FC<PropiedadesBoton> = ({
   onClick,
   variante = "principal",
   modo = "default",
+  claseExtra = "",
 }) => {
   const base =
     "rounded-full font-semibold transition duration-300 ease-in-out text-sm md:text-base lg:text-lg px-3 md:px-4 lg:px-6 py-2 border";
@@ -31,12 +33,17 @@ const Boton: React.FC<PropiedadesBoton> = ({
     },
     alternativo: {
       default:
+        "text-black bg-white border border-black hover:bg-udlaverso-verde hover:text-white",
+      light:
         "text-udlaverso-verde border-2 border-udlaverso-verde hover:bg-udlaverso-verde hover:text-white",
     },
   };
 
   return (
-    <button className={`${base} ${estilos[variante][modo]}`} onClick={onClick}>
+    <button
+      className={`${base} ${estilos[variante][modo]} ${claseExtra}`}
+      onClick={onClick}
+    >
       {texto}
     </button>
   );

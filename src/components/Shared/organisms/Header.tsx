@@ -107,17 +107,21 @@ const Header = () => {
 
           {/* Botones */}
           <div className="flex flex-col md:flex-row gap-3">
-            <Boton
-              texto="Iniciar sesión"
-              variante="secundario"
-              modo={location.pathname === "/" && isTop ? "light" : "default"}
-            />
+            <Link to="/login">
+              <Boton
+                texto="Iniciar sesión"
+                variante="secundario"
+                modo={location.pathname === "/" && isTop ? "light" : "default"}
+              />
+            </Link>
 
-            <Boton
-              texto="Registrarse"
-              variante="principal"
-              modo={location.pathname === "/" && isTop ? "light" : "default"}
-            />
+            <Link to="/registrarse">
+              <Boton
+                texto="Registrarse"
+                variante="principal"
+                modo={location.pathname === "/" && isTop ? "light" : "default"}
+              />
+            </Link>
           </div>
         </div>
       </nav>

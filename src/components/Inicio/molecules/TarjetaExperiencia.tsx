@@ -39,7 +39,7 @@ const TarjetaExperiencia: React.FC<Props> = ({
         </div>
 
         <div className="mt-auto">
-          <Boton texto="Más información" variante="alternativo" />
+          <Boton texto="Más información" variante="alternativo" modo="light" />
         </div>
       </div>
     </motion.div>
