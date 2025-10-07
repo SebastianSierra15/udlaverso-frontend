@@ -8,7 +8,7 @@ import Copyright from "../atoms/Copyright";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-white border-t mt-10">
+    <footer className="relative bg-gradient-to-t from-udlaverso-verde/10 via-white to-white border-t mt-10">
       <div className="max-w-7xl mx-auto py-10 px-6 justify-center sm:justify-normal grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {/* Logo + Redes */}
         <div className="flex flex-col items-start gap-4">
@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
           enlaces={[
             { texto: "Inicio", ruta: "/" },
             { texto: "Proyectos", ruta: "/proyectos" },
-            { texto: "Acerca de", ruta: "/acerca" },
+            { texto: "Acerca de", ruta: "/acerca-de" },
             { texto: "Noticias", ruta: "/noticias" },
             { texto: "Contacto", ruta: "/contacto" },
           ]}

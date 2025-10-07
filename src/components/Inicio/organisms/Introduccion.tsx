@@ -6,7 +6,7 @@ const Introduccion: React.FC = () => {
   return (
     <section
       id="introduccion"
-      className="flex flex-col md:flex-row items-center justify-between gap-12 px-6 md:px-20 py-12 max-w-7xl mx-auto"
+      className="flex flex-col md:flex-row items-center justify-between gap-12 px-6 md:px-20 py-20 max-w-7xl mx-auto"
     >
       <Descripcion />
 

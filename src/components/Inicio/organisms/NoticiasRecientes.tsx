@@ -42,7 +42,7 @@ const NoticiasRecientes: React.FC = () => {
   ];
 
   return (
-    <section className="py-10 max-w-7xl mx-auto px-6">
+    <section className="py-20 max-w-7xl mx-auto px-6">
       <h2 className="text-2xl font-bold text-udlaverso-negro mb-8">
         Últimas Noticias
       </h2>

@@ -20,7 +20,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative -mt-[70px] h-screen flex items-center text-white overflow-hidden">
+    <section className="relative h-screen flex items-center text-white overflow-hidden">
       {/* Imagen de fondo */}
       <img
         className="absolute top-0 left-0 w-full h-full object-cover -z-10"

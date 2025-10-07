@@ -29,7 +29,7 @@ const Boton: React.FC<PropiedadesBoton> = ({
       default:
         "text-udlaverso-verde border-black hover:bg-udlaverso-verde hover:text-white",
       light:
-        "text-white border-white hover:bg-udlaverso-verde hover:text-white",
+        "text-white border-white hover:bg-white hover:text-udlaverso-verde text-white",
     },
     alternativo: {
       default:
