@@ -14,10 +14,10 @@ const FormularioRegistro: React.FC = () => {
     terminos: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value, type, checked } = e.target;
+  //   setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
