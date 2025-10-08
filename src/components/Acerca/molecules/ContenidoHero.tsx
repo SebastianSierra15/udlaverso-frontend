@@ -1,6 +1,3 @@
-import Boton from "../../Shared/atoms/Boton";
-import { Link } from "react-router-dom";
-
 interface ContenidoHeroProps {
   titulo: string;
   descripcion: string;
@@ -13,10 +10,10 @@ interface ContenidoHeroProps {
 const ContenidoHero: React.FC<ContenidoHeroProps> = ({
   titulo,
   descripcion,
-  textoBotonPrincipal = "Descargar visor",
-  linkBotonPrincipal = "/descargas",
-  textoBotonSecundario = "Conoce más",
-  linkBotonSecundario = "/proyectos",
+  // textoBotonPrincipal = "Descargar visor",
+  // linkBotonPrincipal = "/descargas",
+  // textoBotonSecundario = "Conoce más",
+  // linkBotonSecundario = "/proyectos",
 }) => {
   return (
     <div className="text-center px-6 md:px-10 max-w-3xl">
@@ -28,6 +25,7 @@ const ContenidoHero: React.FC<ContenidoHeroProps> = ({
         {descripcion}
       </p>
 
+      {/* 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <Link to={linkBotonPrincipal}>
           <Boton
@@ -46,7 +44,7 @@ const ContenidoHero: React.FC<ContenidoHeroProps> = ({
             claseExtra="px-8 py-3 shadow-md hover:shadow-lg"
           />
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

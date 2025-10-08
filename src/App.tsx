@@ -5,6 +5,7 @@ import Login from "./pages/Auth/Login";
 import Registrarse from "./pages/Auth/Registrarse";
 import RecuperarContrasenia from "./pages/Auth/RecuperarContrasenia";
 import AcercaDe from "./pages/AcercaDe/AcercaDe";
+import Proyectos from "./pages/Proyectos/Proyectos";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Inicio />} />
           <Route path="/acerca-de" element={<AcercaDe />} />
+          <Route path="/proyectos" element={<Proyectos />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/registrarse" element={<Registrarse />} />
