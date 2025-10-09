@@ -4,9 +4,15 @@ interface Props {
   pagina: number;
   totalPaginas: number;
   onChange: (pagina: number) => void;
+  ariaLabel?: string;
 }
 
-const Paginacion: React.FC<Props> = ({ pagina, totalPaginas, onChange }) => {
+const Paginacion: React.FC<Props> = ({
+  pagina,
+  totalPaginas,
+  onChange,
+  ariaLabel = "Paginación",
+}) => {
   const rangoVisible = 3; // cantidad de páginas a mostrar alrededor
   const paginas: (number | string)[] = [];
 
@@ -36,7 +42,7 @@ const Paginacion: React.FC<Props> = ({ pagina, totalPaginas, onChange }) => {
   return (
     <nav
       className="flex items-center justify-center gap-2 mt-8 text-sm select-none"
-      aria-label="Paginación de proyectos"
+      aria-label={ariaLabel}
     >
       {/* Botón anterior */}
       <button

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import HeroProyectos from "../../components/Proyectos/organisms/HeroProyectos";
 import BarraFiltros from "../../components/Proyectos/molecules/BarraFiltros";
 import GridProyectos from "../../components/Proyectos/organisms/GridProyectos";
-import Paginacion from "../../components/Proyectos/molecules/Paginacion";
+import Paginacion from "../../components/Shared/molecules/Paginacion";
 import type { Proyecto } from "../../components/Proyectos/organisms/GridProyectos";
 
 const datos: Proyecto[] = [
@@ -217,6 +217,7 @@ const Proyectos: React.FC = () => {
           pagina={paginaActual}
           totalPaginas={totalPaginas}
           onChange={setPagina}
+          ariaLabel="Paginación de proyectos"
         />
       </section>
     </>
