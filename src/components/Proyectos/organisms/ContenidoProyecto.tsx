@@ -25,7 +25,6 @@ const ContenidoProyecto: React.FC<Props> = ({
   descripcionLarga,
   objetivos,
   linkProyecto,
-  palabrasClave,
   imagenes,
   video,
   titulo,
