@@ -10,7 +10,6 @@ interface Props {
   descripcionCorta: string;
   descripcionLarga: string;
   objetivos: string;
-  linkProyecto: string;
   palabrasClave: string[];
   imagenes: string[];
   video: string;
@@ -24,7 +23,6 @@ const ContenidoProyecto: React.FC<Props> = ({
   descripcionCorta,
   descripcionLarga,
   objetivos,
-  linkProyecto,
   imagenes,
   video,
   titulo,
@@ -36,14 +34,13 @@ const ContenidoProyecto: React.FC<Props> = ({
     </div>
 
     {/* Contenido desplazable */}
-    <div className="order-2 md:order-2 space-y-12">
+    <div className="order-2 md:order-2 space-y-8">
       <InfoProyecto
         autor={autor}
         tecnologias={tecnologias}
         fecha={fecha}
         descripcionCorta={descripcionCorta}
         objetivos={objetivos}
-        linkProyecto={linkProyecto}
       />
 
       <DescripcionLarga descripcion={descripcionLarga} />

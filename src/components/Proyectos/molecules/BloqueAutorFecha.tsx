@@ -4,7 +4,7 @@ interface Props {
 }
 
 const BloqueAutorFecha: React.FC<Props> = ({ autor, fecha }) => (
-  <div className="text-[15px] text-udlaverso-gris leading-relaxed">
+  <div className="text-lg text-udlaverso-gris leading-relaxed">
     <p>
       Creado por{" "}
       <span className="font-semibold text-udlaverso-negro">{autor}</span> en{" "}

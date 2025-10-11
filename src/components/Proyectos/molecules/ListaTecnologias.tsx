@@ -6,7 +6,7 @@ interface Props {
 
 const ListaTecnologias: React.FC<Props> = ({ tecnologias }) => (
   <div>
-    <p className="text-[15px] text-udlaverso-negro font-medium mb-1">
+    <p className="text-udlaverso-negro font-medium mb-1">
       Tecnologías utilizadas:
     </p>
     <div className="flex flex-wrap gap-2">

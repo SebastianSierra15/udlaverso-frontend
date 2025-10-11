@@ -8,12 +8,12 @@ const autores = [
     img: "/images/autor.webp",
   },
   {
-    nombre: "Lubeimar Moreno Gutiérrez",
+    nombre: "Lubeimar Eduardo Gallego Ruiz",
     rol: "Desarrollador principal y diseñador del portal interactivo UdlaVerso.",
     img: "/images/autor.webp",
   },
   {
-    nombre: "Fredy Antonio Verástegui Gonzáles",
+    nombre: "Fredy Antonio Verástegui González",
     rol: "Docente asesor del área tecnológica y coordinador del desarrollo académico.",
     img: "/images/autor.webp",
   },

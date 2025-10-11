@@ -2,7 +2,6 @@ import BloqueAutorFecha from "../molecules/BloqueAutorFecha";
 import ListaTecnologias from "../molecules/ListaTecnologias";
 import BloqueDescripcion from "../molecules/BloqueDescripcion";
 import BloqueObjetivos from "../molecules/BloqueObjetivos";
-import AccionesProyecto from "../molecules/AccionesProyecto";
 
 interface Props {
   autor: string;
@@ -10,8 +9,6 @@ interface Props {
   tecnologias: string[];
   descripcionCorta: string;
   objetivos: string;
-  linkProyecto: string;
-  linkGuia?: string;
 }
 
 const InfoProyecto: React.FC<Props> = ({
@@ -20,10 +17,8 @@ const InfoProyecto: React.FC<Props> = ({
   tecnologias,
   descripcionCorta,
   objetivos,
-  linkProyecto,
-  linkGuia,
 }) => (
-  <div className="space-y-6 font-inter text-[15px] text-udlaverso-gris leading-relaxed">
+  <div className="space-y-4 font-inter text-base text-udlaverso-gris leading-relaxed">
     <BloqueAutorFecha autor={autor} fecha={fecha} />
 
     <ListaTecnologias tecnologias={tecnologias} />
@@ -31,8 +26,6 @@ const InfoProyecto: React.FC<Props> = ({
     <BloqueDescripcion descripcion={descripcionCorta} />
 
     <BloqueObjetivos objetivos={objetivos} />
-
-    <AccionesProyecto linkProyecto={linkProyecto} linkGuia={linkGuia} />
   </div>
 );
 

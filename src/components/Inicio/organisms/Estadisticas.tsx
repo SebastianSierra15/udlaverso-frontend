@@ -3,7 +3,7 @@ import TarjetaEstadistica from "../molecules/TarjetaEstadistica";
 const Estadisticas: React.FC = () => {
   const data = [
     { valor: 40, texto: "Proyectos publicados" },
-    { valor: 100, texto: "Estudiantes participando" },
+    { valor: 100, texto: "Estudiantes involucrados" },
     { valor: 10, texto: "Laboratorios RA" },
   ];
 

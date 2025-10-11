@@ -4,6 +4,8 @@ interface Proyecto {
   id: string;
   titulo: string;
   categoria: string;
+  promedio: number;
+  visitas: number;
   autor: string;
   tecnologias: string[];
   fecha: string;

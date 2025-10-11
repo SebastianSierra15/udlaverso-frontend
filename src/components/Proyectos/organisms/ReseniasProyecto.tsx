@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TarjetaResenia from "../molecules/TarjetaResenia";
 import ModalResenia from "../molecules/ModalResenia";
-import BotonAccion from "../atoms/BotonAccion";
+import Boton from "../../Shared/atoms/Boton";
 
 interface Resenia {
   usuario: string;
@@ -49,9 +49,12 @@ const ReseniasProyecto: React.FC<Props> = ({ resenias: iniciales }) => {
             Comparte tu experiencia con otros usuarios.
           </p>
         </div>
-        <BotonAccion
+
+        <Boton
           texto="Escribe una reseña"
           onClick={() => setMostrarModal(true)}
+          variante="principal"
+          claseExtra="mt-4 md:mt-0 shadow-sm"
         />
       </div>
 

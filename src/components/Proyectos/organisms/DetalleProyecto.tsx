@@ -1,11 +1,15 @@
-import TituloProyecto from "../atoms/TituloProyecto";
-import EtiquetaCategoria from "../atoms/EtiquetaCategoria";
+import TituloAccionProyecto from "../molecules/TituloAccionProyecto";
+import CategoriaSocialProyecto from "../molecules/CategoriaSocialProyecto";
+import EstrellasValoracion from "../molecules/EstrellasValoracion";
+import ContadorVisitas from "../atoms/ContadorVisitas";
 import ContenidoProyecto from "./ContenidoProyecto";
 import ReseniasProyecto from "./ReseniasProyecto";
 
 interface Props {
   titulo: string;
   categoria: string;
+  promedio: number;
+  visitas: number;
   autor: string;
   tecnologias: string[];
   fecha: string;
@@ -27,6 +31,8 @@ interface Props {
 const DetalleProyecto: React.FC<Props> = ({
   titulo,
   categoria,
+  promedio,
+  visitas,
   autor,
   tecnologias,
   fecha,
@@ -41,9 +47,14 @@ const DetalleProyecto: React.FC<Props> = ({
 }) => {
   return (
     <section className="max-w-7xl mx-auto px-6 md:px-10 py-10 bg-white rounded-2xl shadow-sm -mt-10 relative z-10">
-      <TituloProyecto texto={titulo} />
+      <TituloAccionProyecto titulo={titulo} linkProyecto={linkProyecto} />
 
-      <EtiquetaCategoria categoria={categoria} />
+      <CategoriaSocialProyecto categoria={categoria} titulo={titulo} />
+
+      <div className="flex items-center gap-2 mt-2">
+        <EstrellasValoracion valor={promedio} interactiva={false} />
+        <ContadorVisitas visitas={visitas} />
+      </div>
 
       <ContenidoProyecto
         titulo={titulo}
@@ -53,7 +64,6 @@ const DetalleProyecto: React.FC<Props> = ({
         descripcionCorta={descripcionCorta}
         descripcionLarga={descripcionLarga}
         objetivos={objetivos}
-        linkProyecto={linkProyecto}
         palabrasClave={palabrasClave}
         imagenes={imagenes}
         video={video}

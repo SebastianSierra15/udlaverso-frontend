@@ -26,7 +26,7 @@ const TarjetaResenia: React.FC<Props> = ({
 
     <div className="flex gap-1 mb-2">
       {[...Array(5)].map((_, i) => (
-        <Estrella key={i} activa={i < estrellas} />
+        <Estrella key={i} activa={i < estrellas} interactiva={false} />
       ))}
     </div>
 

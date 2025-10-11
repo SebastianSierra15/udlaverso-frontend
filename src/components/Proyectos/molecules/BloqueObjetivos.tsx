@@ -4,12 +4,11 @@ interface Props {
 
 const BloqueObjetivos: React.FC<Props> = ({ objetivos }) => (
   <div>
-    <p className="text-[15px] text-udlaverso-negro font-medium mb-1">
+    <p className="text-udlaverso-negro font-semibold mb-1">
       Objetivo principal:
     </p>
-    <p className="text-[15px] text-udlaverso-gris leading-relaxed">
-      {objetivos}
-    </p>
+
+    <p className="text-udlaverso-gris leading-relaxed">{objetivos}</p>
   </div>
 );
 

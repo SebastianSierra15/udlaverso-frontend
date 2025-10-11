@@ -4,12 +4,12 @@ interface Props {
 
 const DescripcionLarga: React.FC<Props> = ({ descripcion }) => (
   <section>
-    <h2 className="text-xl font-semibold text-udlaverso-negro mb-3">
+    <h2 className="text-xl font-semibold text-udlaverso-negro">
       Sobre este proyecto
     </h2>
 
     <div
-      className="text-[15px] text-udlaverso-gris leading-relaxed prose max-w-none"
+      className="text-udlaverso-gris leading-relaxed prose max-w-none"
       dangerouslySetInnerHTML={{ __html: descripcion.replace(/\n/g, "<br/>") }}
     />
   </section>
