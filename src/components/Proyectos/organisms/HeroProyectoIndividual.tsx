@@ -1,4 +1,4 @@
-import ContenidoHero from "../../Acerca/molecules/ContenidoHero";
+import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
 interface Props {
   titulo: string;

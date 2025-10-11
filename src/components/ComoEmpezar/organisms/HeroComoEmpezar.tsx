@@ -1,19 +1,19 @@
 import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
-const HeroContacto: React.FC = () => (
+const HeroComoEmpezar: React.FC = () => (
   <section className="relative h-[60vh] flex items-center justify-center text-white">
     <img
-      src="/images/caseta.webp"
-      alt="Contacto UdlaVerso"
+      src="/images/escenario.webp"
+      alt="Cómo empezar en el UdlaVerso"
       className="absolute inset-0 w-full h-full object-cover -z-10"
     />
     <div className="absolute inset-0 bg-black/60 -z-10" />
 
     <ContenidoHero
-      titulo="Contáctanos"
-      descripcion="Comunícate con el equipo del UdlaVerso o con la Universidad de la Amazonia para más información."
+      titulo="Cómo empezar en el UDLAVERSO"
+      descripcion="Aprende a crear tu cuenta, configurar tu avatar y explorar las islas virtuales paso a paso con videos y ejemplos."
     />
   </section>
 );
 
-export default HeroContacto;
+export default HeroComoEmpezar;

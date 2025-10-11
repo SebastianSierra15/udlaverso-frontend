@@ -1,4 +1,4 @@
-import ContenidoHero from "../molecules/ContenidoHero";
+import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
 interface HeroSectionProps {
   titulo: string;

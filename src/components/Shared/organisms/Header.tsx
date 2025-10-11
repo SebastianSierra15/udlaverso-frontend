@@ -85,7 +85,7 @@ const Header = () => {
 
             <li>
               <NavLink
-                to="/noticias"
+                to="/como-empezar"
                 className={({ isActive }) =>
                   `hover:text-udlaverso-verde ${
                     isActive
@@ -94,7 +94,7 @@ const Header = () => {
                   }`
                 }
               >
-                Noticias
+                Cómo empezar
               </NavLink>
             </li>
           </ul>

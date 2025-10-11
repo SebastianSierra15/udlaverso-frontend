@@ -1,19 +1,20 @@
 import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
-const HeroNoticias: React.FC = () => (
+const HeroFAQ: React.FC = () => (
   <section className="relative h-[45vh] md:h-[55vh] flex items-center justify-center text-white">
     <img
-      src="/images/escenario.webp"
-      alt="Noticias UdlaVerso"
+      src="/images/bus.webp"
+      alt="Preguntas Frecuentes UdlaVerso"
       className="absolute inset-0 w-full h-full object-cover -z-10"
     />
+
     <div className="absolute inset-0 bg-black/60 -z-10" />
 
     <ContenidoHero
-      titulo="Noticias del UdlaVerso"
-      descripcion="Mantente informado sobre los avances, eventos y novedades tecnológicas del UDLAVERSO."
+      titulo="Preguntas Frecuentes"
+      descripcion="Encuentra respuestas sobre el uso del portal UdlaVerso, el visor UA3D y la interacción con los proyectos."
     />
   </section>
 );
 
-export default HeroNoticias;
+export default HeroFAQ;

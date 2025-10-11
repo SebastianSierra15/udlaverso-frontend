@@ -41,6 +41,7 @@ const Footer: React.FC = () => {
           titulo="Recursos"
           enlaces={[
             { texto: "Descargar visor", ruta: "/descargas" },
+            { texto: "Cómo empezar", ruta: "/como-empezar" },
             { texto: "FAQs", ruta: "/faq" },
           ]}
         />
@@ -54,6 +55,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
+
       {/* Copyright */}
       <Copyright />
     </footer>

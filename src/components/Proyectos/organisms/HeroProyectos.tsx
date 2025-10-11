@@ -1,4 +1,4 @@
-import ContenidoHero from "../../Acerca/molecules/ContenidoHero";
+import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
 const HeroProyectos: React.FC = () => {
   return (

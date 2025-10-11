@@ -11,6 +11,8 @@ import ProyectoDetalle from "./pages/Proyectos/ProyectoDetalle";
 import Noticias from "./pages/Noticias/Noticias";
 import NoticiaDetalle from "./pages/Noticias/NoticiaDetalle";
 import Contacto from "./pages/Contacto/Contacto";
+import FAQ from "./pages/FAQ/FAQ";
+import ComoEmpezar from "./pages/ComoEmpezar/ComoEmpezar";
 
 function App() {
   return (
@@ -21,11 +23,13 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Inicio />} />
           <Route path="/acerca-de" element={<AcercaDe />} />
+          <Route path="/como-empezar" element={<ComoEmpezar />} />
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/proyectos/:id" element={<ProyectoDetalle />} />
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/noticias/:id" element={<NoticiaDetalle />} />
           <Route path="/contacto" element={<Contacto />} />
+          <Route path="/faq" element={<FAQ />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/registrarse" element={<Registrarse />} />
