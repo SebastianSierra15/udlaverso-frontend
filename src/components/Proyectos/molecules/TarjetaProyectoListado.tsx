@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 interface Props {
+  id: number;
   titulo: string;
   resumen: string;
   imagenes: string[];
 }
 
 const TarjetaProyectoListado: React.FC<Props> = ({
+  id,
   titulo,
   resumen,
   imagenes,
@@ -27,6 +29,7 @@ const TarjetaProyectoListado: React.FC<Props> = ({
   return (
     <article
       className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer"
+      onClick={() => window.open(`/proyectos/${id}`, "_blank")}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => {
         setHover(false);

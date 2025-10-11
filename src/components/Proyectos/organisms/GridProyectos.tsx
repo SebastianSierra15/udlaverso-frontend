@@ -28,6 +28,7 @@ const GridProyectos: React.FC<Props> = ({ proyectos }) => {
       {proyectos.map((p) => (
         <TarjetaProyectoListado
           key={p.id}
+          id={p.id}
           titulo={p.titulo}
           resumen={p.resumen}
           imagenes={[p.imagen1, p.imagen2, p.imagen3]}
