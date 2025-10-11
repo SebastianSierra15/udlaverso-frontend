@@ -43,7 +43,7 @@ const proyectos = [
       "/images/hero-acercade.webp",
       "/images/puente.webp",
       "/images/escenario.webp",
-      "/images/hero.webp",
+      "/images/casetas.webp",
       "/images/hero.webp",
     ],
     resenias: [
