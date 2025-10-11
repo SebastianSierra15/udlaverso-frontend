@@ -24,7 +24,7 @@ const Descripcion: React.FC = () => {
         transformación digital desde la región amazónica hacia el mundo.
       </Texto>
 
-      <Link to="/acerca">
+      <Link to="/acerca-de">
         <Texto variante="enlace">Descubre más sobre nosotros &gt;</Texto>
       </Link>
     </div>
