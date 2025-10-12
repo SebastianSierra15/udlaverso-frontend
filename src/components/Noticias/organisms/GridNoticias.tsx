@@ -1,3 +1,4 @@
+import { memo } from "react";
 import TarjetaNoticiaGrande from "../molecules/TarjetaNoticiaGrande";
 
 interface Noticia {
@@ -35,4 +36,4 @@ const GridNoticias: React.FC<Props> = ({ noticias }) => {
   );
 };
 
-export default GridNoticias;
+export default memo(GridNoticias);

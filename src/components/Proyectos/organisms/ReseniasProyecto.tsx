@@ -53,7 +53,8 @@ const ReseniasProyecto: React.FC<Props> = ({ resenias: iniciales }) => {
         <Boton
           texto="Escribe una reseña"
           onClick={() => setMostrarModal(true)}
-          variante="principal"
+          variante="alternativo"
+          modo="light"
           claseExtra="mt-4 md:mt-0 shadow-sm"
         />
       </div>

@@ -86,6 +86,7 @@ const CarruselProyectos: React.FC = () => {
               <TarjetaProyecto
                 titulo={proyecto.titulo}
                 imagenes={proyecto.imagenes}
+                descripcion="Explora este proyecto destacado del UdlaVerso."
               />
             </div>
           ))}

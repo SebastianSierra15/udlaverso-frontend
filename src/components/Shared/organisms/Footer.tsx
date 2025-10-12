@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
           enlaces={[
             { texto: "Descargar visor", ruta: "/descargas" },
             { texto: "Cómo empezar", ruta: "/como-empezar" },
-            { texto: "FAQs", ruta: "/faq" },
+            { texto: "Preguntas Frecuentes", ruta: "/preguntas-frecuentes" },
           ]}
         />
 

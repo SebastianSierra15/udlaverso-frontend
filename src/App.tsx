@@ -25,11 +25,11 @@ function App() {
           <Route path="/acerca-de" element={<AcercaDe />} />
           <Route path="/como-empezar" element={<ComoEmpezar />} />
           <Route path="/proyectos" element={<Proyectos />} />
-          <Route path="/proyectos/:id" element={<ProyectoDetalle />} />
+          <Route path="/proyectos/:nombre" element={<ProyectoDetalle />} />
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/noticias/:id" element={<NoticiaDetalle />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/faq" element={<FAQ />} />
+          <Route path="/preguntas-frecuentes" element={<FAQ />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/registrarse" element={<Registrarse />} />

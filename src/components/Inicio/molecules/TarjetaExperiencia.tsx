@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Boton from "../../Shared/atoms/Boton";
 
@@ -39,7 +40,17 @@ const TarjetaExperiencia: React.FC<Props> = ({
         </div>
 
         <div className="mt-auto">
-          <Boton texto="Más información" variante="alternativo" modo="light" />
+          <Link
+            to={`/proyectos/${encodeURIComponent(
+              titulo.toLowerCase().replace(/\s+/g, "-")
+            )}`}
+          >
+            <Boton
+              texto="Más información"
+              variante="alternativo"
+              modo="light"
+            />
+          </Link>
         </div>
       </div>
     </motion.div>

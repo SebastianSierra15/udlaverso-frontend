@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
+import ImagenProyecto from "../atoms/ImagenProyecto";
+import CategoriaChip from "../atoms/CategoriaChip";
 
 interface Props {
-  id: number;
   titulo: string;
   resumen: string;
   imagenes: string[];
+  categorias?: string[];
 }
 
 const TarjetaProyectoListado: React.FC<Props> = ({
-  id,
   titulo,
   resumen,
   imagenes,
+  categorias = [],
 }) => {
   const [indice, setIndice] = useState(0);
   const [hover, setHover] = useState(false);
@@ -19,17 +21,20 @@ const TarjetaProyectoListado: React.FC<Props> = ({
   useEffect(() => {
     let intervalo: ReturnType<typeof setInterval>;
     if (hover && imagenes.length > 1) {
-      intervalo = setInterval(() => {
-        setIndice((prev) => (prev + 1) % imagenes.length);
-      }, 1500);
+      intervalo = setInterval(
+        () => setIndice((prev) => (prev + 1) % imagenes.length),
+        1500
+      );
     }
     return () => clearInterval(intervalo);
   }, [hover, imagenes.length]);
 
+  const slug = encodeURIComponent(titulo.toLowerCase().replace(/\s+/g, "-"));
+
   return (
     <article
       className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer"
-      onClick={() => window.open(`/proyectos/${id}`, "_blank")}
+      onClick={() => window.open(`/proyectos/${slug}`, "_blank")}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => {
         setHover(false);
@@ -38,19 +43,27 @@ const TarjetaProyectoListado: React.FC<Props> = ({
     >
       <div className="relative w-full h-40 md:h-44">
         {imagenes.map((img, i) => (
-          <img
+          <ImagenProyecto
             key={i}
             src={img}
             alt={`${titulo} imagen ${i + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-in-out ${
-              i === indice ? "opacity-100" : "opacity-0"
-            }`}
+            visible={i === indice}
           />
         ))}
+        <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
       </div>
 
       <div className="p-4">
         <h3 className="text-lg font-semibold text-udlaverso-negro">{titulo}</h3>
+
+        {categorias.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {categorias.slice(0, 3).map((cat, i) => (
+              <CategoriaChip key={i} texto={cat} />
+            ))}
+          </div>
+        )}
+
         <p className="text-sm text-udlaverso-gris mt-1 line-clamp-2">
           {resumen}
         </p>

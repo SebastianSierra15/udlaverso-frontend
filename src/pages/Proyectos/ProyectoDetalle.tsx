@@ -43,7 +43,7 @@ const proyectos = [
       "/images/hero-acercade.webp",
       "/images/puente.webp",
       "/images/escenario.webp",
-      "/images/casetas.webp",
+      "/images/caseta.webp",
       "/images/hero.webp",
     ],
     resenias: [
@@ -73,8 +73,11 @@ const proyectos = [
 ];
 
 const ProyectoDetalle: React.FC = () => {
-  const { id } = useParams();
-  const proyecto = proyectos.find((p) => p.id === id);
+  const { nombre } = useParams();
+  const proyecto = proyectos.find(
+    (p) =>
+      encodeURIComponent(p.titulo.toLowerCase().replace(/\s+/g, "-")) === nombre
+  );
 
   if (!proyecto)
     return (

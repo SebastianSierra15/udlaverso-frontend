@@ -12,7 +12,7 @@ const datos: Proyecto[] = [
     titulo: "Proyecto 1",
     resumen:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
-    categoria: "Educación",
+    categorias: ["Educación", "Ciencia"],
     imagen1: "/images/imagen1.png",
     imagen2: "/images/imagen2.png",
     imagen3: "/images/imagen3.jpg",
@@ -21,7 +21,7 @@ const datos: Proyecto[] = [
     id: 2,
     titulo: "Proyecto 2",
     resumen: "Exploración interactiva con RA para conceptos de física.",
-    categoria: "Ciencia",
+    categorias: ["Ciencia"],
     imagen1: "/images/imagen2.png",
     imagen2: "/images/imagen3.jpg",
     imagen3: "/images/imagen1.png",
@@ -30,7 +30,7 @@ const datos: Proyecto[] = [
     id: 3,
     titulo: "Proyecto 3",
     resumen: "Visor UA3D para eventos académicos inmersivos.",
-    categoria: "Eventos",
+    categorias: ["Eventos", "Tecnología", "Educación"],
     imagen1: "/images/imagen3.jpg",
     imagen2: "/images/imagen1.png",
     imagen3: "/images/imagen2.png",
@@ -39,7 +39,7 @@ const datos: Proyecto[] = [
     id: 4,
     titulo: "Proyecto 4",
     resumen: "Laboratorio IoT con sensores simulados en RA.",
-    categoria: "Tecnología",
+    categorias: ["Tecnología", "Ciencia"],
     imagen1: "/images/imagen1.png",
     imagen2: "/images/imagen3.jpg",
     imagen3: "/images/imagen2.png",
@@ -48,7 +48,7 @@ const datos: Proyecto[] = [
     id: 5,
     titulo: "Proyecto 5",
     resumen: "Matemáticas básicas con estaciones interactivas.",
-    categoria: "Educación",
+    categorias: ["Educación"],
     imagen1: "/images/imagen2.png",
     imagen2: "/images/imagen1.png",
     imagen3: "/images/imagen3.jpg",
@@ -57,7 +57,7 @@ const datos: Proyecto[] = [
     id: 6,
     titulo: "Proyecto 6",
     resumen: "Entorno colaborativo para aprendizaje de idiomas.",
-    categoria: "Educación",
+    categorias: ["Educación", "Eventos", "Tecnología"],
     imagen1: "/images/imagen3.jpg",
     imagen2: "/images/imagen2.png",
     imagen3: "/images/imagen1.png",
@@ -66,7 +66,7 @@ const datos: Proyecto[] = [
     id: 7,
     titulo: "Proyecto 7",
     resumen: "Biología amazónica: biodiversidad en RA.",
-    categoria: "Ciencia",
+    categorias: ["Ciencia", "Educación"],
     imagen1: "/images/imagen1.png",
     imagen2: "/images/imagen2.png",
     imagen3: "/images/imagen3.jpg",
@@ -75,7 +75,7 @@ const datos: Proyecto[] = [
     id: 8,
     titulo: "Proyecto 8",
     resumen: "Visualización de datos y analítica en RA.",
-    categoria: "Tecnología",
+    categorias: ["Tecnología"],
     imagen1: "/images/imagen2.png",
     imagen2: "/images/imagen3.jpg",
     imagen3: "/images/imagen1.png",
@@ -85,7 +85,7 @@ const datos: Proyecto[] = [
     titulo: "Proyecto 9",
     resumen:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
-    categoria: "Educación",
+    categorias: ["Educación", "Eventos"],
     imagen1: "/images/imagen1.png",
     imagen2: "/images/imagen2.png",
     imagen3: "/images/imagen3.jpg",
@@ -94,7 +94,7 @@ const datos: Proyecto[] = [
     id: 10,
     titulo: "Proyecto 10",
     resumen: "Exploración interactiva con RA para conceptos de física.",
-    categoria: "Ciencia",
+    categorias: ["Ciencia", "Tecnología", "Eventos"],
     imagen1: "/images/imagen2.png",
     imagen2: "/images/imagen3.jpg",
     imagen3: "/images/imagen1.png",
@@ -103,7 +103,7 @@ const datos: Proyecto[] = [
     id: 11,
     titulo: "Proyecto 11",
     resumen: "Visor UA3D para eventos académicos inmersivos.",
-    categoria: "Eventos",
+    categorias: ["Eventos"],
     imagen1: "/images/imagen3.jpg",
     imagen2: "/images/imagen1.png",
     imagen3: "/images/imagen2.png",
@@ -112,7 +112,7 @@ const datos: Proyecto[] = [
     id: 12,
     titulo: "Proyecto 12",
     resumen: "Laboratorio IoT con sensores simulados en RA.",
-    categoria: "Tecnología",
+    categorias: ["Tecnología", "Educación"],
     imagen1: "/images/imagen1.png",
     imagen2: "/images/imagen3.jpg",
     imagen3: "/images/imagen2.png",
@@ -121,7 +121,7 @@ const datos: Proyecto[] = [
     id: 13,
     titulo: "Proyecto 13",
     resumen: "Matemáticas básicas con estaciones interactivas.",
-    categoria: "Educación",
+    categorias: ["Educación", "Ciencia", "Eventos"],
     imagen1: "/images/imagen2.png",
     imagen2: "/images/imagen1.png",
     imagen3: "/images/imagen3.jpg",
@@ -130,7 +130,7 @@ const datos: Proyecto[] = [
     id: 14,
     titulo: "Proyecto 14",
     resumen: "Entorno colaborativo para aprendizaje de idiomas.",
-    categoria: "Educación",
+    categorias: ["Educación", "Tecnología"],
     imagen1: "/images/imagen3.jpg",
     imagen2: "/images/imagen2.png",
     imagen3: "/images/imagen1.png",
@@ -139,7 +139,7 @@ const datos: Proyecto[] = [
     id: 15,
     titulo: "Proyecto 15",
     resumen: "Biología amazónica: biodiversidad en RA.",
-    categoria: "Ciencia",
+    categorias: ["Ciencia", "Eventos"],
     imagen1: "/images/imagen1.png",
     imagen2: "/images/imagen2.png",
     imagen3: "/images/imagen3.jpg",
@@ -148,7 +148,7 @@ const datos: Proyecto[] = [
     id: 16,
     titulo: "Proyecto 16",
     resumen: "Visualización de datos y analítica en RA.",
-    categoria: "Tecnología",
+    categorias: ["Tecnología", "Ciencia", "Educación"],
     imagen1: "/images/imagen2.png",
     imagen2: "/images/imagen3.jpg",
     imagen3: "/images/imagen1.png",
@@ -167,7 +167,8 @@ const Proyectos: React.FC = () => {
     let base =
       categoria === "Todas"
         ? datos
-        : datos.filter((p) => p.categoria === categoria);
+        : datos.filter((p) => p.categorias.includes(categoria));
+
     if (busqueda.trim() !== "") {
       base = base.filter(
         (p) =>
@@ -175,6 +176,7 @@ const Proyectos: React.FC = () => {
           p.resumen.toLowerCase().includes(busqueda.toLowerCase())
       );
     }
+
     return base;
   }, [categoria, busqueda]);
 

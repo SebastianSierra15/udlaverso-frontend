@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 interface Props {
@@ -13,24 +14,26 @@ const Paginacion: React.FC<Props> = ({
   onChange,
   ariaLabel = "Paginación",
 }) => {
-  const rangoVisible = 3; // cantidad de páginas a mostrar alrededor
-  const paginas: (number | string)[] = [];
+  const rangoVisible = 3;
 
-  // Calcula el rango de páginas visibles con puntos suspensivos (...)
-  for (let i = 1; i <= totalPaginas; i++) {
-    if (
-      i === 1 ||
-      i === totalPaginas ||
-      (i >= pagina - rangoVisible && i <= pagina + rangoVisible)
-    ) {
-      paginas.push(i);
-    } else if (
-      i === pagina - rangoVisible - 1 ||
-      i === pagina + rangoVisible + 1
-    ) {
-      paginas.push("...");
+  const paginas = useMemo(() => {
+    const resultado: (number | string)[] = [];
+    for (let i = 1; i <= totalPaginas; i++) {
+      if (
+        i === 1 ||
+        i === totalPaginas ||
+        (i >= pagina - rangoVisible && i <= pagina + rangoVisible)
+      ) {
+        resultado.push(i);
+      } else if (
+        i === pagina - rangoVisible - 1 ||
+        i === pagina + rangoVisible + 1
+      ) {
+        resultado.push("...");
+      }
     }
-  }
+    return resultado;
+  }, [pagina, totalPaginas]);
 
   const cambiarPagina = (p: number | string) => {
     if (typeof p === "number" && p !== pagina) onChange(p);

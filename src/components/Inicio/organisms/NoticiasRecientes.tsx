@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Boton from "../../Shared/atoms/Boton";
 import TarjetaNoticia from "../molecules/TarjetaNoticia";
 
 const NoticiasRecientes: React.FC = () => {
@@ -7,37 +8,37 @@ const NoticiasRecientes: React.FC = () => {
       titulo: "Nueva Isla Interactiva en el UDLAVERSO",
       descripcion:
         "Estudiantes de ingeniería presentan una experiencia inmersiva para aprender sobre biodiversidad amazónica.",
-      imagen: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+      imagen: "/images/puente.webp",
     },
     {
       titulo: "Visor UA3D se actualiza con nuevas funciones",
       descripcion:
         "La última versión del visor integra mejoras de rendimiento y nuevos espacios colaborativos.",
-      imagen: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
+      imagen: "/images/escenario.webp",
     },
     {
       titulo: "Laboratorio IoT impulsa la investigación",
       descripcion:
         "El laboratorio virtual IoT permite a los estudiantes experimentar con sensores y redes desde cualquier lugar.",
-      imagen: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+      imagen: "/images/caseta.webp",
     },
     {
       titulo: "Estudiantes logran reconocimiento nacional",
       descripcion:
         "Proyectos de realidad aumentada del UDLAVERSO fueron destacados en el Congreso de Innovación Educativa.",
-      imagen: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+      imagen: "/images/parque.webp",
     },
     {
       titulo: "Universidad fortalece su ecosistema digital",
       descripcion:
         "El portal UDLAVERSO busca consolidarse como la vitrina tecnológica institucional de la Amazonia.",
-      imagen: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      imagen: "/images/bus.webp",
     },
     {
       titulo: "Avances en accesibilidad digital",
       descripcion:
         "Nuevas herramientas permiten que los proyectos del UDLAVERSO sean más inclusivos y accesibles.",
-      imagen: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+      imagen: "/images/hero.webp",
     },
   ];
 
@@ -59,11 +60,12 @@ const NoticiasRecientes: React.FC = () => {
       </div>
 
       <div className="flex justify-center">
-        <Link
-          to="/noticias"
-          className="px-6 py-3 border-2 border-udlaverso-verde text-udlaverso-verde font-semibold rounded-full hover:bg-udlaverso-verde hover:text-white transition-all duration-300"
-        >
-          Ver todas las noticias
+        <Link to="/noticias">
+          <Boton
+            texto="Ver todas las noticias"
+            variante="alternativo"
+            modo="light"
+          />
         </Link>
       </div>
     </section>

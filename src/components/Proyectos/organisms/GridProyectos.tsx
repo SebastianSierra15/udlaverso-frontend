@@ -4,7 +4,7 @@ export interface Proyecto {
   id: number;
   titulo: string;
   resumen: string;
-  categoria: string;
+  categorias: string[];
   imagen1: string;
   imagen2: string;
   imagen3: string;
@@ -28,9 +28,9 @@ const GridProyectos: React.FC<Props> = ({ proyectos }) => {
       {proyectos.map((p) => (
         <TarjetaProyectoListado
           key={p.id}
-          id={p.id}
           titulo={p.titulo}
           resumen={p.resumen}
+          categorias={p.categorias}
           imagenes={[p.imagen1, p.imagen2, p.imagen3]}
         />
       ))}

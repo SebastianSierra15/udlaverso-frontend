@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   titulo: string;
   imagenes: string[];
+  descripcion?: string;
 }
 
-const TarjetaProyecto: React.FC<Props> = ({ titulo, imagenes }) => {
+const TarjetaProyecto: React.FC<Props> = ({
+  titulo,
+  imagenes,
+  descripcion,
+}) => {
   const [indice, setIndice] = useState(0);
   const [hover, setHover] = useState(false);
 
@@ -20,8 +26,11 @@ const TarjetaProyecto: React.FC<Props> = ({ titulo, imagenes }) => {
   }, [hover, imagenes.length]);
 
   return (
-    <div
-      className="relative rounded-lg shadow-md overflow-hidden transition transform hover:shadow-lg hover:scale-105 duration-300 cursor-pointer"
+    <Link
+      to={`/proyectos/${encodeURIComponent(
+        titulo.toLowerCase().replace(/\s+/g, "-")
+      )}`}
+      className="relative block rounded-xl shadow-md overflow-hidden transition-transform hover:shadow-lg hover:scale-105 duration-300 cursor-pointer isolation-isolate"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => {
         setHover(false);
@@ -41,10 +50,24 @@ const TarjetaProyecto: React.FC<Props> = ({ titulo, imagenes }) => {
         ))}
       </div>
 
-      <h3 className="absolute bottom-2 left-2 text-sm md:text-base font-bold text-white bg-black/50 px-2 py-1 rounded">
+      <h3
+        className={`absolute bottom-2 left-2 text-sm md:text-base font-bold text-white bg-black/50 px-2 py-1 rounded transition-opacity duration-300 ${
+          hover ? "opacity-0" : "opacity-100"
+        }`}
+      >
         {titulo}
       </h3>
-    </div>
+
+      <div
+        className={`absolute inset-x-0 bottom-0 bg-black/70 text-white text-sm p-3 transition-all duration-500 ease-out transform ${
+          hover ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+        }`}
+      >
+        <p className="text-xs md:text-sm text-center leading-snug">
+          {descripcion || "Descripción breve del proyecto"}
+        </p>
+      </div>
+    </Link>
   );
 };
 

@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import HeroNoticias from "../../components/Noticias/organisms/HeroNoticias";
 import BarraBusquedaNoticias from "../../components/Noticias/molecules/BarraBusquedaNoticias";
 import GridNoticias from "../../components/Noticias/organisms/GridNoticias";
@@ -12,7 +12,7 @@ const listaNoticias = [
     descripcion:
       "El visor UA3D incorpora nuevas funciones que mejoran la interacción con los entornos virtuales del UdlaVerso.",
     fecha: "2025-10-05",
-    imagen: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+    imagen: "/images/puente.webp",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const listaNoticias = [
     descripcion:
       "Docentes y estudiantes desarrollan nuevas experiencias de RA enfocadas en la educación ambiental.",
     fecha: "2025-09-20",
-    imagen: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+    imagen: "/images/caseta.webp",
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const listaNoticias = [
     descripcion:
       "El UDLAVERSO fue premiado por su contribución a la innovación educativa en realidad aumentada.",
     fecha: "2025-08-10",
-    imagen: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
+    imagen: "/images/escenario.webp",
   },
 ];
 
@@ -38,22 +38,38 @@ const Noticias: React.FC = () => {
   const [pagina, setPagina] = useState(1);
   const porPagina = 9;
 
+  const handleBusqueda = useCallback((v: string) => {
+    setBusqueda(v);
+    setPagina(1);
+  }, []);
+
+  const handleOrden = useCallback((v: string) => {
+    setOrden(v as "asc" | "desc");
+    setPagina(1);
+  }, []);
+
   const noticiasFiltradas = useMemo(() => {
-    let base = listaNoticias.filter((n) =>
-      n.titulo.toLowerCase().includes(busqueda.toLowerCase())
+    const texto = busqueda.trim().toLowerCase();
+
+    const filtradas = listaNoticias.filter((n) =>
+      n.titulo.toLowerCase().includes(texto)
     );
-    base = base.sort((a, b) =>
-      orden === "asc"
-        ? a.fecha.localeCompare(b.fecha)
-        : b.fecha.localeCompare(a.fecha)
-    );
-    return base;
+
+    // Copia antes de ordenar para evitar mutar el array original
+    return filtradas
+      .slice()
+      .sort((a, b) =>
+        orden === "asc"
+          ? a.fecha.localeCompare(b.fecha)
+          : b.fecha.localeCompare(a.fecha)
+      );
   }, [busqueda, orden]);
 
   const totalPaginas = Math.max(
     1,
     Math.ceil(noticiasFiltradas.length / porPagina)
   );
+
   const paginaActual = Math.min(pagina, totalPaginas);
   const desde = (paginaActual - 1) * porPagina;
   const visibles = noticiasFiltradas.slice(desde, desde + porPagina);
@@ -73,15 +89,9 @@ const Noticias: React.FC = () => {
       <section className="max-w-7xl mx-auto px-6 md:px-8 -mt-10 relative z-10">
         <BarraBusquedaNoticias
           valor={busqueda}
-          onChange={(v) => {
-            setBusqueda(v);
-            setPagina(1);
-          }}
+          onChange={handleBusqueda}
           orden={orden}
-          onOrdenar={(v) => {
-            setOrden(v as "asc" | "desc");
-            setPagina(1);
-          }}
+          onOrdenar={handleOrden}
         />
 
         <GridNoticias noticias={visibles} />
