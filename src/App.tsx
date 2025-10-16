@@ -17,10 +17,11 @@ import FAQ from "./pages/FAQ/FAQ";
 import ComoEmpezar from "./pages/ComoEmpezar/ComoEmpezar";
 // Páginas admin
 import Admin from "./pages/Admin/Admin";
-import AdminComentarios from "./pages/Admin/AdminComentarios";
-import AdminFAQ from "./pages/Admin/AdminFAQ";
-import AdminNoticias from "./pages/Admin/AdminNoticias";
-import AdminProyectos from "./pages/Admin/AdminProyectos";
+import AdminComentarios from "./pages/Admin/Comentarios/AdminComentarios";
+import AdminFAQ from "./pages/Admin/FAQ/AdminFAQ";
+import AdminNoticias from "./pages/Admin/Noticias/AdminNoticias";
+import AdminProyectos from "./pages/Admin/Proyectos/AdminProyectos";
+import AdminNuevoProyecto from "./pages/Admin/Proyectos/AdminNuevoProyecto";
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
           <Route path="noticias" element={<AdminNoticias />} />
           <Route path="preguntas-frecuentes" element={<AdminFAQ />} />
           <Route path="proyectos" element={<AdminProyectos />} />
+          <Route
+            path="proyectos/nuevo-proyecto"
+            element={<AdminNuevoProyecto />}
+          />
         </Route>
       </Routes>
     </Router>

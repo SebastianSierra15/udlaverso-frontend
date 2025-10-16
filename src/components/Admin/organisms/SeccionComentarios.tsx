@@ -104,7 +104,11 @@ const SeccionComentarios: React.FC = () => {
           placeholder="Buscar comentario..."
         />
       </div>
-      <TablaSimple<Fila> columnas={columnas as any} filas={filas} />
+      <TablaSimple<Fila>
+        columnas={columnas as any}
+        filas={filas}
+        nombreEntidad="comentarios"
+      />
     </section>
   );
 };

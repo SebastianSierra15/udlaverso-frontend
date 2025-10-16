@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import SeccionProyectos from "../../components/Admin/organisms/SeccionProyectos";
+import SeccionProyectos from "../../../components/Admin/organisms/SeccionProyectos";
 
 const AdminProyectos: React.FC = () => (
   <>

@@ -12,9 +12,13 @@ interface Resenia {
 
 interface Props {
   resenias: Resenia[];
+  mostrarBoton?: boolean;
 }
 
-const ReseniasProyecto: React.FC<Props> = ({ resenias: iniciales }) => {
+const ReseniasProyecto: React.FC<Props> = ({
+  resenias: iniciales,
+  mostrarBoton = true,
+}) => {
   const [resenias, setResenias] = useState(iniciales);
   const [mostrarModal, setMostrarModal] = useState(false);
 
@@ -50,13 +54,15 @@ const ReseniasProyecto: React.FC<Props> = ({ resenias: iniciales }) => {
           </p>
         </div>
 
-        <Boton
-          texto="Escribe una reseña"
-          onClick={() => setMostrarModal(true)}
-          variante="alternativo"
-          modo="light"
-          claseExtra="mt-4 md:mt-0 shadow-sm"
-        />
+        {mostrarBoton && (
+          <Boton
+            texto="Escribe una reseña"
+            onClick={() => setMostrarModal(true)}
+            variante="alternativo"
+            modo="light"
+            claseExtra="mt-4 md:mt-0 shadow-sm"
+          />
+        )}
       </div>
 
       {/* Lista de reseñas */}

@@ -7,7 +7,7 @@ import InsigniaEstado from "../atoms/InsigniaEstado";
 type Fila = {
   titulo: string;
   fecha: string;
-  estado: "activo" | "borrador" | "inactivo";
+  estado: "activo" | "inactivo";
   acciones?: {
     icono: React.ReactNode;
     color: string;
@@ -18,7 +18,7 @@ type Fila = {
 
 const mock: Fila[] = [
   { titulo: "Nueva Isla Interactiva", fecha: "2025-10-02", estado: "activo" },
-  { titulo: "Actualización UA3D", fecha: "2025-09-25", estado: "borrador" },
+  { titulo: "Actualización UA3D", fecha: "2025-09-25", estado: "inactivo" },
 ];
 
 const SeccionNoticias: React.FC = () => {
@@ -89,7 +89,11 @@ const SeccionNoticias: React.FC = () => {
           placeholder="Buscar noticia..."
         />
       </div>
-      <TablaSimple<Fila> columnas={columnas as any} filas={filas} />
+      <TablaSimple<Fila>
+        columnas={columnas as any}
+        filas={filas}
+        nombreEntidad="noticias"
+      />
     </section>
   );
 };

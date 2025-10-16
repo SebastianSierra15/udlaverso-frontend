@@ -3,12 +3,13 @@ import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import TablaSimple from "../molecules/TablaSimple";
 import BarraAcciones from "../molecules/BarraAcciones";
 import InsigniaEstado from "../atoms/InsigniaEstado";
+import ModalVistaProyecto from "../molecules/ModalVistaProyecto";
 
 type FilaProyecto = {
   nombre: string;
   categoria: string;
   autor: string;
-  estado: "activo" | "borrador" | "inactivo";
+  estado: "activo" | "inactivo";
   visitas: number;
   acciones?: {
     icono: React.ReactNode;
@@ -30,7 +31,7 @@ const mock: FilaProyecto[] = [
     nombre: "Laboratorio IoT",
     categoria: "IoT",
     autor: "Equipo B",
-    estado: "borrador",
+    estado: "activo",
     visitas: 87,
   },
   {
@@ -44,6 +45,8 @@ const mock: FilaProyecto[] = [
 
 const SeccionProyectos: React.FC = () => {
   const [q, setQ] = useState("");
+  const [proyectoSeleccionado, setProyectoSeleccionado] =
+    useState<FilaProyecto | null>(null);
 
   const filas = useMemo(
     () =>
@@ -60,7 +63,7 @@ const SeccionProyectos: React.FC = () => {
               icono: <FaEye className="w-4 h-4" />,
               color: "text-green-600 hover:text-green-700",
               titulo: "Ver proyecto",
-              onClick: () => alert(`Ver proyecto: ${f.nombre}`),
+              onClick: () => setProyectoSeleccionado(f),
             },
             {
               icono: <FaEdit className="w-4 h-4" />,
@@ -116,6 +119,7 @@ const SeccionProyectos: React.FC = () => {
         <h2 className="text-lg md:text-xl font-bold text-udlaverso-negro">
           Proyectos
         </h2>
+
         <BarraAcciones
           onNuevo={() => alert("Nuevo proyecto")}
           onBuscar={setQ}
@@ -123,7 +127,34 @@ const SeccionProyectos: React.FC = () => {
         />
       </div>
 
-      <TablaSimple<FilaProyecto> columnas={columnas as any} filas={filas} />
+      {/* Tabla */}
+      <TablaSimple<FilaProyecto>
+        columnas={columnas as any}
+        filas={filas}
+        nombreEntidad="proyectos"
+      />
+
+      {/* Modal de vista rápida */}
+      {proyectoSeleccionado && (
+        <ModalVistaProyecto
+          proyecto={{
+            id: "1",
+            titulo: proyectoSeleccionado.nombre,
+            categoria: proyectoSeleccionado.categoria,
+            promedio: 4.5,
+            visitas: proyectoSeleccionado.visitas,
+            autor: proyectoSeleccionado.autor,
+            fecha: new Date().toISOString(),
+            descripcionCorta:
+              "Vista previa del proyecto en modo administrador.",
+            linkProyecto:
+              "/proyectos/" +
+              proyectoSeleccionado.nombre.toLowerCase().replace(/\s+/g, "-"),
+            imagenes: ["/images/imagen1.png"],
+          }}
+          onClose={() => setProyectoSeleccionado(null)}
+        />
+      )}
     </section>
   );
 };

@@ -15,9 +15,10 @@ const HeroProyectoIndividual: React.FC<Props> = ({
     <img
       src={imagenFondo}
       alt={titulo}
-      className="absolute inset-0 w-full h-full object-cover -z-10"
+      className="absolute inset-0 w-full h-full object-cover"
     />
     <div className="absolute inset-0 bg-black/60 -z-10" />
+
     <ContenidoHero titulo={titulo} descripcion={descripcion} />
   </section>
 );

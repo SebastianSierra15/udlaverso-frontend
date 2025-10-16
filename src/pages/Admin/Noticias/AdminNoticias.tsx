@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import SeccionNoticias from "../../components/Admin/organisms/SeccionNoticias";
+import SeccionNoticias from "../../../components/Admin/organisms/SeccionNoticias";
 
 const AdminNoticias: React.FC = () => (
   <>

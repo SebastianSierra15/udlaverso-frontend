@@ -4,7 +4,7 @@ import PanelEstadisticas from "../../components/Admin/organisms/PanelEstadistica
 const Admin: React.FC = () => (
   <>
     <Helmet>
-      <title>Estadísticas | UdlaVerso</title>
+      <title> Administración | UdlaVerso</title>
     </Helmet>
 
     <PanelEstadisticas />

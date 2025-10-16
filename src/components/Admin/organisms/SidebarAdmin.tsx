@@ -21,9 +21,9 @@ const SidebarAdmin: React.FC = () => {
         <ul className="space-y-2">
           {enlaces.map((e) => {
             const isActive =
-              e.exact && location.pathname === e.to
-                ? true
-                : !e.exact && location.pathname.startsWith(e.to);
+              e.to === "/admin"
+                ? location.pathname === "/admin"
+                : location.pathname.startsWith(e.to);
 
             return (
               <li key={e.to}>

@@ -23,6 +23,7 @@ const HeroAdmin: React.FC = () => {
           <h1 className="text-xl md:text-2xl font-extrabold text-udlaverso-negro">
             Administrador
           </h1>
+
           <p className="text-sm text-udlaverso-gris">
             Gestiona proyectos, comentarios, noticias, preguntas frecuentes y
             métricas.
@@ -36,7 +37,7 @@ const HeroAdmin: React.FC = () => {
           className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition"
         >
           <FaHome className="w-4 h-4" />
-          <span>Inicio</span>
+          <span>Ir al portal</span>
         </button>
 
         <button
