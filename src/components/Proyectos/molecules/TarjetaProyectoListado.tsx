@@ -45,7 +45,7 @@ const TarjetaProyectoListado: React.FC<Props> = ({
         {imagenes.map((img, i) => (
           <ImagenProyecto
             key={i}
-            src={img}
+            src={img || "/placeholder.png"}
             alt={`${titulo} imagen ${i + 1}`}
             visible={i === indice}
           />

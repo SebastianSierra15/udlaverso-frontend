@@ -5,7 +5,7 @@ import Buscador from "../atoms/Buscador";
 import ContadorResultados from "../atoms/ContadorResultados";
 
 interface Props {
-  opciones: string[];
+  opciones: (string | { id: number; nombre: string })[];
   seleccion: string;
   onChange: (valor: string) => void;
   total: number;

@@ -5,19 +5,19 @@ const experiencias = [
     titulo: "Visor UA3D",
     descripcion:
       "Descarga el visor para disfrutar la mejor experiencia del campus virtual de la Universidad de la Amazonia.",
-    imagen: "/images/ua3d.png",
+    imagen: "/images/ua3d.webp",
   },
   {
     titulo: "Laboratorio IoT",
     descripcion:
       "Mejora la velocidad y vive una experiencia más inmersiva en el Laboratorio IoT descargando el visor.",
-    imagen: "/images/iot.png",
+    imagen: "/images/iot.webp",
   },
   {
     titulo: "Visor Events",
     descripcion:
       "Accede a tus eventos en RA con mayor fluidez y calidad descargando el visor.",
-    imagen: "/images/events.png",
+    imagen: "/images/events.webp",
   },
 ];
 

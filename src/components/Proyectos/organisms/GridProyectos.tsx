@@ -1,14 +1,5 @@
 import TarjetaProyectoListado from "../molecules/TarjetaProyectoListado";
-
-export interface Proyecto {
-  id: number;
-  titulo: string;
-  resumen: string;
-  categorias: string[];
-  imagen1: string;
-  imagen2: string;
-  imagen3: string;
-}
+import type { Proyecto } from "../../../types/Proyecto";
 
 interface Props {
   proyectos: Proyecto[];
@@ -28,10 +19,10 @@ const GridProyectos: React.FC<Props> = ({ proyectos }) => {
       {proyectos.map((p) => (
         <TarjetaProyectoListado
           key={p.id}
-          titulo={p.titulo}
-          resumen={p.resumen}
-          categorias={p.categorias}
-          imagenes={[p.imagen1, p.imagen2, p.imagen3]}
+          titulo={p.nombre}
+          resumen={p.descripcionCorta}
+          categorias={p.categoria ? [p.categoria] : []}
+          imagenes={p.imagenes || []}
         />
       ))}
     </div>

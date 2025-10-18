@@ -4,8 +4,8 @@ import HeroProyectos from "../../components/Proyectos/organisms/HeroProyectos";
 import BarraFiltros from "../../components/Proyectos/molecules/BarraFiltros";
 import GridProyectos from "../../components/Proyectos/organisms/GridProyectos";
 import Paginacion from "../../components/Shared/molecules/Paginacion";
-import { useCategorias } from "../../components/Proyectos/hooks/useCategorias";
-import { proyectosMock } from "../../components/Proyectos/mockData";
+import { useCategorias } from "../../hooks/useCategorias";
+import { useProyectos } from "../../hooks/useProyectos";
 
 const Proyectos: React.FC = () => {
   const [categoria, setCategoria] = useState("Todas");
@@ -15,24 +15,31 @@ const Proyectos: React.FC = () => {
 
   const { categorias } = useCategorias();
 
-  const opciones = ["Todas", ...categorias.map((c) => c.nombre)];
+  const opciones = [
+    "Todas",
+    ...categorias.map((c) => ({ id: c.id, nombre: c.nombre })),
+  ];
+
+  const { proyectos } = useProyectos();
 
   const filtrados = useMemo(() => {
     let base =
       categoria === "Todas"
-        ? proyectosMock
-        : proyectosMock.filter((p) => p.categorias.includes(categoria));
+        ? proyectos
+        : proyectos.filter((p) =>
+            p.categoria?.toLowerCase().includes(categoria.toLowerCase())
+          );
 
     if (busqueda.trim()) {
       base = base.filter(
         (p) =>
-          p.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
-          p.resumen.toLowerCase().includes(busqueda.toLowerCase())
+          p.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+          p.descripcionCorta.toLowerCase().includes(busqueda.toLowerCase())
       );
     }
 
     return base;
-  }, [categoria, busqueda]);
+  }, [categoria, busqueda, proyectos]);
 
   const totalPaginas = Math.ceil(filtrados.length / porPagina);
   const visibles = filtrados.slice(

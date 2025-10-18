@@ -1,11 +1,11 @@
 import api from "./api";
+import type { Categoria } from "../types/Categoria";
 
-export const obtenerCategorias = async () => {
-  try {
-    const response = await api.get("/categorias");
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener las categorías:", error);
-    return [];
-  }
+export const obtenerCategorias = async (): Promise<Categoria[]> => {
+  const { data } = await api.get("/categorias");
+
+  return data.map((c: any) => ({
+    id: c.idCategoria,
+    nombre: c.nombreCategoria,
+  }));
 };

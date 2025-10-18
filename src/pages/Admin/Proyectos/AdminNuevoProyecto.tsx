@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useProyectos } from "../../../hooks/useProyectos";
 import Stepper from "../../../components/Admin/molecules/Stepper";
 import PasoDatosBasicos from "../../../components/Admin/organisms/PasoDatosBasicos";
 import PasoContenido from "../../../components/Admin/organisms/PasoContenido";
@@ -7,6 +8,7 @@ import PasoRevision from "../../../components/Admin/organisms/PasoRevision";
 import BotonAdmin from "../../../components/Admin/atoms/BotonAdmin";
 
 const AdminNuevoProyecto = () => {
+  const { crearProyecto } = useProyectos();
   const [paso, setPaso] = useState(1);
   const totalPasos = 4;
 
@@ -33,6 +35,25 @@ const AdminNuevoProyecto = () => {
     video: "",
   });
 
+  const handleGuardarProyecto = async () => {
+    try {
+      const data = {
+        nombreProyecto: datosBasicos.titulo,
+        autorProyecto: datosBasicos.autor,
+        objetivoProyecto: datosBasicos.objetivo,
+        descripcioncortaProyecto: datosBasicos.descripcionCorta,
+        descripcionlargaProyecto: contenido.descripcionDetallada,
+        videoProyecto: imagenes.video,
+        categoriaId: 1,
+      };
+
+      const nuevoProyecto = await crearProyecto(data);
+      alert(`Proyecto creado con éxito (ID: ${nuevoProyecto.id})`);
+    } catch (error) {
+      alert("Error al crear el proyecto");
+    }
+  };
+
   return (
     <section className="p-6 bg-white rounded-xl shadow-md space-y-6">
       <h1 className="text-xl md:text-2xl font-bold text-udlaverso-negro">
@@ -54,7 +75,6 @@ const AdminNuevoProyecto = () => {
         />
       )}
 
-      {/* Controles */}
       <div className="flex justify-between mt-6">
         {paso > 1 ? (
           <BotonAdmin texto="Volver" onClick={anterior} variante="secundario" />
@@ -66,7 +86,7 @@ const AdminNuevoProyecto = () => {
         ) : (
           <BotonAdmin
             texto="Guardar proyecto"
-            onClick={() => alert("Proyecto guardado")}
+            onClick={handleGuardarProyecto}
             variante="principal"
           />
         )}
