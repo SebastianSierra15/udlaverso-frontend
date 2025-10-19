@@ -1,5 +1,6 @@
 import {
   obtenerProyectos,
+  listarProyectosMasVistos,
   crearProyectoService,
 } from "../services/proyectos.service";
 import type { Proyecto } from "../types/Proyecto";
@@ -21,6 +22,15 @@ export const listarProyectos = async (): Promise<Proyecto[]> => {
       window.location.href = "/login";
     }
 
+    return [];
+  }
+};
+
+export const obtenerProyectosMasVistos = async (limite = 10) => {
+  try {
+    return await listarProyectosMasVistos(limite);
+  } catch (error) {
+    console.error("Error al obtener proyectos más vistos:", error);
     return [];
   }
 };

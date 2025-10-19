@@ -1,38 +1,14 @@
 import { Helmet } from "react-helmet-async";
 import { useMemo, useState, useCallback } from "react";
+import { useNoticias } from "../../hooks/useNoticias";
 import HeroNoticias from "../../components/Noticias/organisms/HeroNoticias";
 import BarraBusquedaNoticias from "../../components/Noticias/molecules/BarraBusquedaNoticias";
 import GridNoticias from "../../components/Noticias/organisms/GridNoticias";
 import Paginacion from "../../components/Shared/molecules/Paginacion";
 
-const listaNoticias = [
-  {
-    id: 1,
-    titulo: "Avances en el Visor UA3D",
-    descripcion:
-      "El visor UA3D incorpora nuevas funciones que mejoran la interacción con los entornos virtuales del UdlaVerso.",
-    fecha: "2025-10-05",
-    imagen: "/images/puente.webp",
-  },
-  {
-    id: 2,
-    titulo: "Nuevas Islas de Aprendizaje",
-    descripcion:
-      "Docentes y estudiantes desarrollan nuevas experiencias de RA enfocadas en la educación ambiental.",
-    fecha: "2025-09-20",
-    imagen: "/images/caseta.webp",
-  },
-  {
-    id: 3,
-    titulo: "Reconocimiento Nacional",
-    descripcion:
-      "El UDLAVERSO fue premiado por su contribución a la innovación educativa en realidad aumentada.",
-    fecha: "2025-08-10",
-    imagen: "/images/escenario.webp",
-  },
-];
-
 const Noticias: React.FC = () => {
+  const { noticias, cargando } = useNoticias();
+
   const [busqueda, setBusqueda] = useState("");
   const [orden, setOrden] = useState<"asc" | "desc">("desc");
   const [pagina, setPagina] = useState(1);
@@ -51,19 +27,18 @@ const Noticias: React.FC = () => {
   const noticiasFiltradas = useMemo(() => {
     const texto = busqueda.trim().toLowerCase();
 
-    const filtradas = listaNoticias.filter((n) =>
-      n.titulo.toLowerCase().includes(texto)
+    const filtradas = noticias.filter((n) =>
+      n.tituloNoticia.toLowerCase().includes(texto)
     );
 
-    // Copia antes de ordenar para evitar mutar el array original
     return filtradas
       .slice()
       .sort((a, b) =>
         orden === "asc"
-          ? a.fecha.localeCompare(b.fecha)
-          : b.fecha.localeCompare(a.fecha)
+          ? a.fechapublicacionNoticia.localeCompare(b.fechapublicacionNoticia)
+          : b.fechapublicacionNoticia.localeCompare(a.fechapublicacionNoticia)
       );
-  }, [busqueda, orden]);
+  }, [busqueda, orden, noticias]);
 
   const totalPaginas = Math.max(
     1,
@@ -94,7 +69,21 @@ const Noticias: React.FC = () => {
           onOrdenar={handleOrden}
         />
 
-        <GridNoticias noticias={visibles} />
+        {cargando ? (
+          <p className="text-center text-udlaverso-gris mt-10">
+            Cargando noticias...
+          </p>
+        ) : (
+          <GridNoticias
+            noticias={visibles.map((n) => ({
+              id: n.idNoticia,
+              titulo: n.tituloNoticia,
+              descripcion: n.contenidoNoticia,
+              fecha: n.fechapublicacionNoticia,
+              imagen: n.imagenNoticia,
+            }))}
+          />
+        )}
 
         <Paginacion
           pagina={paginaActual}

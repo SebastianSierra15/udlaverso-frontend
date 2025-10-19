@@ -30,6 +30,7 @@ const GridNoticias: React.FC<Props> = ({ noticias }) => {
           descripcion={n.descripcion}
           fecha={n.fecha}
           imagen={n.imagen}
+          ruta={`/noticias/${encodeURIComponent(n.titulo)}`}
         />
       ))}
     </div>

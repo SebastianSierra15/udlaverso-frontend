@@ -9,7 +9,7 @@ interface Props {
   descripcion: string;
   fecha: string;
   imagen: string;
-  ruta?: string;
+  ruta: string;
 }
 
 const TarjetaNoticiaGrande: React.FC<Props> = ({
@@ -17,7 +17,7 @@ const TarjetaNoticiaGrande: React.FC<Props> = ({
   descripcion,
   fecha,
   imagen,
-  ruta = "/noticias/1",
+  ruta = "/noticias/",
 }) => (
   <Link
     to={ruta}

@@ -28,7 +28,7 @@ const TarjetaProyecto: React.FC<Props> = ({
   return (
     <Link
       to={`/proyectos/${encodeURIComponent(
-        titulo.toLowerCase().replace(/\s+/g, "-")
+        (titulo || "proyecto-sin-nombre").toLowerCase().replace(/\s+/g, "-")
       )}`}
       className="relative block rounded-xl shadow-md overflow-hidden transition-transform hover:shadow-lg hover:scale-105 duration-300 cursor-pointer isolation-isolate"
       onMouseEnter={() => setHover(true)}
@@ -51,7 +51,7 @@ const TarjetaProyecto: React.FC<Props> = ({
       </div>
 
       <h3
-        className={`absolute bottom-2 left-2 text-sm md:text-base font-bold text-white bg-black/50 px-2 py-1 rounded transition-opacity duration-300 ${
+        className={`absolute bottom-2 left-2 text-sm md:text-base font-bold text-white bg-black/50 px-2 py-1 rounded transition-opacity duration-300 leading-snug line-clamp-2 h-[3.2em] ${
           hover ? "opacity-0" : "opacity-100"
         }`}
       >

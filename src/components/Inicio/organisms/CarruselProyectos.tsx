@@ -1,58 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useProyectosMasVistos } from "../../../hooks/useProyectosMasVistos";
 import TarjetaProyecto from "../molecules/TarjetaProyecto";
 
-const proyectos = [
-  {
-    titulo: "Proyecto 1",
-    imagenes: [
-      "/images/imagen1.png",
-      "/images/imagen2.png",
-      "/images/imagen3.jpg",
-    ],
-  },
-  {
-    titulo: "Proyecto 2",
-    imagenes: [
-      "/images/imagen2.png",
-      "/images/imagen3.jpg",
-      "/images/imagen1.png",
-    ],
-  },
-  {
-    titulo: "Proyecto 3",
-    imagenes: [
-      "/images/imagen3.jpg",
-      "/images/imagen1.png",
-      "/images/imagen2.png",
-    ],
-  },
-  {
-    titulo: "Proyecto 4",
-    imagenes: [
-      "/images/imagen1.png",
-      "/images/imagen3.jpg",
-      "/images/imagen2.png",
-    ],
-  },
-  {
-    titulo: "Proyecto 5",
-    imagenes: [
-      "/images/imagen2.png",
-      "/images/imagen1.png",
-      "/images/imagen3.jpg",
-    ],
-  },
-  {
-    titulo: "Proyecto 6",
-    imagenes: [
-      "/images/imagen3.jpg",
-      "/images/imagen2.png",
-      "/images/imagen1.png",
-    ],
-  },
-];
-
 const CarruselProyectos: React.FC = () => {
+  const { proyectos, cargando } = useProyectosMasVistos(10);
   const [visible, setVisible] = useState(4);
 
   useEffect(() => {
@@ -75,23 +26,31 @@ const CarruselProyectos: React.FC = () => {
         Proyectos destacados
       </h2>
 
-      <div className="relative w-full group">
-        <div className="flex gap-6 animate-scroll group-hover:[animation-play-state:paused] [will-change:transform]">
-          {listaDuplicada.map((proyecto, i) => (
-            <div
-              key={i}
-              style={{ flex: `0 0 ${100 / visible}%` }}
-              className="px-2"
-            >
-              <TarjetaProyecto
-                titulo={proyecto.titulo}
-                imagenes={proyecto.imagenes}
-                descripcion="Explora este proyecto destacado del UdlaVerso."
-              />
-            </div>
-          ))}
+      {cargando ? (
+        <p className="text-center text-udlaverso-gris">Cargando proyectos...</p>
+      ) : (
+        <div className="relative w-full group">
+          <div className="flex gap-6 animate-scroll group-hover:[animation-play-state:paused] [will-change:transform]">
+            {listaDuplicada.map((proyecto, i) => (
+              <div
+                key={i}
+                style={{ flex: `0 0 ${100 / visible}%` }}
+                className="px-2"
+              >
+                <TarjetaProyecto
+                  titulo={proyecto.nombre}
+                  imagenes={
+                    proyecto.imagenes?.map((img) => img) || [
+                      "/images/placeholder.png",
+                    ]
+                  }
+                  descripcion={proyecto.descripcionCorta}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };
