@@ -1,14 +1,8 @@
 import { useState } from "react";
+import type { Resenia } from "../../../types/Resenia";
 import TarjetaResenia from "../molecules/TarjetaResenia";
 import ModalResenia from "../molecules/ModalResenia";
 import Boton from "../../Shared/atoms/Boton";
-
-interface Resenia {
-  usuario: string;
-  comentario: string;
-  estrellas: number;
-  fecha: string;
-}
 
 interface Props {
   resenias: Resenia[];
@@ -27,16 +21,19 @@ const ReseniasProyecto: React.FC<Props> = ({
     comentario: string,
     estrellas: number
   ) => {
-    const nueva = {
-      usuario,
+    const nueva: Resenia = {
+      idResenia: Date.now(),
+      valoracion: estrellas,
       comentario,
-      estrellas,
       fecha: new Date().toLocaleDateString("es-ES", {
         day: "numeric",
         month: "long",
         year: "numeric",
       }),
+      usuarioNombres: usuario,
+      usuarioApellidos: "",
     };
+
     setResenias([nueva, ...resenias]);
     setMostrarModal(false);
   };
@@ -68,8 +65,18 @@ const ReseniasProyecto: React.FC<Props> = ({
       {/* Lista de reseñas */}
       {resenias.length ? (
         <div className="space-y-4">
-          {resenias.map((r, i) => (
-            <TarjetaResenia key={i} {...r} />
+          {resenias.map((r) => (
+            <TarjetaResenia
+              key={r.idResenia}
+              usuario={`${r.usuarioNombres} ${r.usuarioApellidos ?? ""}`.trim()}
+              comentario={r.comentario}
+              estrellas={r.valoracion}
+              fecha={new Date(r.fecha).toLocaleDateString("es-ES", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            />
           ))}
         </div>
       ) : (

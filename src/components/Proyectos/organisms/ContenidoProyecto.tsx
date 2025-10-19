@@ -43,9 +43,9 @@ const ContenidoProyecto: React.FC<Props> = ({
         objetivos={objetivos}
       />
 
-      <DescripcionLarga descripcion={descripcionLarga} />
-
       <VideoProyecto videoUrl={video} titulo={titulo} />
+
+      <DescripcionLarga descripcion={descripcionLarga} />
     </div>
   </div>
 );

@@ -4,7 +4,7 @@ interface Props {
 
 const DescripcionLarga: React.FC<Props> = ({ descripcion }) => (
   <section>
-    <h2 className="text-xl font-semibold text-udlaverso-negro">
+    <h2 className="text-xl font-semibold text-udlaverso-negro mb-2">
       Sobre este proyecto
     </h2>
 

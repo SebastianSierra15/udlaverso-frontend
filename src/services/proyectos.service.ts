@@ -1,6 +1,38 @@
 import api from "./api";
 import type { Proyecto } from "../types/Proyecto";
 
+export const obtenerProyectoPorNombre = async (
+  nombre: string
+): Promise<Proyecto> => {
+  const encoded = encodeURIComponent(nombre);
+  const { data } = await api.get(`/proyectos/nombre/${encoded}`);
+
+  return {
+    id: data.idProyecto,
+    nombre: data.nombreProyecto,
+    descripcionCorta: data.descripcioncortaProyecto,
+    descripcionLarga: data.descripcionlargaProyecto,
+    objetivo: data.objetivoProyecto,
+    autor: data.autorProyecto,
+    video: data.videoProyecto,
+    fechaCreacion: data.fechacreacionProyecto,
+    categoria: data.categoriaNombre ?? "Sin categoría",
+    imagenes: data.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
+    herramientas: data.herramientasProyecto ?? "",
+    palabrasClave: data.palabrasclaveProyecto ?? "",
+    visualizaciones: data.visualizacionesProyecto ?? "",
+    resenias:
+      data.resenias?.map((r: any) => ({
+        idResenia: r.idResenia,
+        valoracion: r.valoracionResenia,
+        comentario: r.comentarioResenia,
+        usuarioNombres: r.usuarioNombres,
+        usuarioApellidos: r.usuarioApellidos,
+        fechaResenia: r.fechaResenia,
+      })) ?? [],
+  };
+};
+
 export const obtenerProyectos = async (): Promise<Proyecto[]> => {
   const { data } = await api.get("/proyectos");
 

@@ -1,5 +1,6 @@
 import HeroProyectoIndividual from "../../Proyectos/organisms/HeroProyectoIndividual";
 import ProyectoTemplate from "../../Proyectos/templates/ProyectoTemplate";
+import type { Proyecto } from "../../../types/Proyecto";
 
 interface Props {
   datosBasicos: {
@@ -33,24 +34,25 @@ const PasoRevision: React.FC<Props> = ({
 
   const heroUrl = imagenes.hero
     ? URL.createObjectURL(imagenes.hero)
-    : imagenesUrls.length > 0
-    ? imagenesUrls[0]
-    : "/images/hero.webp";
+    : imagenesUrls[0] || "/images/hero.webp";
 
-  const proyectoPreview = {
+  const proyectoPreview: Proyecto & {
+    promedio: number;
+    linkProyecto: string;
+  } = {
     id: "preview",
-    titulo: datosBasicos.titulo || "Proyecto sin título",
+    nombre: datosBasicos.titulo || "Proyecto sin título",
     categoria: contenido.categorias[0] || "Sin categoría",
     promedio: 0,
-    visitas: 0,
+    visualizaciones: "0",
     autor: datosBasicos.autor || "Autor no definido",
-    tecnologias: contenido.herramientas,
-    fecha: new Date().toLocaleDateString("es-ES"),
+    herramientas: contenido.herramientas.join(", "),
+    fechaCreacion: new Date().toISOString(),
     descripcionCorta: datosBasicos.descripcionCorta,
     descripcionLarga: contenido.descripcionDetallada,
-    objetivos: datosBasicos.objetivo,
+    objetivo: datosBasicos.objetivo,
     linkProyecto: "#",
-    palabrasClave: contenido.palabrasClave,
+    palabrasClave: contenido.palabrasClave.join(", "),
     imagenes: imagenesUrls.length ? imagenesUrls : ["/images/hero.webp"],
     video: imagenes.video || "",
     resenias: [],
@@ -68,8 +70,8 @@ const PasoRevision: React.FC<Props> = ({
       </div>
 
       <HeroProyectoIndividual
-        titulo={proyectoPreview.titulo}
-        descripcion={proyectoPreview.objetivos}
+        titulo={proyectoPreview.nombre}
+        descripcion={proyectoPreview.objetivo}
         imagenFondo={heroUrl}
       />
 

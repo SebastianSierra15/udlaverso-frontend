@@ -3,13 +3,13 @@ import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 interface Props {
   titulo: string;
   descripcion: string;
-  imagenFondo: string;
+  imagenFondo?: string;
 }
 
 const HeroProyectoIndividual: React.FC<Props> = ({
   titulo,
   descripcion,
-  imagenFondo,
+  imagenFondo = "/images/hero.webp",
 }) => (
   <section className="relative h-[45vh] md:h-[55vh] flex items-center justify-center text-white">
     <img

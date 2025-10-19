@@ -1,9 +1,33 @@
 import {
+  obtenerProyectoPorNombre,
   obtenerProyectos,
   listarProyectosMasVistos,
   crearProyectoService,
 } from "../services/proyectos.service";
 import type { Proyecto } from "../types/Proyecto";
+
+export const obtenerProyectoPorNombreController = async (
+  nombre: string
+): Promise<Proyecto | null> => {
+  try {
+    const proyecto = await obtenerProyectoPorNombre(nombre);
+    return proyecto;
+  } catch (error: any) {
+    console.error("❌ Error en obtenerProyectoPorNombreController:", error);
+
+    if (error.response?.status === 404) {
+      console.warn("⚠️ Proyecto no encontrado:", nombre);
+      return null;
+    }
+
+    if (error.response?.status === 401) {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
+
+    return null;
+  }
+};
 
 export const listarProyectos = async (): Promise<Proyecto[]> => {
   try {

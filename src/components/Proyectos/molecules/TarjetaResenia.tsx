@@ -5,7 +5,7 @@ interface Props {
   usuario: string;
   comentario: string;
   estrellas: number;
-  fecha: string;
+  fecha?: string;
 }
 
 const TarjetaResenia: React.FC<Props> = ({

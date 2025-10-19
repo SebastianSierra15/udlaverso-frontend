@@ -12,8 +12,8 @@ const ContenidoHero: React.FC<ContenidoHeroProps> = ({
   descripcion,
 }) => {
   return (
-    <div className="text-center px-6 md:px-10 max-w-3xl z-10">
-      <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 drop-shadow-lg">
+    <div className="text-center px-6 md:px-10 max-w-5xl z-10 pt-10">
+      <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
         {titulo}
       </h1>
 

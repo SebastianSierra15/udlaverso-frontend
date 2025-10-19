@@ -1,5 +1,7 @@
+import type { Resenia } from "./Resenia";
+
 export interface Proyecto {
-  id: number;
+  id: string | number;
   nombre: string;
   descripcionCorta: string;
   descripcionLarga: string;
@@ -9,4 +11,8 @@ export interface Proyecto {
   fechaCreacion?: string;
   categoria?: string;
   imagenes?: string[];
+  herramientas?: string;
+  palabrasClave?: string;
+  visualizaciones?: string;
+  resenias?: Resenia[];
 }

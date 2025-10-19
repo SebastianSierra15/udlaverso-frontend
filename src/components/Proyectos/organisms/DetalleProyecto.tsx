@@ -1,3 +1,4 @@
+import type { Proyecto } from "../../../types/Proyecto";
 import TituloAccionProyecto from "../molecules/TituloAccionProyecto";
 import CategoriaSocialProyecto from "../molecules/CategoriaSocialProyecto";
 import EstrellasValoracion from "../molecules/EstrellasValoracion";
@@ -5,68 +6,52 @@ import ContadorVisitas from "../atoms/ContadorVisitas";
 import ContenidoProyecto from "./ContenidoProyecto";
 import ReseniasProyecto from "./ReseniasProyecto";
 
-interface Props {
-  titulo: string;
-  categoria: string;
+type Props = Proyecto & {
   promedio: number;
-  visitas: number;
-  autor: string;
-  tecnologias: string[];
-  fecha: string;
-  descripcionCorta: string;
-  descripcionLarga: string;
-  objetivos: string;
   linkProyecto: string;
-  palabrasClave: string[];
-  imagenes: string[];
-  video: string;
-  resenias?: {
-    usuario: string;
-    comentario: string;
-    estrellas: number;
-    fecha: string;
-  }[];
-}
+};
 
 const DetalleProyecto: React.FC<Props> = ({
-  titulo,
+  nombre,
   categoria,
   promedio,
-  visitas,
+  visualizaciones,
   autor,
-  tecnologias,
-  fecha,
+  herramientas,
+  fechaCreacion,
   descripcionCorta,
   descripcionLarga,
-  objetivos,
-  linkProyecto,
+  objetivo,
+  video,
   palabrasClave,
   imagenes,
-  video,
   resenias = [],
+  linkProyecto,
 }) => {
   return (
     <section className="max-w-7xl mx-auto px-6 md:px-10 py-10 bg-white rounded-2xl shadow-sm -mt-10 relative z-10">
-      <TituloAccionProyecto titulo={titulo} linkProyecto={linkProyecto} />
-
-      <CategoriaSocialProyecto categoria={categoria} titulo={titulo} />
+      <TituloAccionProyecto titulo={nombre} linkProyecto={linkProyecto} />
+      <CategoriaSocialProyecto
+        categoria={categoria ?? "General"}
+        titulo={nombre}
+      />
 
       <div className="flex items-center gap-2 mt-2">
         <EstrellasValoracion valor={promedio} interactiva={false} />
-        <ContadorVisitas visitas={visitas} />
+        <ContadorVisitas visitas={Number(visualizaciones) || 0} />
       </div>
 
       <ContenidoProyecto
-        titulo={titulo}
+        titulo={nombre}
         autor={autor}
-        fecha={fecha}
-        tecnologias={tecnologias}
+        fecha={fechaCreacion ?? ""}
+        tecnologias={herramientas?.split(",").map((h) => h.trim()) ?? []}
         descripcionCorta={descripcionCorta}
         descripcionLarga={descripcionLarga}
-        objetivos={objetivos}
-        palabrasClave={palabrasClave}
-        imagenes={imagenes}
-        video={video}
+        objetivos={objetivo}
+        palabrasClave={palabrasClave?.split(",").map((p) => p.trim()) ?? []}
+        imagenes={imagenes ?? []}
+        video={video ?? ""}
       />
 
       <ReseniasProyecto resenias={resenias} />
