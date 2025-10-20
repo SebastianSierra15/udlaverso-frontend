@@ -9,6 +9,7 @@ type Props = {
   valores: string[];
   onChange: (valores: string[]) => void;
   maxEtiquetas?: number;
+  obligatorio?: boolean;
 };
 
 const CampoEtiquetas: React.FC<Props> = ({
@@ -17,22 +18,31 @@ const CampoEtiquetas: React.FC<Props> = ({
   tooltip,
   valores,
   onChange,
-  maxEtiquetas,
+  maxEtiquetas = 5,
+  obligatorio = false,
 }) => {
   const [input, setInput] = useState("");
+  const [error, setError] = useState("");
 
   const agregarEtiqueta = (valor: string) => {
     const limpio = valor.trim();
     if (limpio && !valores.includes(limpio)) {
-      if (!maxEtiquetas || valores.length < maxEtiquetas) {
+      if (valores.length < maxEtiquetas) {
         onChange([...valores, limpio]);
+        setError("");
+      } else {
+        setError(`Máximo ${maxEtiquetas} etiquetas permitidas.`);
       }
     }
     setInput("");
   };
 
   const eliminarEtiqueta = (valor: string) => {
-    onChange(valores.filter((v) => v !== valor));
+    const nuevas = valores.filter((v) => v !== valor);
+    onChange(nuevas);
+    if (obligatorio && nuevas.length === 0) {
+      setError("Debes ingresar al menos una etiqueta.");
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -47,15 +57,14 @@ const CampoEtiquetas: React.FC<Props> = ({
       <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
         {label}
         {tooltip && <TooltipInfo texto={tooltip} />}
+        {obligatorio && <span className="text-red-500">*</span>}
       </label>
 
-      {maxEtiquetas && valores.length >= maxEtiquetas && (
-        <p className="text-xs text-udlaverso-gris mt-1">
-          Límite máximo de {maxEtiquetas} etiquetas alcanzado.
-        </p>
-      )}
-
-      <div className="border rounded-lg p-2 flex flex-wrap gap-2 min-h-[42px]">
+      <div
+        className={`border rounded-lg p-2 flex flex-wrap gap-2 min-h-[42px] ${
+          error ? "border-red-500" : ""
+        }`}
+      >
         {valores.map((v, i) => (
           <EtiquetaSeleccion
             key={i}
@@ -73,6 +82,8 @@ const CampoEtiquetas: React.FC<Props> = ({
           className="flex-1 min-w-[150px] border-none focus:ring-0 outline-none text-sm"
         />
       </div>
+
+      {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import BotonFlecha from "../atoms/BotonFlecha";
 type Props = {
   minimo?: number;
   maxVisibles?: number;
-  maxImagenes?: number; // ← nuevo límite total
+  maxImagenes?: number;
   onChange: (archivos: File[]) => void;
 };
 
@@ -28,7 +28,12 @@ const GaleriaImagenes: React.FC<Props> = ({
       return;
     }
 
-    setMensajeError("");
+    if (nuevas.length < minimo) {
+      setMensajeError(`Debes subir al menos ${minimo} imágenes.`);
+    } else {
+      setMensajeError("");
+    }
+
     setImagenes(nuevas);
     onChange(nuevas);
   };

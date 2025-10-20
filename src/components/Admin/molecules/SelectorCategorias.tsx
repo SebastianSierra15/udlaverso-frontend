@@ -8,6 +8,7 @@ type Props = {
   categoriasSeleccionadas: string[];
   onChange: (nuevas: string[]) => void;
   maxCategorias?: number;
+  obligatorio?: boolean;
 };
 
 const SelectorCategorias: React.FC<Props> = ({
@@ -16,29 +17,35 @@ const SelectorCategorias: React.FC<Props> = ({
   categoriasDisponibles,
   categoriasSeleccionadas,
   onChange,
-  maxCategorias,
+  maxCategorias = 1,
+  obligatorio = false,
 }) => {
   const [categoria, setCategoria] = useState("");
+  const [error, setError] = useState("");
 
   const agregarCategoria = (nueva: string) => {
     if (
       nueva &&
       !categoriasSeleccionadas.includes(nueva) &&
-      (!maxCategorias || categoriasSeleccionadas.length < maxCategorias)
+      categoriasSeleccionadas.length < maxCategorias
     ) {
       onChange([...categoriasSeleccionadas, nueva]);
+      setError("");
+    } else if (categoriasSeleccionadas.length >= maxCategorias) {
+      setError(`Solo puedes seleccionar ${maxCategorias} categoría.`);
     }
   };
 
   const eliminarCategoria = (cat: string) => {
     onChange(categoriasSeleccionadas.filter((c) => c !== cat));
+    setError("Debe haber al menos una categoría seleccionada.");
   };
 
   return (
     <div>
       <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
         {label}
-        <span className="text-xs text-gray-500">(selecciona una o más)</span>
+        <span className="text-xs text-gray-500">(selecciona una)</span>
         {tooltip && (
           <span
             title={tooltip}
@@ -47,6 +54,7 @@ const SelectorCategorias: React.FC<Props> = ({
             ⓘ
           </span>
         )}
+        {obligatorio && <span className="text-red-500">*</span>}
       </label>
 
       <select
@@ -55,7 +63,10 @@ const SelectorCategorias: React.FC<Props> = ({
           agregarCategoria(e.target.value);
           setCategoria("");
         }}
-        className="w-full border rounded-lg px-3 py-2 focus:ring-udlaverso-verde focus:border-udlaverso-verde outline-none"
+        required={obligatorio}
+        className={`w-full border rounded-lg px-3 py-2 outline-none focus:ring-udlaverso-verde focus:border-udlaverso-verde ${
+          error ? "border-red-500" : ""
+        }`}
       >
         <option value="">Selecciona una categoría</option>
         {categoriasDisponibles
@@ -67,11 +78,7 @@ const SelectorCategorias: React.FC<Props> = ({
           ))}
       </select>
 
-      {maxCategorias && categoriasSeleccionadas.length >= maxCategorias && (
-        <p className="text-xs text-udlaverso-gris mt-1">
-          Límite máximo de {maxCategorias} categorías alcanzado.
-        </p>
-      )}
+      {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
 
       {categoriasSeleccionadas.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-2">

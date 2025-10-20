@@ -15,7 +15,7 @@ const FormularioLogin: React.FC = () => {
   return (
     <form onSubmit={manejarEnvio} className="flex flex-col gap-4 w-full">
       <InputTexto
-        etiqueta="Usuario o email"
+        etiqueta="Correo electrónico"
         valor={usuario}
         onChange={(e) => setUsuario(e.target.value)}
       />

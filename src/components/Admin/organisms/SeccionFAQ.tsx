@@ -77,7 +77,7 @@ const SeccionFAQ: React.FC = () => {
     <section id="faq" className="space-y-3">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <h2 className="text-lg md:text-xl font-bold text-udlaverso-negro">
-          FAQ
+          Preguntas frecuentes
         </h2>
         <BarraAcciones
           onNuevo={() => alert("Nueva FAQ")}

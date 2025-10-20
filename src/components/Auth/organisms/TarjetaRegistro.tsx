@@ -9,6 +9,7 @@ const TarjetaRegistro: React.FC = () => {
           <img
             src="/logos/logo-white.png"
             alt="Logo UdlaVerso"
+            title="Udlaverso"
             className="w-40 md:w-48 lg:w-64 hover:scale-105 transition-transform duration-300"
           />
         </Link>

@@ -8,6 +8,7 @@ const TarjetaRecuperar: React.FC = () => {
         <img
           src="/logos/logo.png"
           alt="Logo UdlaVerso"
+          title="Udlaverso"
           className="w-32 hover:scale-105 transition-transform duration-300"
         />
       </Link>

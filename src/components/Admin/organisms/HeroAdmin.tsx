@@ -5,44 +5,46 @@ import { LuLogOut } from "react-icons/lu";
 const HeroAdmin: React.FC = () => {
   const navigate = useNavigate();
 
-  const volverInicio = () => navigate("/");
+  // const volverInicio = () => navigate("/");
   const cerrarSesion = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
 
   return (
-    <header className="bg-white border rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-      <div className="flex items-center gap-3">
+    <header className="bg-white border rounded-2xl px-5 py-3 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-sm">
+      <div className="flex items-center gap-4">
         <img
           src="/logos/logo-udla.webp"
           alt="Logo UdlaVerso"
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-12 h-12 object-contain"
         />
+
         <div>
-          <h1 className="text-xl md:text-2xl font-extrabold text-udlaverso-negro">
-            Administrador
+          <h1 className="text-xl md:text-2xl font-extrabold text-udlaverso-negro tracking-tight">
+            Panel de Administración
           </h1>
 
-          <p className="text-sm text-udlaverso-gris">
-            Gestiona proyectos, comentarios, noticias, preguntas frecuentes y
-            métricas.
+          <p className="text-sm text-gray-500">
+            Gestiona proyectos, noticias, comentarios y preguntas frecuentes.
           </p>
         </div>
       </div>
 
-      <div className="flex gap-2">
-        <button
-          onClick={volverInicio}
-          className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition"
+      <div className="flex gap-3">
+        <a
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-gray-50 text-gray-700 hover:bg-gray-100 border transition-all"
         >
-          <FaHome className="w-4 h-4" />
+          <FaHome className="w-4 h-4 text-udlaverso-verde" />
           <span>Ir al portal</span>
-        </button>
+        </a>
 
         <button
           onClick={cerrarSesion}
-          className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition"
+          className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-red-50 text-red-700 border border-red-100 hover:bg-red-100 hover:text-red-800 transition-all"
         >
           <LuLogOut className="w-4 h-4" />
           <span>Cerrar sesión</span>

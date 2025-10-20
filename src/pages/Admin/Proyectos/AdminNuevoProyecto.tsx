@@ -1,19 +1,39 @@
 import { useState } from "react";
-import { useProyectos } from "../../../hooks/useProyectos";
+import { useCrearProyecto } from "../../../hooks/useCrearProyectos";
+import { useCategorias } from "../../../hooks/useCategorias";
 import Stepper from "../../../components/Admin/molecules/Stepper";
 import PasoDatosBasicos from "../../../components/Admin/organisms/PasoDatosBasicos";
 import PasoContenido from "../../../components/Admin/organisms/PasoContenido";
 import PasoImagenes from "../../../components/Admin/organisms/PasoImagenes";
 import PasoRevision from "../../../components/Admin/organisms/PasoRevision";
 import BotonAdmin from "../../../components/Admin/atoms/BotonAdmin";
+import AlertaEmergente from "../../../components/Admin/atoms/AlertaEmergente";
 
 const AdminNuevoProyecto = () => {
-  const { crearProyecto } = useProyectos();
+  const { crearProyecto } = useCrearProyecto();
+
+  const {
+    categorias,
+    loading: cargandoCategorias,
+    error: errorCategorias,
+  } = useCategorias();
+
   const [paso, setPaso] = useState(1);
   const totalPasos = 4;
+  const [alerta, setAlerta] = useState({
+    visible: false,
+    mensaje: "",
+    tipo: "error" as "error" | "success" | "info" | "warning",
+  });
 
-  const siguiente = () => paso < totalPasos && setPaso(paso + 1);
-  const anterior = () => paso > 1 && setPaso(paso - 1);
+  const mostrarAlerta = (
+    mensaje: string,
+    tipo: typeof alerta.tipo = "error"
+  ) => {
+    setAlerta({ visible: true, mensaje, tipo });
+  };
+
+  const cerrarAlerta = () => setAlerta({ ...alerta, visible: false });
 
   const [datosBasicos, setDatosBasicos] = useState({
     titulo: "",
@@ -35,7 +55,63 @@ const AdminNuevoProyecto = () => {
     video: "",
   });
 
+  const validarPaso = (): boolean => {
+    // Paso 1: Datos Básicos
+    if (paso === 1) {
+      if (
+        !datosBasicos.titulo.trim() ||
+        !datosBasicos.autor.trim() ||
+        !datosBasicos.objetivo.trim() ||
+        !datosBasicos.descripcionCorta.trim()
+      ) {
+        mostrarAlerta("Completa todos los campos del paso Datos Básicos.");
+        return false;
+      }
+    }
+
+    // Paso 2: Contenido
+    if (paso === 2) {
+      if (
+        contenido.categorias.length < 1 ||
+        contenido.herramientas.length < 1 ||
+        contenido.descripcionDetallada.trim().length === 0
+      ) {
+        mostrarAlerta(
+          "Completa todos los campos del paso Contenido y Herramientas."
+        );
+        return false;
+      }
+    }
+
+    // Paso 3: Imágenes
+    if (paso === 3) {
+      const regexYoutube =
+        /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
+      if (
+        !imagenes.hero ||
+        imagenes.galeria.length < 3 ||
+        !regexYoutube.test(imagenes.video)
+      ) {
+        mostrarAlerta(
+          "Debes subir una imagen principal, al menos 3 imágenes y un video válido de YouTube."
+        );
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const siguiente = () => {
+    if (!validarPaso()) return;
+    if (paso < totalPasos) setPaso(paso + 1);
+  };
+
+  const anterior = () => paso > 1 && setPaso(paso - 1);
+
   const handleGuardarProyecto = async () => {
+    if (!validarPaso()) return;
+
     try {
       const data = {
         nombreProyecto: datosBasicos.titulo,
@@ -48,24 +124,46 @@ const AdminNuevoProyecto = () => {
       };
 
       const nuevoProyecto = await crearProyecto(data);
-      alert(`Proyecto creado con éxito (ID: ${nuevoProyecto.id})`);
+      mostrarAlerta(
+        `Proyecto creado con éxito (ID: ${nuevoProyecto.id})`,
+        "success"
+      );
     } catch (error) {
-      alert("Error al crear el proyecto");
+      mostrarAlerta("Error al crear el proyecto.", "error");
     }
   };
 
   return (
-    <section className="p-6 bg-white rounded-xl shadow-md space-y-6">
+    <section className="p-6 bg-white rounded-xl shadow-md space-y-6 relative">
+      <AlertaEmergente
+        mensaje={alerta.mensaje}
+        tipo={alerta.tipo}
+        visible={alerta.visible}
+        onClose={cerrarAlerta}
+      />
+
       <h1 className="text-xl md:text-2xl font-bold text-udlaverso-negro">
         Agregar Proyecto
       </h1>
 
-      <Stepper pasoActual={paso} total={totalPasos} />
+      <Stepper
+        pasoActual={paso}
+        total={totalPasos}
+        onPasoChange={(nuevoPaso) => setPaso(nuevoPaso)}
+      />
 
       {paso === 1 && (
         <PasoDatosBasicos data={datosBasicos} onChange={setDatosBasicos} />
       )}
-      {paso === 2 && <PasoContenido data={contenido} onChange={setContenido} />}
+      {paso === 2 && (
+        <PasoContenido
+          data={contenido}
+          onChange={setContenido}
+          categorias={categorias}
+          cargando={cargandoCategorias}
+          error={errorCategorias}
+        />
+      )}
       {paso === 3 && <PasoImagenes data={imagenes} onChange={setImagenes} />}
       {paso === 4 && (
         <PasoRevision

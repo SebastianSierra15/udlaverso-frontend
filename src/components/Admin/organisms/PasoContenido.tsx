@@ -1,7 +1,8 @@
 import React from "react";
-import SelectorCategorias from "../molecules/SelectorCategorias";
+import SelectorOpciones from "../molecules/SelectorOpciones";
 import EditorTexto from "../molecules/EditorTexto";
 import CampoEtiquetas from "../molecules/CampoEtiquetas";
+import type { Categoria } from "../../../types/Categoria";
 
 interface Props {
   data: {
@@ -11,12 +12,23 @@ interface Props {
     descripcionDetallada: string;
   };
   onChange: (nuevaData: Props["data"]) => void;
+  categorias: Categoria[];
+  cargando: boolean;
+  error: string | null;
 }
 
-const PasoContenido: React.FC<Props> = ({ data, onChange }) => {
+const PasoContenido: React.FC<Props> = ({
+  data,
+  onChange,
+  categorias,
+  cargando,
+  error,
+}) => {
   const actualizar = (campo: keyof Props["data"], valor: any) => {
     onChange({ ...data, [campo]: valor });
   };
+
+  const opcionesCategorias = categorias.map((cat) => cat.nombre);
 
   return (
     <div className="space-y-5">
@@ -24,25 +36,31 @@ const PasoContenido: React.FC<Props> = ({ data, onChange }) => {
         Contenido y Herramientas
       </h3>
 
-      <SelectorCategorias
-        categoriasDisponibles={[
-          "Educación",
-          "Ciencia",
-          "Eventos",
-          "Tecnología",
-        ]}
-        maxCategorias={3}
-        categoriasSeleccionadas={data.categorias}
-        onChange={(v) => actualizar("categorias", v)}
-      />
+      {cargando ? (
+        <p className="text-gray-500 text-sm">Cargando categorías...</p>
+      ) : error ? (
+        <p className="text-red-600 text-sm">{error}</p>
+      ) : (
+        <SelectorOpciones
+          label="Categorías del proyecto"
+          tooltip="Selecciona la categoría a la que pertenece el proyecto."
+          opciones={opcionesCategorias}
+          maxSeleccion={1}
+          seleccionadas={data.categorias}
+          onChange={(v) => actualizar("categorias", v)}
+          obligatorio
+          placeholder="Selecciona una categoría"
+        />
+      )}
 
       <CampoEtiquetas
-        label="Herramientas utilizadas *"
+        label="Herramientas utilizadas"
         placeholder="Ej: Unity, Blender, OpenSim..."
         tooltip="Lista las herramientas o tecnologías utilizadas para el desarrollo del proyecto."
-        maxEtiquetas={10}
+        maxEtiquetas={5}
         valores={data.herramientas}
         onChange={(v) => actualizar("herramientas", v)}
+        obligatorio
       />
 
       <CampoEtiquetas
@@ -52,13 +70,15 @@ const PasoContenido: React.FC<Props> = ({ data, onChange }) => {
         maxEtiquetas={5}
         valores={data.palabrasClave}
         onChange={(v) => actualizar("palabrasClave", v)}
+        obligatorio
       />
 
       <EditorTexto
-        label="Descripción detallada *"
+        label="Descripción detallada"
         maxLength={2200}
         value={data.descripcionDetallada}
         onChange={(v) => actualizar("descripcionDetallada", v)}
+        obligatorio
       />
     </div>
   );
