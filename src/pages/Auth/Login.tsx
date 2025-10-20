@@ -1,10 +1,23 @@
 import { Helmet } from "react-helmet-async";
 import TarjetaLogin from "../../components/Auth/organisms/TarjetaLogin";
+import AlertaEmergente from "../../components/Admin/atoms/AlertaEmergente";
+import { useAuthController } from "../../controllers/authController";
+import { useState } from "react";
 
 const Login: React.FC = () => {
+  const { handleLogin, loading, error } = useAuthController();
+  const [correo, setCorreo] = useState("");
+  const [contrasenia, setContrasenia] = useState("");
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
+
+  const manejarEnvio = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const exito = await handleLogin(correo, contrasenia);
+    if (!exito) setMostrarAlerta(true);
+  };
+
   return (
     <>
-      {/* Metadatos */}
       <Helmet>
         <title>Iniciar sesión - UdlaVerso</title>
         <meta
@@ -23,9 +36,23 @@ const Login: React.FC = () => {
         <div className="absolute inset-0 bg-black/40 -z-10" />
 
         <div className="flex justify-center md:justify-end w-full max-w-7xl">
-          <TarjetaLogin />
+          <TarjetaLogin
+            correo={correo}
+            contrasenia={contrasenia}
+            setCorreo={setCorreo}
+            setContrasenia={setContrasenia}
+            onSubmit={manejarEnvio}
+            loading={loading}
+          />
         </div>
       </section>
+
+      <AlertaEmergente
+        mensaje={error || "Credenciales incorrectas"}
+        tipo="error"
+        visible={mostrarAlerta && !!error}
+        onClose={() => setMostrarAlerta(false)}
+      />
     </>
   );
 };

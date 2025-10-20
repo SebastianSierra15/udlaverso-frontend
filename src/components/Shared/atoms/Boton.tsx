@@ -5,7 +5,9 @@ interface PropiedadesBoton {
   onClick?: () => void;
   variante?: "principal" | "secundario" | "alternativo";
   modo?: "default" | "light";
+  tipo?: "button" | "submit";
   claseExtra?: string;
+  deshabilitado?: boolean;
 }
 
 const Boton: React.FC<PropiedadesBoton> = ({
@@ -13,7 +15,9 @@ const Boton: React.FC<PropiedadesBoton> = ({
   onClick,
   variante = "principal",
   modo = "default",
+  tipo = "button",
   claseExtra = "",
+  deshabilitado = false,
 }) => {
   const base =
     "rounded-full font-semibold transition duration-300 ease-in-out text-sm md:text-base lg:text-lg px-3 md:px-4 lg:px-6 py-2 border";
@@ -41,7 +45,12 @@ const Boton: React.FC<PropiedadesBoton> = ({
 
   return (
     <button
-      className={`${base} ${estilos[variante][modo]} ${claseExtra}`}
+      type={tipo}
+      className={`
+        ${base}
+        ${estilos[variante][modo]}
+        ${deshabilitado ? "opacity-50 cursor-not-allowed" : ""}
+        ${claseExtra}`}
       onClick={onClick}
     >
       {texto}

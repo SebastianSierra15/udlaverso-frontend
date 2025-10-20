@@ -1,11 +1,20 @@
 import Boton from "../../Shared/atoms/Boton";
 import { Link } from "react-router-dom";
 
-const BotonesLogin: React.FC = () => (
+interface Props {
+  loading?: boolean;
+}
+
+const BotonesLogin: React.FC<Props> = ({ loading }) => (
   <div className="flex flex-col gap-5 mt-6 w-full">
-    <Link to="/" className="w-full">
-      <Boton texto="Iniciar sesión" variante="principal" claseExtra="w-full" />
-    </Link>
+    {/* Botón principal */}
+    <Boton
+      texto={loading ? "Entrando..." : "Iniciar sesión"}
+      variante="principal"
+      claseExtra="w-full"
+      tipo="submit"
+      deshabilitado={loading}
+    />
 
     {/* Separador */}
     <div className="flex items-center justify-center w-full gap-2 text-udlaverso-negro">
@@ -14,6 +23,7 @@ const BotonesLogin: React.FC = () => (
       <span className="flex-1 h-px bg-udlaverso-negro"></span>
     </div>
 
+    {/* Botón de registro */}
     <Link to="/registrarse" className="w-full">
       <Boton texto="Registrarse" variante="alternativo" claseExtra="w-full" />
     </Link>

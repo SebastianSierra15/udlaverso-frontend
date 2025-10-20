@@ -1,37 +1,45 @@
-import { useState } from "react";
 import InputTexto from "../atoms/InputTexto";
 import EnlaceRecuperar from "../atoms/EnlaceRecuperar";
 import BotonesLogin from "./BotonesLogin";
 
-const FormularioLogin: React.FC = () => {
-  const [usuario, setUsuario] = useState("");
-  const [contrasena, setContrasena] = useState("");
+interface Props {
+  correo: string;
+  contrasenia: string;
+  setCorreo: (v: string) => void;
+  setContrasenia: (v: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  loading: boolean;
+}
 
-  const manejarEnvio = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({ usuario, contrasena });
-  };
-
+const FormularioLogin: React.FC<Props> = ({
+  correo,
+  contrasenia,
+  setCorreo,
+  setContrasenia,
+  onSubmit,
+  loading,
+}) => {
   return (
-    <form onSubmit={manejarEnvio} className="flex flex-col gap-4 w-full">
+    <form onSubmit={onSubmit} className="flex flex-col gap-4 w-full">
       <InputTexto
         etiqueta="Correo electrónico"
-        valor={usuario}
-        onChange={(e) => setUsuario(e.target.value)}
+        tipo="email"
+        valor={correo}
+        onChange={(e) => setCorreo(e.target.value)}
       />
 
       <div className="flex flex-col gap-1">
         <InputTexto
           etiqueta="Contraseña"
           tipo="password"
-          valor={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
+          valor={contrasenia}
+          onChange={(e) => setContrasenia(e.target.value)}
         />
 
         <EnlaceRecuperar />
       </div>
 
-      <BotonesLogin />
+      <BotonesLogin loading={loading} />
     </form>
   );
 };
