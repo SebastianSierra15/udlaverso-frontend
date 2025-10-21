@@ -16,3 +16,13 @@ export interface Proyecto {
   visualizaciones?: string;
   resenias?: Resenia[];
 }
+
+export type ProyectoData = {
+  nombreProyecto: string;
+  autorProyecto: string;
+  objetivoProyecto: string;
+  descripcioncortaProyecto: string;
+  descripcionlargaProyecto: string;
+  videoProyecto?: string;
+  categoriaId?: number;
+};

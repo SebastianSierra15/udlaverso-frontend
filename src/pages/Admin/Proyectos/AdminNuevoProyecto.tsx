@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useCrearProyecto } from "../../../hooks/useCrearProyectos";
 import { useCategorias } from "../../../hooks/useCategorias";
+import type { ProyectoData } from "../../../types/Proyecto";
 import Stepper from "../../../components/Admin/molecules/Stepper";
 import PasoDatosBasicos from "../../../components/Admin/organisms/PasoDatosBasicos";
 import PasoContenido from "../../../components/Admin/organisms/PasoContenido";
 import PasoImagenes from "../../../components/Admin/organisms/PasoImagenes";
 import PasoRevision from "../../../components/Admin/organisms/PasoRevision";
 import BotonAdmin from "../../../components/Admin/atoms/BotonAdmin";
-import AlertaEmergente from "../../../components/Admin/atoms/AlertaEmergente";
+import AlertaEmergente from "../../../components/Shared/atoms/AlertaEmergente";
 
 const AdminNuevoProyecto = () => {
   const { crearProyecto } = useCrearProyecto();
@@ -113,7 +114,7 @@ const AdminNuevoProyecto = () => {
     if (!validarPaso()) return;
 
     try {
-      const data = {
+      const data: ProyectoData = {
         nombreProyecto: datosBasicos.titulo,
         autorProyecto: datosBasicos.autor,
         objetivoProyecto: datosBasicos.objetivo,

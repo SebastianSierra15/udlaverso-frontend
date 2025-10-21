@@ -23,7 +23,8 @@ export const useProyecto = (nombre?: string) => {
         } else {
           setProyecto(data);
         }
-      } catch (err: any) {
+      } catch (error: unknown) {
+        const err = error as ApiError;
         console.error("❌ Error en useProyecto:", err);
         setError("Error al cargar el proyecto.");
         setProyecto(null);

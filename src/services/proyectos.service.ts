@@ -1,5 +1,5 @@
 import api from "./api";
-import type { Proyecto } from "../types/Proyecto";
+import type { Proyecto, ProyectoData } from "../types/Proyecto";
 
 export const obtenerProyectoPorNombre = async (
   nombre: string
@@ -72,16 +72,6 @@ export const listarProyectosMasVistos = async (
     imagenes: p.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
   }));
 };
-
-interface ProyectoData {
-  nombreProyecto: string;
-  autorProyecto: string;
-  objetivoProyecto: string;
-  descripcioncortaProyecto: string;
-  descripcionlargaProyecto: string;
-  videoProyecto?: string;
-  categoriaId?: number;
-}
 
 export const crearProyectoService = async (proyecto: ProyectoData) => {
   const { data } = await api.post("/proyectos", proyecto);

@@ -51,7 +51,12 @@ const AlertaEmergente: React.FC<Props> = ({
           {iconos[tipo]}
           <span className="text-sm font-medium flex-1">{mensaje}</span>
           <button
-            onClick={onClose}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClose();
+            }}
             className="ml-3 text-white/80 hover:text-white transition"
           >
             <FiX />

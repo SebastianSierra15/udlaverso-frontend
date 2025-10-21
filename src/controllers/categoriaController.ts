@@ -8,10 +8,11 @@ export const listarCategorias = async (): Promise<Categoria[]> => {
       throw new Error("Respuesta inválida del servidor");
     }
     return categorias;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as ApiError;
     console.error("Error en controller (listarCategorias):", error);
 
-    if (error.response?.status === 401) {
+    if (err.response?.status === 401) {
       localStorage.removeItem("token");
       window.location.href = "/login";
     }

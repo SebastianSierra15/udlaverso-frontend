@@ -26,6 +26,8 @@ const FormularioLogin: React.FC<Props> = ({
         tipo="email"
         valor={correo}
         onChange={(e) => setCorreo(e.target.value)}
+        placeholder="ejemplo@udla.edu.co"
+        requerido
       />
 
       <div className="flex flex-col gap-1">
@@ -34,6 +36,8 @@ const FormularioLogin: React.FC<Props> = ({
           tipo="password"
           valor={contrasenia}
           onChange={(e) => setContrasenia(e.target.value)}
+          placeholder="Tu contraseña"
+          requerido
         />
 
         <EnlaceRecuperar />

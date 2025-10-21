@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { crearProyectoController } from "../controllers/proyectosController";
-import type { Proyecto } from "../types/Proyecto";
+import type { Proyecto, ProyectoData } from "../types/Proyecto";
 
 export const useCrearProyecto = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const crearProyecto = async (proyecto: Proyecto | any) => {
+  const crearProyecto = async (proyecto: ProyectoData): Promise<Proyecto> => {
     try {
       setLoading(true);
       const nuevoProyecto = await crearProyectoController(proyecto);

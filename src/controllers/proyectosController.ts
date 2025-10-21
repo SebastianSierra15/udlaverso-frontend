@@ -4,7 +4,7 @@ import {
   listarProyectosMasVistos,
   crearProyectoService,
 } from "../services/proyectos.service";
-import type { Proyecto } from "../types/Proyecto";
+import type { Proyecto, ProyectoData } from "../types/Proyecto";
 
 export const obtenerProyectoPorNombreController = async (
   nombre: string
@@ -12,15 +12,16 @@ export const obtenerProyectoPorNombreController = async (
   try {
     const proyecto = await obtenerProyectoPorNombre(nombre);
     return proyecto;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as ApiError;
     console.error("❌ Error en obtenerProyectoPorNombreController:", error);
 
-    if (error.response?.status === 404) {
+    if (err.response?.status === 404) {
       console.warn("⚠️ Proyecto no encontrado:", nombre);
       return null;
     }
 
-    if (error.response?.status === 401) {
+    if (err.response?.status === 401) {
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
@@ -38,10 +39,11 @@ export const listarProyectos = async (): Promise<Proyecto[]> => {
     }
 
     return proyectos;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as ApiError;
     console.error("❌ Error en listarProyectos:", error);
 
-    if (error.response?.status === 401) {
+    if (err.response?.status === 401) {
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
@@ -59,12 +61,15 @@ export const obtenerProyectosMasVistos = async (limite = 10) => {
   }
 };
 
-export const crearProyectoController = async (proyecto: any) => {
+export const crearProyectoController = async (
+  proyecto: ProyectoData
+): Promise<Proyecto> => {
   try {
     const nuevoProyecto = await crearProyectoService(proyecto);
     return nuevoProyecto;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as ApiError;
     console.error("❌ Error en crearProyectoController:", error);
-    throw error;
+    throw err;
   }
 };

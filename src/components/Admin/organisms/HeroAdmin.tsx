@@ -1,15 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
+import { useAuth } from "../../../hooks/useAuth";
 
 const HeroAdmin: React.FC = () => {
-  const navigate = useNavigate();
-
-  // const volverInicio = () => navigate("/");
-  const cerrarSesion = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  const { logout } = useAuth();
 
   return (
     <header className="bg-white border rounded-2xl px-5 py-3 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-sm">
@@ -43,7 +37,7 @@ const HeroAdmin: React.FC = () => {
         </a>
 
         <button
-          onClick={cerrarSesion}
+          onClick={logout}
           className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-red-50 text-red-700 border border-red-100 hover:bg-red-100 hover:text-red-800 transition-all"
         >
           <LuLogOut className="w-4 h-4" />

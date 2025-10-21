@@ -1,20 +1,50 @@
-import { useAuth } from "../hooks/useAuth";
+import { registroService, loginService } from "../services/auth.service";
 
-export const useAuthController = () => {
-  const { login, logout, loading, error } = useAuth();
+export const loginController = async (
+  correo: string,
+  contrasenia: string
+): Promise<{ success: boolean; mensaje: string }> => {
+  try {
+    const res = await loginService(correo, contrasenia);
+    return {
+      success: true,
+      mensaje: res.mensaje || "Inicio de sesión exitoso",
+    };
+  } catch (error: unknown) {
+    const err = error as ApiError;
+    console.error("❌ Error en loginController:", err);
 
-  const handleLogin = async (
-    correo: string,
-    contrasenia: string
-  ): Promise<boolean> => {
-    const ok = await login(correo, contrasenia);
-    if (ok) {
-      window.location.href = "/admin";
-      return true;
-    } else {
-      return false;
-    }
-  };
+    const msg =
+      err.response?.data?.error ||
+      "Error al iniciar sesión. Verifica tus credenciales.";
+    return { success: false, mensaje: msg };
+  }
+};
 
-  return { handleLogin, logout, loading, error };
+export const registroController = async (
+  formData: Record<string, any>
+): Promise<{ success: boolean; mensaje: string }> => {
+  try {
+    const payload = {
+      nombresUsuario: formData.nombre,
+      apellidosUsuario: formData.apellido,
+      correoUsuario: formData.esInstitucional
+        ? `${formData.correo}@udla.edu.co`
+        : formData.correo,
+      contraseniaUsuario: formData.contrasena,
+      universidadUsuario: formData.esInstitucional
+        ? "Universidad de la Amazonia"
+        : formData.universidad,
+    };
+
+    const res = await registroService(payload);
+    return { success: true, mensaje: res.mensaje || "Registro exitoso" };
+  } catch (error: unknown) {
+    const err = error as ApiError;
+    console.error("❌ Error en registroController:", err);
+
+    const msg =
+      err.response?.data?.error || "Ocurrió un error al registrar el usuario.";
+    return { success: false, mensaje: msg };
+  }
 };

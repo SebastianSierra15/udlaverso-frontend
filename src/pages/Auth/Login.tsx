@@ -1,19 +1,41 @@
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import TarjetaLogin from "../../components/Auth/organisms/TarjetaLogin";
-import AlertaEmergente from "../../components/Admin/atoms/AlertaEmergente";
-import { useAuthController } from "../../controllers/authController";
-import { useState } from "react";
+import AlertaEmergente from "../../components/Shared/atoms/AlertaEmergente";
 
 const Login: React.FC = () => {
-  const { handleLogin, loading, error } = useAuthController();
+  const { login, loading, error } = useAuth();
   const [correo, setCorreo] = useState("");
   const [contrasenia, setContrasenia] = useState("");
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const rol = localStorage.getItem("rol");
+    if (rol) {
+      if (rol.toLowerCase() === "administrador") navigate("/admin");
+      else navigate("/");
+    }
+  }, []);
 
   const manejarEnvio = async (e: React.FormEvent) => {
     e.preventDefault();
-    const exito = await handleLogin(correo, contrasenia);
-    if (!exito) setMostrarAlerta(true);
+    const exito = await login(correo, contrasenia);
+
+    if (!exito) {
+      setMostrarAlerta(true);
+      return;
+    }
+
+    const rol = localStorage.getItem("rol");
+
+    if (rol?.toLowerCase() === "administrador") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
   };
 
   return (
