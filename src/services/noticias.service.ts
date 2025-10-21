@@ -9,21 +9,31 @@ export const obtenerNoticiaPorTitulo = async (
   return data;
 };
 
-export const listarNoticias = async (): Promise<Noticia[]> => {
-  const { data } = await api.get<Noticia[]>("/noticias");
-  return data;
+export const listarNoticias = async (
+  page = 0,
+  size = 5,
+  q = ""
+): Promise<{
+  content: Noticia[];
+  total: number;
+  page: number;
+  pages: number;
+}> => {
+  const { data } = await api.get("/noticias", {
+    params: { page, size, q },
+  });
+
+  return {
+    content: data.content ?? [],
+    total: data.total ?? 0,
+    page: data.page ?? 0,
+    pages: data.pages ?? 0,
+  };
 };
 
 export const listarNoticiasRecientes = async (): Promise<Noticia[]> => {
-  const { data } = await api.get<Noticia[]>("/noticias");
-  // Ordena por fecha y trae las 6 más recientes
-  return data
-    .sort(
-      (a, b) =>
-        new Date(b.fechapublicacionNoticia).getTime() -
-        new Date(a.fechapublicacionNoticia).getTime()
-    )
-    .slice(0, 6);
+  const { data } = await api.get<Noticia[]>("/noticias/recientes");
+  return data;
 };
 
 export const obtenerNoticiaPorId = async (id: number): Promise<Noticia> => {

@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import { useMemo, useState, useCallback } from "react";
 import { useNoticias } from "../../hooks/useNoticias";
 import HeroNoticias from "../../components/Noticias/organisms/HeroNoticias";
 import BarraBusquedaNoticias from "../../components/Noticias/molecules/BarraBusquedaNoticias";
@@ -7,47 +6,8 @@ import GridNoticias from "../../components/Noticias/organisms/GridNoticias";
 import Paginacion from "../../components/Shared/molecules/Paginacion";
 
 const Noticias: React.FC = () => {
-  const { noticias, cargando } = useNoticias();
-
-  const [busqueda, setBusqueda] = useState("");
-  const [orden, setOrden] = useState<"asc" | "desc">("desc");
-  const [pagina, setPagina] = useState(1);
-  const porPagina = 9;
-
-  const handleBusqueda = useCallback((v: string) => {
-    setBusqueda(v);
-    setPagina(1);
-  }, []);
-
-  const handleOrden = useCallback((v: string) => {
-    setOrden(v as "asc" | "desc");
-    setPagina(1);
-  }, []);
-
-  const noticiasFiltradas = useMemo(() => {
-    const texto = busqueda.trim().toLowerCase();
-
-    const filtradas = noticias.filter((n) =>
-      n.tituloNoticia.toLowerCase().includes(texto)
-    );
-
-    return filtradas
-      .slice()
-      .sort((a, b) =>
-        orden === "asc"
-          ? a.fechapublicacionNoticia.localeCompare(b.fechapublicacionNoticia)
-          : b.fechapublicacionNoticia.localeCompare(a.fechapublicacionNoticia)
-      );
-  }, [busqueda, orden, noticias]);
-
-  const totalPaginas = Math.max(
-    1,
-    Math.ceil(noticiasFiltradas.length / porPagina)
-  );
-
-  const paginaActual = Math.min(pagina, totalPaginas);
-  const desde = (paginaActual - 1) * porPagina;
-  const visibles = noticiasFiltradas.slice(desde, desde + porPagina);
+  const { noticias, total, page, pages, q, setQ, setPage, cargando, error } =
+    useNoticias();
 
   return (
     <>
@@ -55,42 +15,55 @@ const Noticias: React.FC = () => {
         <title>Noticias - UdlaVerso</title>
         <meta
           name="description"
-          content="Explora las últimas noticias y actualizaciones del UDLAVERSO."
+          content="Explora las últimas noticias y actualizaciones del UdlaVerso."
         />
       </Helmet>
 
       <HeroNoticias />
 
       <section className="max-w-7xl mx-auto px-6 md:px-8 -mt-10 relative z-10">
+        {/* Barra de búsqueda */}
         <BarraBusquedaNoticias
-          valor={busqueda}
-          onChange={handleBusqueda}
-          orden={orden}
-          onOrdenar={handleOrden}
+          total={total}
+          busqueda={q}
+          onBuscar={(v) => {
+            setQ(v);
+            setPage(0);
+          }}
+          orden="desc"
+          onOrdenar={(v) => {
+            console.log("Orden seleccionado:", v);
+          }}
         />
 
+        {/* Contenido principal */}
         {cargando ? (
           <p className="text-center text-udlaverso-gris mt-10">
             Cargando noticias...
           </p>
+        ) : error ? (
+          <p className="text-center text-red-600 mt-10">{error}</p>
         ) : (
-          <GridNoticias
-            noticias={visibles.map((n) => ({
-              id: n.idNoticia,
-              titulo: n.tituloNoticia,
-              descripcion: n.contenidoNoticia,
-              fecha: n.fechapublicacionNoticia,
-              imagen: n.imagenNoticia,
-            }))}
-          />
-        )}
+          <>
+            <GridNoticias
+              noticias={noticias.map((n) => ({
+                id: n.idNoticia,
+                titulo: n.tituloNoticia,
+                descripcion: n.contenidoNoticia,
+                fecha: n.fechapublicacionNoticia,
+                imagen: n.imagenNoticia,
+              }))}
+            />
 
-        <Paginacion
-          pagina={paginaActual}
-          totalPaginas={totalPaginas}
-          onChange={setPagina}
-          ariaLabel="Paginación de noticias"
-        />
+            {/* Paginación del backend */}
+            <Paginacion
+              pagina={page + 1}
+              totalPaginas={pages}
+              onChange={(p) => setPage(p - 1)}
+              ariaLabel="Paginación de noticias"
+            />
+          </>
+        )}
       </section>
     </>
   );

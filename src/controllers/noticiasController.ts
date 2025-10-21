@@ -9,12 +9,12 @@ export const obtenerNoticiaPorTitulo = async (titulo: string) => {
   }
 };
 
-export const obtenerNoticias = async () => {
+export const obtenerNoticias = async (page = 0, size = 5, q = "") => {
   try {
-    return await noticiasService.listarNoticias();
+    return await noticiasService.listarNoticias(page, size, q);
   } catch (error) {
     console.error("Error al obtener noticias:", error);
-    return [];
+    return { content: [], total: 0, page: 0, pages: 0 };
   }
 };
 

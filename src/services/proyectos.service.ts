@@ -41,14 +41,27 @@ export const obtenerProyectoPorNombre = async (
 /**
  * Listar todos los proyectos (usa el tipo Proyecto)
  */
-export const obtenerProyectos = async (): Promise<Proyecto[]> => {
-  const { data } = await api.get("/proyectos");
+export const listarProyectos = async (
+  page = 0,
+  size = 5,
+  q = "",
+  categoria = ""
+): Promise<{
+  content: Proyecto[];
+  total: number;
+  page: number;
+  pages: number;
+}> => {
+  try {
+    const { data } = await api.get("/proyectos", {
+      params: { page, size, q, categoria },
+    });
 
-  // Algunos endpoints devuelven { content: [...] } y otros un array directo
-  const proyectos: any[] = Array.isArray(data) ? data : data.content ?? [];
+    if (!data || !data.content) {
+      throw new Error("Respuesta inválida del servidor");
+    }
 
-  return proyectos.map(
-    (p: any): Proyecto => ({
+    const proyectos: Proyecto[] = data.content.map((p: any) => ({
       idProyecto: p.idProyecto,
       nombreProyecto: p.nombreProyecto,
       descripcioncortaProyecto: p.descripcioncortaProyecto,
@@ -64,8 +77,18 @@ export const obtenerProyectos = async (): Promise<Proyecto[]> => {
       palabrasclaveProyecto: p.palabrasclaveProyecto ?? "",
       visualizacionesProyecto: p.visualizacionesProyecto ?? 0,
       estadoProyecto: p.estadoProyecto ?? 0,
-    })
-  );
+    }));
+
+    return {
+      content: proyectos,
+      total: data.total,
+      page: data.page,
+      pages: data.pages,
+    };
+  } catch (error) {
+    console.error("❌ Error en listarProyectos:", error);
+    throw new Error("Respuesta inválida del servidor");
+  }
 };
 
 /**

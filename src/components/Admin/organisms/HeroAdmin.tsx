@@ -20,7 +20,7 @@ const HeroAdmin: React.FC = () => {
           </h1>
 
           <p className="text-sm text-gray-500">
-            Gestiona proyectos, noticias, comentarios y preguntas frecuentes.
+            Gestiona proyectos, noticias, reseñas y preguntas frecuentes.
           </p>
         </div>
       </div>

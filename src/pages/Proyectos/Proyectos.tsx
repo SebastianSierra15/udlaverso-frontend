@@ -1,18 +1,12 @@
-import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useCategorias } from "../../hooks/useCategorias";
+import { useProyectos } from "../../hooks/useProyectos";
 import HeroProyectos from "../../components/Proyectos/organisms/HeroProyectos";
 import BarraFiltros from "../../components/Proyectos/molecules/BarraFiltros";
 import GridProyectos from "../../components/Proyectos/organisms/GridProyectos";
 import Paginacion from "../../components/Shared/molecules/Paginacion";
-import { useCategorias } from "../../hooks/useCategorias";
-import { useProyectos } from "../../hooks/useProyectos";
 
 const Proyectos: React.FC = () => {
-  const [categoria, setCategoria] = useState("Todas");
-  const [busqueda, setBusqueda] = useState("");
-  const [pagina, setPagina] = useState(1);
-  const porPagina = 9;
-
   const { categorias } = useCategorias();
 
   const opciones = [
@@ -23,34 +17,19 @@ const Proyectos: React.FC = () => {
     })),
   ];
 
-  const { proyectos } = useProyectos();
-
-  const filtrados = useMemo(() => {
-    let base =
-      categoria === "Todas"
-        ? proyectos
-        : proyectos.filter((p) =>
-            p.categoriaNombre?.toLowerCase().includes(categoria.toLowerCase())
-          );
-
-    if (busqueda.trim()) {
-      base = base.filter(
-        (p) =>
-          p.nombreProyecto.toLowerCase().includes(busqueda.toLowerCase()) ||
-          p.descripcioncortaProyecto
-            .toLowerCase()
-            .includes(busqueda.toLowerCase())
-      );
-    }
-
-    return base;
-  }, [categoria, busqueda, proyectos]);
-
-  const totalPaginas = Math.ceil(filtrados.length / porPagina);
-  const visibles = filtrados.slice(
-    (pagina - 1) * porPagina,
-    pagina * porPagina
-  );
+  const {
+    proyectos,
+    total,
+    page,
+    pages,
+    q,
+    categoria,
+    setQ,
+    setCategoria,
+    setPage,
+    loading,
+    error,
+  } = useProyectos();
 
   return (
     <>
@@ -70,24 +49,34 @@ const Proyectos: React.FC = () => {
           seleccion={categoria}
           onChange={(v) => {
             setCategoria(v);
-            setPagina(1);
+            setPage(0);
           }}
-          total={filtrados.length}
-          busqueda={busqueda}
+          total={total}
+          busqueda={q}
           onBuscar={(v) => {
-            setBusqueda(v);
-            setPagina(1);
+            setQ(v);
+            setPage(0);
           }}
         />
 
-        <GridProyectos proyectos={visibles} />
+        {loading ? (
+          <p className="text-center text-gray-500 mt-10">
+            Cargando proyectos...
+          </p>
+        ) : error ? (
+          <p className="text-center text-red-600 mt-10">{error}</p>
+        ) : (
+          <>
+            <GridProyectos proyectos={proyectos} />
 
-        <Paginacion
-          pagina={pagina}
-          totalPaginas={totalPaginas}
-          onChange={setPagina}
-          ariaLabel="Paginación de proyectos"
-        />
+            <Paginacion
+              pagina={page + 1}
+              totalPaginas={pages}
+              onChange={(p) => setPage(p - 1)}
+              ariaLabel="Paginación de proyectos"
+            />
+          </>
+        )}
       </section>
     </>
   );

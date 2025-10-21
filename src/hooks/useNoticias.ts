@@ -4,17 +4,53 @@ import type { Noticia } from "../types/Noticia.type";
 
 export const useNoticias = () => {
   const [noticias, setNoticias] = useState<Noticia[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(0);
+  const [pages, setPages] = useState(0);
+  const [size, setSize] = useState(6);
+  const [q, setQ] = useState("");
   const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const [debouncedQ, setDebouncedQ] = useState(q);
 
   useEffect(() => {
-    const fetchNoticias = async () => {
-      setCargando(true);
-      const data = await obtenerNoticias();
-      setNoticias(data);
-      setCargando(false);
-    };
-    fetchNoticias();
-  }, []);
+    const handler = setTimeout(() => {
+      setDebouncedQ(q);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [q]);
 
-  return { noticias, cargando };
+  const cargarNoticias = async () => {
+    try {
+      setCargando(true);
+      const res = await obtenerNoticias(page, size, debouncedQ);
+      setNoticias(res.content);
+      setTotal(res.total);
+      setPages(res.pages);
+    } catch (err) {
+      console.error(err);
+      setError("Error al cargar las noticias");
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  useEffect(() => {
+    cargarNoticias();
+  }, [page, size, debouncedQ]);
+
+  return {
+    noticias,
+    total,
+    page,
+    pages,
+    size,
+    q,
+    setPage,
+    setSize,
+    setQ,
+    cargando,
+    error,
+  };
 };

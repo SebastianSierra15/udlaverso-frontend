@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SelectorCantidad from "../atoms/SelectorCantidad";
 import ControlPaginacion from "./ControlPaginacion";
 
@@ -14,6 +13,12 @@ type Props<T> = {
   filas: T[];
   vacio?: string;
   nombreEntidad?: string;
+  paginaActual?: number;
+  totalPaginas?: number;
+  totalRegistros?: number;
+  porPagina?: number;
+  onCambioPagina?: (nuevaPagina: number) => void;
+  onCambioCantidad?: (cantidad: number) => void;
 };
 
 function TablaSimple<T extends Record<string, any>>({
@@ -21,31 +26,23 @@ function TablaSimple<T extends Record<string, any>>({
   filas,
   vacio = "Sin registros",
   nombreEntidad = "registros",
+  paginaActual = 1,
+  totalPaginas = 1,
+  totalRegistros = 0,
+  porPagina = 5,
+  onCambioPagina,
+  onCambioCantidad,
 }: Props<T>) {
-  const [pagina, setPagina] = useState(1);
-  const [porPagina, setPorPagina] = useState(5);
-
-  const totalPaginas = Math.ceil(filas.length / porPagina);
-  const filasPaginadas = filas.slice(
-    (pagina - 1) * porPagina,
-    pagina * porPagina
-  );
-
-  const cambiarPagina = (nuevaPagina: number) => {
-    if (nuevaPagina >= 1 && nuevaPagina <= totalPaginas) setPagina(nuevaPagina);
-  };
-
   return (
     <div className="overflow-x-auto border rounded-xl bg-white">
       <div className="flex items-center justify-between px-4 py-2 border-b bg-gray-50 flex-wrap gap-3">
-        <SelectorCantidad
-          valor={porPagina}
-          onChange={(v) => {
-            setPorPagina(v);
-            setPagina(1);
-          }}
-          nombreEntidad={nombreEntidad}
-        />
+        {onCambioCantidad && (
+          <SelectorCantidad
+            valor={porPagina}
+            onChange={onCambioCantidad}
+            nombreEntidad={nombreEntidad}
+          />
+        )}
       </div>
 
       <table className="min-w-full text-sm">
@@ -75,7 +72,7 @@ function TablaSimple<T extends Record<string, any>>({
             </tr>
           )}
 
-          {filasPaginadas.map((fila, i) => (
+          {filas.map((fila, i) => (
             <tr key={i} className="border-t hover:bg-gray-50">
               {columnas.map((col, j) => (
                 <td
@@ -94,15 +91,17 @@ function TablaSimple<T extends Record<string, any>>({
         </tbody>
       </table>
 
-      <ControlPaginacion
-        pagina={pagina}
-        totalPaginas={totalPaginas}
-        onCambioPagina={cambiarPagina}
-        desde={(pagina - 1) * porPagina + 1}
-        hasta={Math.min(pagina * porPagina, filas.length)}
-        total={filas.length}
-        nombreEntidad={nombreEntidad}
-      />
+      {onCambioPagina && (
+        <ControlPaginacion
+          pagina={paginaActual}
+          totalPaginas={totalPaginas}
+          onCambioPagina={onCambioPagina}
+          desde={(paginaActual - 1) * porPagina + 1}
+          hasta={Math.min(paginaActual * porPagina, totalRegistros)}
+          total={totalRegistros}
+          nombreEntidad={nombreEntidad}
+        />
+      )}
     </div>
   );
 }

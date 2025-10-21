@@ -1,6 +1,6 @@
 import {
   obtenerProyectoPorNombre,
-  obtenerProyectos,
+  listarProyectos as listarProyectosService,
   listarProyectosMasVistos,
   crearProyectoService,
 } from "../services/proyectos.service";
@@ -30,25 +30,28 @@ export const obtenerProyectoPorNombreController = async (
   }
 };
 
-export const listarProyectos = async (): Promise<Proyecto[]> => {
+export const listarProyectos = async (
+  page = 0,
+  size = 5,
+  q = "",
+  categoria = ""
+): Promise<{
+  content: Proyecto[];
+  total: number;
+  page: number;
+  pages: number;
+}> => {
   try {
-    const proyectos = await obtenerProyectos();
+    const data = await listarProyectosService(page, size, q, categoria);
 
-    if (!Array.isArray(proyectos)) {
+    if (!data || !Array.isArray(data.content)) {
       throw new Error("Respuesta inválida del servidor");
     }
 
-    return proyectos;
-  } catch (error: unknown) {
-    const err = error as ApiError;
+    return data;
+  } catch (error: any) {
     console.error("❌ Error en listarProyectos:", error);
-
-    if (err.response?.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
-    }
-
-    return [];
+    return { content: [], total: 0, page: 0, pages: 0 };
   }
 };
 

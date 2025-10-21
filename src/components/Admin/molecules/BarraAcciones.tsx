@@ -5,12 +5,14 @@ type Props = {
   onNuevo?: () => void;
   onBuscar: (v: string) => void;
   placeholder?: string;
+  valor?: string;
 };
 
 const BarraAcciones: React.FC<Props> = ({
   onNuevo,
   onBuscar,
   placeholder = "Buscar...",
+  valor = "",
 }) => {
   const navigate = useNavigate();
 
@@ -24,6 +26,7 @@ const BarraAcciones: React.FC<Props> = ({
       <div className="flex-1">
         <input
           type="text"
+          value={valor}
           onChange={(e) => onBuscar(e.target.value)}
           placeholder={placeholder}
           className="w-full px-3 py-2 border rounded-md text-sm focus:ring-2 focus:ring-udlaverso-verde outline-none"

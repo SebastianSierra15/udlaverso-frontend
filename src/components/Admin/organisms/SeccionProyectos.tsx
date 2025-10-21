@@ -21,59 +21,61 @@ type FilaProyecto = {
 };
 
 const SeccionProyectos: React.FC = () => {
-  const [q, setQ] = useState("");
   const [proyectoSeleccionado, setProyectoSeleccionado] =
     useState<FilaProyecto | null>(null);
 
-  const { proyectos, loading, error } = useProyectos();
+  const {
+    proyectos,
+    total,
+    page,
+    pages,
+    size,
+    q,
+    setPage,
+    setSize,
+    setQ,
+    loading,
+    error,
+  } = useProyectos();
 
   const filas = useMemo(() => {
-    return proyectos
-      .filter((p) => {
-        const nombre = p.nombreProyecto?.toLowerCase() || "";
-        const categoria = p.categoriaNombre?.toLowerCase() || ""; // ✅ aquí cambia
-        return (
-          nombre.includes(q.toLowerCase()) ||
-          categoria.includes(q.toLowerCase())
-        );
-      })
-      .map((p) => ({
-        nombre: p.nombreProyecto || "Sin nombre",
-        categoria: p.categoriaNombre || "Sin categoría",
-        autor: p.autorProyecto || "Desconocido",
-        estado: p.estadoProyecto === 1 ? "activo" : "inactivo",
-        visitas: Number(p.visualizacionesProyecto) || 0,
-        acciones: [
-          {
-            icono: <FaEye className="w-4 h-4" />,
-            color: "text-green-600 hover:text-green-700",
-            titulo: "Ver proyecto",
-            onClick: () =>
-              setProyectoSeleccionado({
-                nombre: p.nombreProyecto || "Sin nombre",
-                categoria: p.categoriaNombre || "Sin categoría",
-                autor: p.autorProyecto || "Desconocido",
-                estado: p.estadoProyecto === 1 ? "activo" : "inactivo",
-                visitas: Number(p.visualizacionesProyecto) || 0,
-              }),
-          },
-          {
-            icono: <FaEdit className="w-4 h-4" />,
-            color: "text-blue-600 hover:text-blue-700",
-            titulo: "Editar proyecto",
-            onClick: () =>
-              alert(`Editar proyecto: ${p.nombreProyecto || "Sin nombre"}`),
-          },
-          {
-            icono: <FaTrash className="w-4 h-4" />,
-            color: "text-red-600 hover:text-red-700",
-            titulo: "Eliminar proyecto",
-            onClick: () =>
-              alert(`Eliminar proyecto: ${p.nombreProyecto || "Sin nombre"}`),
-          },
-        ],
-      }));
-  }, [proyectos, q]);
+    return proyectos.map((p) => ({
+      nombre: p.nombreProyecto || "Sin nombre",
+      categoria: p.categoriaNombre || "Sin categoría",
+      autor: p.autorProyecto || "Desconocido",
+      estado: p.estadoProyecto === 1 ? "activo" : "inactivo",
+      visitas: Number(p.visualizacionesProyecto) || 0,
+      acciones: [
+        {
+          icono: <FaEye className="w-4 h-4" />,
+          color: "text-green-600 hover:text-green-700",
+          titulo: "Ver proyecto",
+          onClick: () =>
+            setProyectoSeleccionado({
+              nombre: p.nombreProyecto || "Sin nombre",
+              categoria: p.categoriaNombre || "Sin categoría",
+              autor: p.autorProyecto || "Desconocido",
+              estado: p.estadoProyecto === 1 ? "activo" : "inactivo",
+              visitas: Number(p.visualizacionesProyecto) || 0,
+            }),
+        },
+        {
+          icono: <FaEdit className="w-4 h-4" />,
+          color: "text-blue-600 hover:text-blue-700",
+          titulo: "Editar proyecto",
+          onClick: () =>
+            alert(`Editar proyecto: ${p.nombreProyecto || "Sin nombre"}`),
+        },
+        {
+          icono: <FaTrash className="w-4 h-4" />,
+          color: "text-red-600 hover:text-red-700",
+          titulo: "Eliminar proyecto",
+          onClick: () =>
+            alert(`Eliminar proyecto: ${p.nombreProyecto || "Sin nombre"}`),
+        },
+      ],
+    }));
+  }, [proyectos]);
 
   const columnas = [
     { id: "nombre", titulo: "Proyecto" },
@@ -124,6 +126,7 @@ const SeccionProyectos: React.FC = () => {
         <BarraAcciones
           onNuevo={() => alert("Nuevo proyecto")}
           onBuscar={setQ}
+          valor={q}
           placeholder="Buscar proyecto..."
         />
       </div>
@@ -133,6 +136,12 @@ const SeccionProyectos: React.FC = () => {
         columnas={columnas as any}
         filas={filas}
         nombreEntidad="proyectos"
+        paginaActual={page + 1}
+        totalPaginas={pages}
+        totalRegistros={total}
+        porPagina={size}
+        onCambioPagina={(nueva) => setPage(nueva - 1)}
+        onCambioCantidad={(nueva) => setSize(nueva)}
       />
 
       {/* Modal de vista rápida */}
