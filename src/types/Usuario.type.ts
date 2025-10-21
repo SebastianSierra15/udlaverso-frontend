@@ -1,12 +1,5 @@
-export interface Permiso {
-  idPermiso?: number;
-  nombrePermiso: string;
-}
-
-export interface Rol {
-  idRol: number;
-  nombreRol: string;
-}
+import type { Rol } from "./Rol.type";
+import type { Permiso } from "./Permiso.type";
 
 export interface Usuario {
   idUsuario?: number;

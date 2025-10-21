@@ -77,8 +77,13 @@ function TablaSimple<T extends Record<string, any>>({
 
           {filasPaginadas.map((fila, i) => (
             <tr key={i} className="border-t hover:bg-gray-50">
-              {columnas.map((col) => (
-                <td key={String(col.id)} className="px-4 py-3 align-middle">
+              {columnas.map((col, j) => (
+                <td
+                  key={String(col.id)}
+                  className={`px-4 py-3 align-middle ${
+                    j === 0 ? "font-semibold text-udlaverso-negro" : ""
+                  }`}
+                >
                   {col.render
                     ? col.render(fila)
                     : (fila[col.id] as React.ReactNode)}

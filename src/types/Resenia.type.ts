@@ -1,8 +1,8 @@
 export interface Resenia {
   idResenia: number;
-  valoracion: number;
-  comentario: string;
-  fecha: string;
+  valoracionResenia: number;
+  comentarioResenia: string;
+  fechaResenia: string;
   usuarioNombres: string;
   usuarioApellidos: string;
 }

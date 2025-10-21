@@ -6,21 +6,48 @@ import {
   FaNewspaper,
   FaQuestionCircle,
 } from "react-icons/fa";
+import { useAuth } from "../../../hooks/useAuth";
 
 const enlaces = [
-  { to: "/admin", label: "Métricas", icon: <FaChartPie /> },
-  { to: "/admin/proyectos", label: "Proyectos", icon: <FaCube /> },
-  { to: "/admin/resenias", label: "Reseñas", icon: <FaComments /> },
-  { to: "/admin/noticias", label: "Noticias", icon: <FaNewspaper /> },
+  {
+    to: "/admin",
+    label: "Métricas",
+    icon: <FaChartPie />,
+    permiso: "ver_panel_admin",
+  },
+  {
+    to: "/admin/proyectos",
+    label: "Proyectos",
+    icon: <FaCube />,
+    permiso: "ver_proyectos",
+  },
+  {
+    to: "/admin/resenias",
+    label: "Reseñas",
+    icon: <FaComments />,
+    permiso: "moderar_reseñas",
+  },
+  {
+    to: "/admin/noticias",
+    label: "Noticias",
+    icon: <FaNewspaper />,
+    permiso: "ver_noticias",
+  },
   {
     to: "/admin/preguntas-frecuentes",
     label: "Preguntas frecuentes",
     icon: <FaQuestionCircle />,
+    permiso: "gestionar_faq",
   },
 ];
 
 const SidebarAdmin: React.FC = () => {
   const location = useLocation();
+  const { user } = useAuth();
+
+  const enlacesVisibles = enlaces.filter((e) =>
+    user?.permisos?.some((p) => p.nombrePermiso === e.permiso)
+  );
 
   return (
     <aside className="w-full md:w-64 shrink-0">
@@ -30,7 +57,7 @@ const SidebarAdmin: React.FC = () => {
         </h3>
 
         <ul className="space-y-1">
-          {enlaces.map((e) => {
+          {enlacesVisibles.map((e) => {
             const isActive =
               e.to === "/admin"
                 ? location.pathname === "/admin"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { listarProyectos } from "../controllers/proyectosController";
-import type { Proyecto } from "../types/Proyecto";
+import type { Proyecto } from "../types/Proyecto.type";
 
 export const useProyectos = () => {
   const [proyectos, setProyectos] = useState<Proyecto[]>([]);

@@ -1,5 +1,5 @@
 import api from "./api";
-import type { Noticia } from "../types/Noticia";
+import type { Noticia } from "../types/Noticia.type";
 
 export const obtenerNoticiaPorTitulo = async (
   titulo: string

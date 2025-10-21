@@ -97,7 +97,7 @@ function App() {
           <Route
             path="proyectos/nuevo-proyecto"
             element={
-              <RutaProtegida permisosRequeridos={["crear_proyecto"]}>
+              <RutaProtegida permisosRequeridos={["crear_proyectos"]}>
                 <AdminNuevoProyecto />
               </RutaProtegida>
             }

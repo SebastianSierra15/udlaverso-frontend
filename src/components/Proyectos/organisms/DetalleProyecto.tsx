@@ -1,4 +1,4 @@
-import type { Proyecto } from "../../../types/Proyecto";
+import type { Proyecto } from "../../../types/Proyecto.type";
 import TituloAccionProyecto from "../molecules/TituloAccionProyecto";
 import CategoriaSocialProyecto from "../molecules/CategoriaSocialProyecto";
 import EstrellasValoracion from "../molecules/EstrellasValoracion";
@@ -12,49 +12,56 @@ type Props = Proyecto & {
 };
 
 const DetalleProyecto: React.FC<Props> = ({
-  nombre,
-  categoria,
+  nombreProyecto,
+  categoriaNombre,
   promedio,
-  visualizaciones,
-  autor,
-  herramientas,
-  fechaCreacion,
-  descripcionCorta,
-  descripcionLarga,
-  objetivo,
-  video,
-  palabrasClave,
-  imagenes,
-  resenias = [],
+  visualizacionesProyecto,
+  autorProyecto,
+  herramientasProyecto,
+  fechacreacionProyecto,
+  descripcioncortaProyecto,
+  descripcionlargaProyecto,
+  objetivoProyecto,
+  videoProyecto,
+  palabrasclaveProyecto,
+  imagenesProyecto,
+  reseniasProyecto = [],
   linkProyecto,
 }) => {
   return (
     <section className="max-w-7xl mx-auto px-6 md:px-10 py-10 bg-white rounded-2xl shadow-sm -mt-10 relative z-10">
-      <TituloAccionProyecto titulo={nombre} linkProyecto={linkProyecto} />
+      <TituloAccionProyecto
+        titulo={nombreProyecto}
+        linkProyecto={linkProyecto}
+      />
       <CategoriaSocialProyecto
-        categoria={categoria ?? "General"}
-        titulo={nombre}
+        categoria={categoriaNombre ?? "General"}
+        titulo={nombreProyecto}
       />
 
       <div className="flex items-center gap-2 mt-2">
         <EstrellasValoracion valor={promedio} interactiva={false} />
-        <ContadorVisitas visitas={Number(visualizaciones) || 0} />
+        <ContadorVisitas visitas={Number(visualizacionesProyecto) || 0} />
       </div>
 
       <ContenidoProyecto
-        titulo={nombre}
-        autor={autor}
-        fecha={fechaCreacion ?? ""}
-        tecnologias={herramientas?.split(",").map((h) => h.trim()) ?? []}
-        descripcionCorta={descripcionCorta}
-        descripcionLarga={descripcionLarga}
-        objetivos={objetivo}
-        palabrasClave={palabrasClave?.split(",").map((p) => p.trim()) ?? []}
-        imagenes={imagenes ?? []}
-        video={video ?? ""}
+        titulo={nombreProyecto}
+        autor={autorProyecto}
+        fecha={fechacreacionProyecto ?? ""}
+        tecnologias={
+          herramientasProyecto?.split(",").map((h) => h.trim()) ?? []
+        }
+        descripcionCorta={descripcioncortaProyecto}
+        descripcionLarga={descripcionlargaProyecto}
+        objetivos={objetivoProyecto}
+        palabrasClave={
+          palabrasclaveProyecto?.split(",").map((p) => p.trim()) ?? []
+        }
+        imagenes={imagenesProyecto ?? []}
+        video={videoProyecto ?? ""}
       />
 
-      <ReseniasProyecto resenias={resenias} />
+      <ReseniasProyecto resenias={reseniasProyecto} />
     </section>
   );
 };

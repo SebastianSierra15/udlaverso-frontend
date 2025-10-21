@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { obtenerProyectosMasVistos } from "../controllers/proyectosController";
-import type { Proyecto } from "../types/Proyecto";
+import type { Proyecto } from "../types/Proyecto.type";
 
 export const useProyectosMasVistos = (limite = 10) => {
   const [proyectos, setProyectos] = useState<Proyecto[]>([]);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCrearProyecto } from "../../../hooks/useCrearProyectos";
 import { useCategorias } from "../../../hooks/useCategorias";
-import type { ProyectoData } from "../../../types/Proyecto";
+import type { ProyectoData } from "../../../types/Proyecto.type";
 import Stepper from "../../../components/Admin/molecules/Stepper";
 import PasoDatosBasicos from "../../../components/Admin/organisms/PasoDatosBasicos";
 import PasoContenido from "../../../components/Admin/organisms/PasoContenido";
@@ -126,7 +126,7 @@ const AdminNuevoProyecto = () => {
 
       const nuevoProyecto = await crearProyecto(data);
       mostrarAlerta(
-        `Proyecto creado con éxito (ID: ${nuevoProyecto.id})`,
+        `Proyecto creado con éxito (ID: ${nuevoProyecto.idProyecto})`,
         "success"
       );
     } catch (error) {

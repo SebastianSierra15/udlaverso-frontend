@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { crearProyectoController } from "../controllers/proyectosController";
-import type { Proyecto, ProyectoData } from "../types/Proyecto";
+import type { Proyecto, ProyectoData } from "../types/Proyecto.type";
 
 export const useCrearProyecto = () => {
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { obtenerNoticias } from "../controllers/noticiasController";
-import type { Noticia } from "../types/Noticia";
+import type { Noticia } from "../types/Noticia.type";
 
 export const useNoticias = () => {
   const [noticias, setNoticias] = useState<Noticia[]>([]);

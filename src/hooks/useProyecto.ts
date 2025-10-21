@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Proyecto } from "../types/Proyecto";
+import type { Proyecto } from "../types/Proyecto.type";
 import { obtenerProyectoPorNombreController } from "../controllers/proyectosController";
 
 export const useProyecto = (nombre?: string) => {

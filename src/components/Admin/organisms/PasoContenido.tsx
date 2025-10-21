@@ -2,7 +2,7 @@ import React from "react";
 import SelectorOpciones from "../molecules/SelectorOpciones";
 import EditorTexto from "../molecules/EditorTexto";
 import CampoEtiquetas from "../molecules/CampoEtiquetas";
-import type { Categoria } from "../../../types/Categoria";
+import type { Categoria } from "../../../types/Categoria.type";
 
 interface Props {
   data: {
@@ -28,7 +28,7 @@ const PasoContenido: React.FC<Props> = ({
     onChange({ ...data, [campo]: valor });
   };
 
-  const opcionesCategorias = categorias.map((cat) => cat.nombre);
+  const opcionesCategorias = categorias.map((cat) => cat.nombreCategoria);
 
   return (
     <div className="space-y-5">

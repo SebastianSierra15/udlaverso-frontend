@@ -17,7 +17,10 @@ const Proyectos: React.FC = () => {
 
   const opciones = [
     "Todas",
-    ...categorias.map((c) => ({ id: c.id, nombre: c.nombre })),
+    ...categorias.map((c) => ({
+      id: c.idCategoria,
+      nombre: c.nombreCategoria,
+    })),
   ];
 
   const { proyectos } = useProyectos();
@@ -27,14 +30,16 @@ const Proyectos: React.FC = () => {
       categoria === "Todas"
         ? proyectos
         : proyectos.filter((p) =>
-            p.categoria?.toLowerCase().includes(categoria.toLowerCase())
+            p.categoriaNombre?.toLowerCase().includes(categoria.toLowerCase())
           );
 
     if (busqueda.trim()) {
       base = base.filter(
         (p) =>
-          p.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-          p.descripcionCorta.toLowerCase().includes(busqueda.toLowerCase())
+          p.nombreProyecto.toLowerCase().includes(busqueda.toLowerCase()) ||
+          p.descripcioncortaProyecto
+            .toLowerCase()
+            .includes(busqueda.toLowerCase())
       );
     }
 

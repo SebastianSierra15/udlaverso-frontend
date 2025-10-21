@@ -1,4 +1,4 @@
-import type { Proyecto } from "../../../types/Proyecto";
+import type { Proyecto } from "../../../types/Proyecto.type";
 import DetalleProyecto from "../organisms/DetalleProyecto";
 
 interface Props {

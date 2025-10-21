@@ -1,5 +1,5 @@
 import { obtenerCategorias } from "../services/categorias.service";
-import type { Categoria } from "../types/Categoria";
+import type { Categoria } from "../types/Categoria.type";
 
 export const listarCategorias = async (): Promise<Categoria[]> => {
   try {

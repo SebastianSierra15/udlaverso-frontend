@@ -77,9 +77,9 @@ const SelectorOpciones: React.FC<Props> = ({
       >
         <option value="">{placeholder}</option>
         {opciones
-          .filter((o) => !seleccionadas.includes(o))
-          .map((o) => (
-            <option key={o} value={o}>
+          .filter((o) => o && !seleccionadas.includes(o))
+          .map((o, index) => (
+            <option key={`${o}-${index}`} value={o}>
               {o}
             </option>
           ))}

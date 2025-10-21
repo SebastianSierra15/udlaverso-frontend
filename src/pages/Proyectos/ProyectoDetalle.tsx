@@ -27,23 +27,28 @@ const ProyectoDetalle: React.FC = () => {
     );
 
   const promedio =
-    proyecto.resenias && proyecto.resenias.length > 0
-      ? proyecto.resenias.reduce((sum, r) => sum + (r.valoracion ?? 0), 0) /
-        proyecto.resenias.length
+    proyecto.reseniasProyecto && proyecto.reseniasProyecto.length > 0
+      ? proyecto.reseniasProyecto.reduce(
+          (sum, r) => sum + (r.valoracionResenia ?? 0),
+          0
+        ) / proyecto.reseniasProyecto.length
       : 0;
 
   return (
     <>
       <>
         <Helmet>
-          <title>{proyecto.nombre} - UdlaVerso</title>
-          <meta name="description" content={proyecto.descripcionCorta} />
+          <title>{proyecto.nombreProyecto} - UdlaVerso</title>
+          <meta
+            name="description"
+            content={proyecto.descripcioncortaProyecto}
+          />
         </Helmet>
 
         <HeroProyectoIndividual
-          titulo={proyecto.nombre}
-          descripcion={proyecto.objetivo}
-          imagenFondo={proyecto.imagenes?.[0]}
+          titulo={proyecto.nombreProyecto}
+          descripcion={proyecto.objetivoProyecto}
+          imagenFondo={proyecto.imagenesProyecto?.[0]}
         />
 
         <DetalleProyecto {...proyecto} promedio={promedio} linkProyecto="#" />

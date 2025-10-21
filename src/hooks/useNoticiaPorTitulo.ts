@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { obtenerNoticiaPorTitulo } from "../controllers/noticiasController";
-import type { Noticia } from "../types/Noticia";
+import type { Noticia } from "../types/Noticia.type";
 
 export const useNoticiaPorTitulo = (titulo: string) => {
   const [noticia, setNoticia] = useState<Noticia | null>(null);

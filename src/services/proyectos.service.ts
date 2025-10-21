@@ -1,6 +1,9 @@
 import api from "./api";
-import type { Proyecto, ProyectoData } from "../types/Proyecto";
+import type { Proyecto, ProyectoData } from "../types/Proyecto.type";
 
+/**
+ * Obtener proyecto por nombre
+ */
 export const obtenerProyectoPorNombre = async (
   nombre: string
 ): Promise<Proyecto> => {
@@ -8,20 +11,21 @@ export const obtenerProyectoPorNombre = async (
   const { data } = await api.get(`/proyectos/nombre/${encoded}`);
 
   return {
-    id: data.idProyecto,
-    nombre: data.nombreProyecto,
-    descripcionCorta: data.descripcioncortaProyecto,
-    descripcionLarga: data.descripcionlargaProyecto,
-    objetivo: data.objetivoProyecto,
-    autor: data.autorProyecto,
-    video: data.videoProyecto,
-    fechaCreacion: data.fechacreacionProyecto,
-    categoria: data.categoriaNombre ?? "Sin categoría",
-    imagenes: data.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
-    herramientas: data.herramientasProyecto ?? "",
-    palabrasClave: data.palabrasclaveProyecto ?? "",
-    visualizaciones: data.visualizacionesProyecto ?? "",
-    resenias:
+    idProyecto: data.idProyecto,
+    nombreProyecto: data.nombreProyecto,
+    descripcioncortaProyecto: data.descripcioncortaProyecto,
+    descripcionlargaProyecto: data.descripcionlargaProyecto,
+    objetivoProyecto: data.objetivoProyecto,
+    autorProyecto: data.autorProyecto,
+    videoProyecto: data.videoProyecto,
+    fechacreacionProyecto: data.fechacreacionProyecto,
+    categoriaNombre: data.categoriaNombre ?? "Sin categoría",
+    imagenesProyecto:
+      data.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
+    herramientasProyecto: data.herramientasProyecto ?? "",
+    palabrasclaveProyecto: data.palabrasclaveProyecto ?? "",
+    visualizacionesProyecto: data.visualizacionesProyecto ?? 0,
+    reseniasProyecto:
       data.resenias?.map((r: any) => ({
         idResenia: r.idResenia,
         valoracion: r.valoracionResenia,
@@ -30,50 +34,77 @@ export const obtenerProyectoPorNombre = async (
         usuarioApellidos: r.usuarioApellidos,
         fechaResenia: r.fechaResenia,
       })) ?? [],
+    estadoProyecto: data.estadoProyecto ?? 0,
   };
 };
 
+/**
+ * Listar todos los proyectos (usa el tipo Proyecto)
+ */
 export const obtenerProyectos = async (): Promise<Proyecto[]> => {
   const { data } = await api.get("/proyectos");
 
-  const proyectos = Array.isArray(data) ? data : data.content ?? [];
+  // Algunos endpoints devuelven { content: [...] } y otros un array directo
+  const proyectos: any[] = Array.isArray(data) ? data : data.content ?? [];
 
-  return proyectos.map((p: any) => ({
-    id: p.idProyecto,
-    nombre: p.nombreProyecto,
-    descripcionCorta: p.descripcioncortaProyecto,
-    descripcionLarga: p.descripcionlargaProyecto,
-    objetivo: p.objetivoProyecto,
-    autor: p.autorProyecto,
-    video: p.videoProyecto,
-    fechaCreacion: p.fechacreacionProyecto,
-    categoria: p.categoriaNombre ?? "Sin categoría",
-    imagenes: p.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
-  }));
+  return proyectos.map(
+    (p: any): Proyecto => ({
+      idProyecto: p.idProyecto,
+      nombreProyecto: p.nombreProyecto,
+      descripcioncortaProyecto: p.descripcioncortaProyecto,
+      descripcionlargaProyecto: p.descripcionlargaProyecto,
+      objetivoProyecto: p.objetivoProyecto,
+      autorProyecto: p.autorProyecto,
+      videoProyecto: p.videoProyecto,
+      fechacreacionProyecto: p.fechacreacionProyecto,
+      categoriaNombre: p.categoriaNombre ?? "Sin categoría",
+      imagenesProyecto:
+        p.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
+      herramientasProyecto: p.herramientasProyecto ?? "",
+      palabrasclaveProyecto: p.palabrasclaveProyecto ?? "",
+      visualizacionesProyecto: p.visualizacionesProyecto ?? 0,
+      estadoProyecto: p.estadoProyecto ?? 0,
+    })
+  );
 };
 
+/**
+ * Listar proyectos más vistos
+ */
 export const listarProyectosMasVistos = async (
   limite = 10
 ): Promise<Proyecto[]> => {
   const { data } = await api.get(`/proyectos/mas-vistos?limite=${limite}`);
 
-  const proyectos = Array.isArray(data) ? data : data.content ?? [];
+  const proyectos: any[] = Array.isArray(data) ? data : data.content ?? [];
 
-  return proyectos.map((p: any) => ({
-    id: p.idProyecto,
-    nombre: p.nombreProyecto,
-    descripcionCorta: p.descripcioncortaProyecto,
-    descripcionLarga: p.descripcionlargaProyecto,
-    objetivo: p.objetivoProyecto,
-    autor: p.autorProyecto,
-    video: p.videoProyecto,
-    fechaCreacion: p.fechacreacionProyecto,
-    categoria: p.categoriaNombre ?? "Sin categoría",
-    imagenes: p.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
-  }));
+  return proyectos.map(
+    (p: any): Proyecto => ({
+      idProyecto: p.idProyecto,
+      nombreProyecto: p.nombreProyecto,
+      descripcioncortaProyecto: p.descripcioncortaProyecto,
+      descripcionlargaProyecto: p.descripcionlargaProyecto,
+      objetivoProyecto: p.objetivoProyecto,
+      autorProyecto: p.autorProyecto,
+      videoProyecto: p.videoProyecto,
+      fechacreacionProyecto: p.fechacreacionProyecto,
+      categoriaNombre: p.categoriaNombre ?? "Sin categoría",
+      imagenesProyecto:
+        p.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
+      herramientasProyecto: p.herramientasProyecto ?? "",
+      palabrasclaveProyecto: p.palabrasclaveProyecto ?? "",
+      visualizacionesProyecto: p.visualizacionesProyecto ?? 0,
+      estadoProyecto: p.estadoProyecto ?? 0,
+    })
+  );
 };
 
-export const crearProyectoService = async (proyecto: ProyectoData) => {
+/**
+ * Crear nuevo proyecto
+ */
+export const crearProyectoService = async (
+  proyecto: ProyectoData
+): Promise<Proyecto> => {
   const { data } = await api.post("/proyectos", proyecto);
   return data;
 };

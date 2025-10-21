@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Resenia } from "../../../types/Resenia";
+import type { Resenia } from "../../../types/Resenia.type";
 import TarjetaResenia from "../molecules/TarjetaResenia";
 import ModalResenia from "../molecules/ModalResenia";
 import Boton from "../../Shared/atoms/Boton";
@@ -23,9 +23,9 @@ const ReseniasProyecto: React.FC<Props> = ({
   ) => {
     const nueva: Resenia = {
       idResenia: Date.now(),
-      valoracion: estrellas,
-      comentario,
-      fecha: new Date().toLocaleDateString("es-ES", {
+      valoracionResenia: estrellas,
+      comentarioResenia: comentario,
+      fechaResenia: new Date().toLocaleDateString("es-ES", {
         day: "numeric",
         month: "long",
         year: "numeric",
@@ -69,9 +69,9 @@ const ReseniasProyecto: React.FC<Props> = ({
             <TarjetaResenia
               key={r.idResenia}
               usuario={`${r.usuarioNombres} ${r.usuarioApellidos ?? ""}`.trim()}
-              comentario={r.comentario}
-              estrellas={r.valoracion}
-              fecha={new Date(r.fecha).toLocaleDateString("es-ES", {
+              comentario={r.comentarioResenia}
+              estrellas={r.valoracionResenia}
+              fecha={new Date(r.fechaResenia).toLocaleDateString("es-ES", {
                 day: "numeric",
                 month: "long",
                 year: "numeric",

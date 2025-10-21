@@ -4,7 +4,7 @@ import {
   listarProyectosMasVistos,
   crearProyectoService,
 } from "../services/proyectos.service";
-import type { Proyecto, ProyectoData } from "../types/Proyecto";
+import type { Proyecto, ProyectoData } from "../types/Proyecto.type";
 
 export const obtenerProyectoPorNombreController = async (
   nombre: string

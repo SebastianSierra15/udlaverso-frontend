@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { loginService } from "../services/auth.service";
-import type { Usuario } from "../types/Usuario";
+import type { Usuario } from "../types/Usuario.type";
 
 export const useAuth = () => {
   const [user, setUser] = useState<Usuario | null>(null);

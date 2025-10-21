@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { listarCategorias } from "../controllers/categoriaController";
-import type { Categoria } from "../types/Categoria";
+import type { Categoria } from "../types/Categoria.type";
 
 export const useCategorias = () => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import { useProyectos } from "../../../hooks/useProyectos";
 import TablaSimple from "../molecules/TablaSimple";
 import BarraAcciones from "../molecules/BarraAcciones";
 import InsigniaEstado from "../atoms/InsigniaEstado";
@@ -19,68 +20,60 @@ type FilaProyecto = {
   }[];
 };
 
-const mock: FilaProyecto[] = [
-  {
-    nombre: "Isla Biodiversidad",
-    categoria: "RA",
-    autor: "Equipo A",
-    estado: "activo",
-    visitas: 321,
-  },
-  {
-    nombre: "Laboratorio IoT",
-    categoria: "IoT",
-    autor: "Equipo B",
-    estado: "activo",
-    visitas: 87,
-  },
-  {
-    nombre: "Events 3D",
-    categoria: "Eventos",
-    autor: "Equipo C",
-    estado: "inactivo",
-    visitas: 12,
-  },
-];
-
 const SeccionProyectos: React.FC = () => {
   const [q, setQ] = useState("");
   const [proyectoSeleccionado, setProyectoSeleccionado] =
     useState<FilaProyecto | null>(null);
 
-  const filas = useMemo(
-    () =>
-      mock
-        .filter(
-          (f) =>
-            f.nombre.toLowerCase().includes(q.toLowerCase()) ||
-            f.categoria.toLowerCase().includes(q.toLowerCase())
-        )
-        .map((f) => ({
-          ...f,
-          acciones: [
-            {
-              icono: <FaEye className="w-4 h-4" />,
-              color: "text-green-600 hover:text-green-700",
-              titulo: "Ver proyecto",
-              onClick: () => setProyectoSeleccionado(f),
-            },
-            {
-              icono: <FaEdit className="w-4 h-4" />,
-              color: "text-blue-600 hover:text-blue-700",
-              titulo: "Editar proyecto",
-              onClick: () => alert(`Editar proyecto: ${f.nombre}`),
-            },
-            {
-              icono: <FaTrash className="w-4 h-4" />,
-              color: "text-red-600 hover:text-red-700",
-              titulo: "Eliminar proyecto",
-              onClick: () => alert(`Eliminar proyecto: ${f.nombre}`),
-            },
-          ],
-        })),
-    [q]
-  );
+  const { proyectos, loading, error } = useProyectos();
+
+  const filas = useMemo(() => {
+    return proyectos
+      .filter((p) => {
+        const nombre = p.nombreProyecto?.toLowerCase() || "";
+        const categoria = p.categoriaNombre?.toLowerCase() || ""; // ✅ aquí cambia
+        return (
+          nombre.includes(q.toLowerCase()) ||
+          categoria.includes(q.toLowerCase())
+        );
+      })
+      .map((p) => ({
+        nombre: p.nombreProyecto || "Sin nombre",
+        categoria: p.categoriaNombre || "Sin categoría",
+        autor: p.autorProyecto || "Desconocido",
+        estado: p.estadoProyecto === 1 ? "activo" : "inactivo",
+        visitas: Number(p.visualizacionesProyecto) || 0,
+        acciones: [
+          {
+            icono: <FaEye className="w-4 h-4" />,
+            color: "text-green-600 hover:text-green-700",
+            titulo: "Ver proyecto",
+            onClick: () =>
+              setProyectoSeleccionado({
+                nombre: p.nombreProyecto || "Sin nombre",
+                categoria: p.categoriaNombre || "Sin categoría",
+                autor: p.autorProyecto || "Desconocido",
+                estado: p.estadoProyecto === 1 ? "activo" : "inactivo",
+                visitas: Number(p.visualizacionesProyecto) || 0,
+              }),
+          },
+          {
+            icono: <FaEdit className="w-4 h-4" />,
+            color: "text-blue-600 hover:text-blue-700",
+            titulo: "Editar proyecto",
+            onClick: () =>
+              alert(`Editar proyecto: ${p.nombreProyecto || "Sin nombre"}`),
+          },
+          {
+            icono: <FaTrash className="w-4 h-4" />,
+            color: "text-red-600 hover:text-red-700",
+            titulo: "Eliminar proyecto",
+            onClick: () =>
+              alert(`Eliminar proyecto: ${p.nombreProyecto || "Sin nombre"}`),
+          },
+        ],
+      }));
+  }, [proyectos, q]);
 
   const columnas = [
     { id: "nombre", titulo: "Proyecto" },
@@ -113,6 +106,14 @@ const SeccionProyectos: React.FC = () => {
     },
   ] as const;
 
+  if (loading) {
+    return <p className="text-gray-500 text-sm">Cargando proyectos...</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-600 text-sm">{error}</p>;
+  }
+
   return (
     <section id="proyectos" className="space-y-3">
       <div className="flex items-center justify-between flex-wrap gap-3">
@@ -128,7 +129,7 @@ const SeccionProyectos: React.FC = () => {
       </div>
 
       {/* Tabla */}
-      <TablaSimple<FilaProyecto>
+      <TablaSimple
         columnas={columnas as any}
         filas={filas}
         nombreEntidad="proyectos"

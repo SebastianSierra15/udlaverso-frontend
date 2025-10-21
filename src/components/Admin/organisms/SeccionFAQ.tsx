@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useFaqs } from "../../../hooks/useFaqs";
 import TablaSimple from "../molecules/TablaSimple";
 import BarraAcciones from "../molecules/BarraAcciones";
 
@@ -14,40 +15,36 @@ type Fila = {
   }[];
 };
 
-const mock: Fila[] = [
-  { pregunta: "¿Qué es UdlaVerso?", respuesta: "Portal de proyectos con RA." },
-  {
-    pregunta: "¿Cómo publico un proyecto?",
-    respuesta: "Desde el panel de admin.",
-  },
-];
-
 const SeccionFAQ: React.FC = () => {
   const [q, setQ] = useState("");
+  const { faqs, cargando } = useFaqs();
 
-  const filas = useMemo(
-    () =>
-      mock
-        .filter((f) => f.pregunta.toLowerCase().includes(q.toLowerCase()))
-        .map((f) => ({
-          ...f,
-          acciones: [
-            {
-              icono: <FaEdit className="w-4 h-4" />,
-              color: "text-blue-600 hover:text-blue-700",
-              titulo: "Editar pregunta",
-              onClick: () => alert(`Editar: ${f.pregunta}`),
-            },
-            {
-              icono: <FaTrash className="w-4 h-4" />,
-              color: "text-red-600 hover:text-red-700",
-              titulo: "Eliminar pregunta",
-              onClick: () => alert(`Eliminar: ${f.pregunta}`),
-            },
-          ],
-        })),
-    [q]
-  );
+  const filas = useMemo(() => {
+    return faqs
+      .filter((f) => f.preguntaFaq.toLowerCase().includes(q.toLowerCase()))
+      .map((f) => ({
+        pregunta: f.preguntaFaq,
+        respuesta: f.respuestaFaq,
+        acciones: [
+          {
+            icono: <FaEdit className="w-4 h-4" />,
+            color: "text-blue-600 hover:text-blue-700",
+            titulo: "Editar pregunta",
+            onClick: () => alert(`Editar: ${f.preguntaFaq}`),
+          },
+          {
+            icono: <FaTrash className="w-4 h-4" />,
+            color: "text-red-600 hover:text-red-700",
+            titulo: "Eliminar pregunta",
+            onClick: () => alert(`Eliminar: ${f.preguntaFaq}`),
+          },
+        ],
+      }));
+  }, [faqs, q]);
+
+  if (cargando) {
+    return <p className="text-gray-500 text-sm">Cargando FAQs...</p>;
+  }
 
   const columnas = [
     { id: "pregunta", titulo: "Pregunta" },

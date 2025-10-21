@@ -38,13 +38,13 @@ const CarruselProyectos: React.FC = () => {
                 className="px-2"
               >
                 <TarjetaProyecto
-                  titulo={proyecto.nombre}
+                  titulo={proyecto.nombreProyecto}
                   imagenes={
-                    proyecto.imagenes?.map((img) => img) || [
+                    proyecto.imagenesProyecto?.map((img) => img) || [
                       "/images/placeholder.png",
                     ]
                   }
-                  descripcion={proyecto.descripcionCorta}
+                  descripcion={proyecto.descripcioncortaProyecto}
                 />
               </div>
             ))}

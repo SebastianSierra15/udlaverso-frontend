@@ -1,6 +1,6 @@
 import HeroProyectoIndividual from "../../Proyectos/organisms/HeroProyectoIndividual";
 import ProyectoTemplate from "../../Proyectos/templates/ProyectoTemplate";
-import type { Proyecto } from "../../../types/Proyecto";
+import type { Proyecto } from "../../../types/Proyecto.type";
 
 interface Props {
   datosBasicos: {
@@ -40,22 +40,24 @@ const PasoRevision: React.FC<Props> = ({
     promedio: number;
     linkProyecto: string;
   } = {
-    id: "preview",
-    nombre: datosBasicos.titulo || "Proyecto sin título",
-    categoria: contenido.categorias[0] || "Sin categoría",
+    idProyecto: "preview",
+    nombreProyecto: datosBasicos.titulo || "Proyecto sin título",
+    categoriaNombre: contenido.categorias[0] || "Sin categoría",
     promedio: 0,
-    visualizaciones: "0",
-    autor: datosBasicos.autor || "Autor no definido",
-    herramientas: contenido.herramientas.join(", "),
-    fechaCreacion: new Date().toISOString(),
-    descripcionCorta: datosBasicos.descripcionCorta,
-    descripcionLarga: contenido.descripcionDetallada,
-    objetivo: datosBasicos.objetivo,
+    visualizacionesProyecto: "0",
+    autorProyecto: datosBasicos.autor || "Autor no definido",
+    herramientasProyecto: contenido.herramientas.join(", "),
+    fechacreacionProyecto: new Date().toISOString(),
+    descripcioncortaProyecto: datosBasicos.descripcionCorta,
+    descripcionlargaProyecto: contenido.descripcionDetallada,
+    objetivoProyecto: datosBasicos.objetivo,
     linkProyecto: "#",
-    palabrasClave: contenido.palabrasClave.join(", "),
-    imagenes: imagenesUrls.length ? imagenesUrls : ["/images/hero.webp"],
-    video: imagenes.video || "",
-    resenias: [],
+    palabrasclaveProyecto: contenido.palabrasClave.join(", "),
+    imagenesProyecto: imagenesUrls.length
+      ? imagenesUrls
+      : ["/images/hero.webp"],
+    videoProyecto: imagenes.video || "",
+    reseniasProyecto: [],
   };
 
   return (
@@ -70,8 +72,8 @@ const PasoRevision: React.FC<Props> = ({
       </div>
 
       <HeroProyectoIndividual
-        titulo={proyectoPreview.nombre}
-        descripcion={proyectoPreview.objetivo}
+        titulo={proyectoPreview.nombreProyecto}
+        descripcion={proyectoPreview.objetivoProyecto}
         imagenFondo={heroUrl}
       />
 

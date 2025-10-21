@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useNoticias } from "../../../hooks/useNoticias";
 import TablaSimple from "../molecules/TablaSimple";
 import BarraAcciones from "../molecules/BarraAcciones";
 import InsigniaEstado from "../atoms/InsigniaEstado";
@@ -16,37 +17,37 @@ type Fila = {
   }[];
 };
 
-const mock: Fila[] = [
-  { titulo: "Nueva Isla Interactiva", fecha: "2025-10-02", estado: "activo" },
-  { titulo: "Actualización UA3D", fecha: "2025-09-25", estado: "inactivo" },
-];
-
 const SeccionNoticias: React.FC = () => {
   const [q, setQ] = useState("");
+  const { noticias, cargando } = useNoticias();
 
-  const filas = useMemo(
-    () =>
-      mock
-        .filter((f) => f.titulo.toLowerCase().includes(q.toLowerCase()))
-        .map((f) => ({
-          ...f,
-          acciones: [
-            {
-              icono: <FaEdit className="w-4 h-4" />,
-              color: "text-blue-600 hover:text-blue-700",
-              titulo: "Editar noticia",
-              onClick: () => alert(`Editar: ${f.titulo}`),
-            },
-            {
-              icono: <FaTrash className="w-4 h-4" />,
-              color: "text-red-600 hover:text-red-700",
-              titulo: "Eliminar noticia",
-              onClick: () => alert(`Eliminar: ${f.titulo}`),
-            },
-          ],
-        })),
-    [q]
-  );
+  const filas = useMemo(() => {
+    return noticias
+      .filter((n) => n.tituloNoticia.toLowerCase().includes(q.toLowerCase()))
+      .map((n) => ({
+        titulo: n.tituloNoticia,
+        fecha: new Date(n.fechapublicacionNoticia).toLocaleDateString("es-ES"),
+        estado: n.estadoNoticia === 1 ? "activo" : "inactivo",
+        acciones: [
+          {
+            icono: <FaEdit className="w-4 h-4" />,
+            color: "text-blue-600 hover:text-blue-700",
+            titulo: "Editar noticia",
+            onClick: () => alert(`Editar: ${n.tituloNoticia}`),
+          },
+          {
+            icono: <FaTrash className="w-4 h-4" />,
+            color: "text-red-600 hover:text-red-700",
+            titulo: "Eliminar noticia",
+            onClick: () => alert(`Eliminar: ${n.tituloNoticia}`),
+          },
+        ],
+      }));
+  }, [noticias, q]);
+
+  if (cargando) {
+    return <p className="text-gray-500 text-sm">Cargando noticias...</p>;
+  }
 
   const columnas = [
     { id: "titulo", titulo: "Título" },
@@ -89,7 +90,7 @@ const SeccionNoticias: React.FC = () => {
           placeholder="Buscar noticia..."
         />
       </div>
-      <TablaSimple<Fila>
+      <TablaSimple
         columnas={columnas as any}
         filas={filas}
         nombreEntidad="noticias"
