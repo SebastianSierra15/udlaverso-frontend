@@ -10,7 +10,7 @@ import {
 const enlaces = [
   { to: "/admin", label: "Métricas", icon: <FaChartPie /> },
   { to: "/admin/proyectos", label: "Proyectos", icon: <FaCube /> },
-  { to: "/admin/comentarios", label: "Comentarios", icon: <FaComments /> },
+  { to: "/admin/resenias", label: "Reseñas", icon: <FaComments /> },
   { to: "/admin/noticias", label: "Noticias", icon: <FaNewspaper /> },
   {
     to: "/admin/preguntas-frecuentes",

@@ -35,7 +35,6 @@ const InputTexto: React.FC<Props> = ({
             let nuevoValor = e.target.value;
 
             if (tipo === "email") {
-              // eliminar espacios
               nuevoValor = nuevoValor.replace(/\s/g, "");
             }
 
@@ -51,11 +50,6 @@ const InputTexto: React.FC<Props> = ({
           required={requerido}
           placeholder={placeholder || etiqueta}
           maxLength={tipo === "password" ? 64 : undefined}
-          pattern={
-            tipo === "email"
-              ? "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
-              : undefined
-          }
           className={`w-full px-4 ${
             esPassword ? "pr-10" : ""
           } py-2 border border-udlaverso-negro rounded-md focus:outline-none focus:ring-2 focus:ring-udlaverso-verde transition`}

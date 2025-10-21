@@ -1,9 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../../hooks/useAuth";
+import MenuUsuario from "../molecules/MenuUsuario";
 import Boton from "../atoms/Boton";
 
 const Header = () => {
   const [isTop, setIsTop] = useState(true);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,23 +103,31 @@ const Header = () => {
           </ul>
 
           {/* Botones */}
-          <div className="flex flex-col md:flex-row gap-3">
-            <Link to="/login">
-              <Boton
-                texto="Iniciar sesión"
-                variante="secundario"
-                modo={isTop ? "light" : "default"}
-              />
-            </Link>
-
-            <Link to="/registrarse">
-              <Boton
-                texto="Registrarse"
-                variante="principal"
-                modo={isTop ? "light" : "default"}
-              />
-            </Link>
-          </div>
+          {user ? (
+            <MenuUsuario
+              nombre={user.nombresUsuario || "Usuario"}
+              permisos={user.permisos || []}
+              onLogout={logout}
+              colorTexto={isTop ? "text-white" : "text-udlaverso-gris"}
+            />
+          ) : (
+            <div className="flex flex-col md:flex-row gap-3">
+              <Link to="/login">
+                <Boton
+                  texto="Iniciar sesión"
+                  variante="secundario"
+                  modo={isTop ? "light" : "default"}
+                />
+              </Link>
+              <Link to="/registrarse">
+                <Boton
+                  texto="Registrarse"
+                  variante="principal"
+                  modo={isTop ? "light" : "default"}
+                />
+              </Link>
+            </div>
+          )}
         </div>
       </nav>
     </header>

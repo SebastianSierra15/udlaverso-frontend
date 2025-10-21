@@ -69,7 +69,7 @@ const SeccionComentarios: React.FC = () => {
     { id: "proyecto", titulo: "Proyecto" },
     { id: "usuario", titulo: "Usuario" },
     { id: "estrellas", titulo: "⭐" },
-    { id: "comentario", titulo: "Comentario" },
+    { id: "resenias", titulo: "Reseñas" },
     { id: "fecha", titulo: "Fecha" },
     {
       id: "acciones",
@@ -96,18 +96,19 @@ const SeccionComentarios: React.FC = () => {
     <section id="comentarios" className="space-y-3">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <h2 className="text-lg md:text-xl font-bold text-udlaverso-negro">
-          Comentarios
+          Reseñas
         </h2>
+
         <BarraAcciones
           onNuevo={() => alert("No aplica")}
           onBuscar={setQ}
-          placeholder="Buscar comentario..."
+          placeholder="Buscar reseña..."
         />
       </div>
       <TablaSimple<Fila>
         columnas={columnas as any}
         filas={filas}
-        nombreEntidad="comentarios"
+        nombreEntidad="reseñas"
       />
     </section>
   );

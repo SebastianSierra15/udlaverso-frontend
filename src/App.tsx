@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./Layouts/Layout";
 import LayoutAdmin from "./Layouts/LayoutAdmin";
 import ScrollToTop from "./components/utils/ScrollTop";
+import RutaProtegida from "./components/Shared/organisms/RutaProtegida";
 // Páginas públicas
 import Inicio from "./pages/Inicio/Inicio";
 import Login from "./pages/Auth/Login";
@@ -45,15 +46,61 @@ function App() {
           <Route path="/preguntas-frecuentes" element={<FAQ />} />
         </Route>
 
-        <Route path="/admin" element={<LayoutAdmin />}>
-          <Route index element={<Admin />} />
-          <Route path="comentarios" element={<AdminComentarios />} />
-          <Route path="noticias" element={<AdminNoticias />} />
-          <Route path="preguntas-frecuentes" element={<AdminFAQ />} />
-          <Route path="proyectos" element={<AdminProyectos />} />
+        <Route
+          path="/admin"
+          element={
+            <RutaProtegida permisosRequeridos={["ver_panel_admin"]}>
+              <LayoutAdmin />
+            </RutaProtegida>
+          }
+        >
+          <Route
+            index
+            element={
+              <RutaProtegida permisosRequeridos={["ver_panel_admin"]}>
+                <Admin />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="resenias"
+            element={
+              <RutaProtegida permisosRequeridos={["moderar_reseñas"]}>
+                <AdminComentarios />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="noticias"
+            element={
+              <RutaProtegida permisosRequeridos={["ver_noticias"]}>
+                <AdminNoticias />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="preguntas-frecuentes"
+            element={
+              <RutaProtegida permisosRequeridos={["gestionar_faq"]}>
+                <AdminFAQ />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="proyectos"
+            element={
+              <RutaProtegida permisosRequeridos={["ver_proyectos"]}>
+                <AdminProyectos />
+              </RutaProtegida>
+            }
+          />
           <Route
             path="proyectos/nuevo-proyecto"
-            element={<AdminNuevoProyecto />}
+            element={
+              <RutaProtegida permisosRequeridos={["crear_proyecto"]}>
+                <AdminNuevoProyecto />
+              </RutaProtegida>
+            }
           />
         </Route>
       </Routes>

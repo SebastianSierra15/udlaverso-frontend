@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loginService } from "../services/auth.service";
+import type { Usuario } from "../types/Usuario";
 
 export const useAuth = () => {
+  const [user, setUser] = useState<Usuario | null>(null);
+  const [loadingUser, setLoadingUser] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) setUser(JSON.parse(storedUser));
+    setLoadingUser(false);
+  }, []);
 
   const login = async (
     correo: string,
@@ -15,17 +24,28 @@ export const useAuth = () => {
 
       const data = await loginService(correo, contrasenia);
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("rol", data.role);
+      const usuario: Usuario = {
+        correoUsuario: correo,
+        rolUsuario: {
+          idRol: 0,
+          nombreRol: data.role,
+        },
+        permisos: data.permissions.map((p: string) => ({
+          nombrePermiso: p,
+        })),
+        token: data.token,
+      };
 
+      localStorage.setItem("user", JSON.stringify(usuario));
+      setUser(usuario);
       return true;
     } catch (err: unknown) {
       const errorResponse = err as {
         response?: { data?: { message?: string } };
       };
-      const mensaje =
-        errorResponse.response?.data?.message || "Credenciales incorrectas";
-      setError(mensaje);
+      setError(
+        errorResponse.response?.data?.message || "Error al iniciar sesión"
+      );
       return false;
     } finally {
       setLoading(false);
@@ -33,10 +53,10 @@ export const useAuth = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("rol");
+    localStorage.removeItem("user");
+    setUser(null);
     window.location.href = "/login";
   };
 
-  return { login, logout, loading, error };
+  return { user, login, logout, loading, loadingUser, error };
 };
