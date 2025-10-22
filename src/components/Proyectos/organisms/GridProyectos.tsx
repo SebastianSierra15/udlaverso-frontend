@@ -1,5 +1,5 @@
-import TarjetaProyectoListado from "../molecules/TarjetaProyectoListado";
 import type { Proyecto } from "../../../types/Proyecto.type";
+import TarjetaProyectoListado from "../molecules/TarjetaProyectoListado";
 
 interface Props {
   proyectos: Proyecto[];

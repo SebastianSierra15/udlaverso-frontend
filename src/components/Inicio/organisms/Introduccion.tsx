@@ -3,6 +3,10 @@ import Descripcion from "../molecules/Descripcion";
 import VideoPresentacion from "../molecules/VideoPresentacion";
 
 const Introduccion: React.FC = () => {
+  const linkVideo = "https://www.youtube.com/watch?v=mUWpgcWZImk";
+
+  const urlEmbed = linkVideo.replace("watch?v=", "embed/");
+
   return (
     <section
       id="introduccion"
@@ -15,10 +19,7 @@ const Introduccion: React.FC = () => {
           <div className="w-[90%] h-[90%] rounded-[50%] bg-gradient-to-br from-udlaverso-verde via-udlaverso-verdeClaro to-udlaverso-rojo opacity-20 blur-3xl"></div>
         </div>
 
-        <VideoPresentacion
-          url="https://www.youtube.com/embed/ScMzIvxBSi4"
-          titulo="Video del UDLAVERSO"
-        />
+        <VideoPresentacion url={urlEmbed} titulo="Video del UDLAVERSO" />
       </div>
     </section>
   );

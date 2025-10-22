@@ -2,8 +2,22 @@ interface Props {
   fecha: string;
 }
 
-const FechaPublicacion: React.FC<Props> = ({ fecha }) => (
-  <p className="text-xs text-udlaverso-gris">{fecha}</p>
-);
+const FechaPublicacion: React.FC<Props> = ({ fecha }) => {
+  if (!fecha) return null;
+
+  const fechaObj = new Date(fecha);
+
+  const fechaFormateada = fechaObj.toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  return (
+    <p className="text-sm text-udlaverso-gris font-medium">
+      Publicado el {fechaFormateada}
+    </p>
+  );
+};
 
 export default FechaPublicacion;

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useNoticiasRecientes } from "../../../hooks/useNoticiasRecientes";
 import Boton from "../../Shared/atoms/Boton";
 import TarjetaNoticia from "../molecules/TarjetaNoticia";
+import NoticiasRecientesSkeleton from "./NoticiasRecientesSkeleton";
 
 const NoticiasRecientes: React.FC = () => {
   const { noticias, cargando } = useNoticiasRecientes();
@@ -13,9 +14,7 @@ const NoticiasRecientes: React.FC = () => {
       </h2>
 
       {cargando ? (
-        <p className="text-center text-udlaverso-gris mt-10">
-          Cargando noticias...
-        </p>
+        <NoticiasRecientesSkeleton />
       ) : noticias.length === 0 ? (
         <p className="text-center text-udlaverso-gris mt-10">
           No hay noticias disponibles.

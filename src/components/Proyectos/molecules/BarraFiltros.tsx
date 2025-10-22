@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import Boton from "../../Shared/atoms/Boton";
+import BotonEnlace from "../../Shared/atoms/BotonEnlace";
 import FiltroSelect from "../atoms/FiltroSelect";
 import Buscador from "../atoms/Buscador";
 import ContadorResultados from "../atoms/ContadorResultados";
@@ -35,9 +34,12 @@ const BarraFiltros: React.FC<Props> = ({
 
       <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
         <ContadorResultados total={total} />
-        <Link to="/descargas">
-          <Boton texto="Descargar visor" variante="principal" />
-        </Link>
+
+        <BotonEnlace
+          texto="Descargar visor"
+          href="https://www.mediafire.com/file/yi7wyivkcffq3lb/UA3D-Viwer.exe"
+          variante="principal"
+        />
       </div>
     </div>
   );

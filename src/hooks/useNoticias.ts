@@ -9,6 +9,7 @@ export const useNoticias = () => {
   const [pages, setPages] = useState(0);
   const [size, setSize] = useState(6);
   const [q, setQ] = useState("");
+  const [orden, setOrden] = useState<"asc" | "desc">("desc");
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,7 +25,7 @@ export const useNoticias = () => {
   const cargarNoticias = async () => {
     try {
       setCargando(true);
-      const res = await obtenerNoticias(page, size, debouncedQ);
+      const res = await obtenerNoticias(page, size, debouncedQ, orden);
       setNoticias(res.content);
       setTotal(res.total);
       setPages(res.pages);
@@ -38,7 +39,7 @@ export const useNoticias = () => {
 
   useEffect(() => {
     cargarNoticias();
-  }, [page, size, debouncedQ]);
+  }, [page, size, debouncedQ, orden]);
 
   return {
     noticias,
@@ -47,9 +48,11 @@ export const useNoticias = () => {
     pages,
     size,
     q,
+    orden,
     setPage,
     setSize,
     setQ,
+    setOrden,
     cargando,
     error,
   };

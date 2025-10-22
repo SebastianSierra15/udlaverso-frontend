@@ -12,7 +12,8 @@ export const obtenerNoticiaPorTitulo = async (
 export const listarNoticias = async (
   page = 0,
   size = 5,
-  q = ""
+  q = "",
+  orden = "desc"
 ): Promise<{
   content: Noticia[];
   total: number;
@@ -20,7 +21,7 @@ export const listarNoticias = async (
   pages: number;
 }> => {
   const { data } = await api.get("/noticias", {
-    params: { page, size, q },
+    params: { page, size, q, orden },
   });
 
   return {

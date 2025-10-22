@@ -1,5 +1,6 @@
 import api from "./api";
 import type { Proyecto, ProyectoData } from "../types/Proyecto.type";
+import type { Resenia } from "../types/Resenia.type";
 
 /**
  * Obtener proyecto por nombre
@@ -9,6 +10,16 @@ export const obtenerProyectoPorNombre = async (
 ): Promise<Proyecto> => {
   const encoded = encodeURIComponent(nombre);
   const { data } = await api.get(`/proyectos/nombre/${encoded}`);
+
+  const resenias: Resenia[] =
+    data.resenias?.map((r: any) => ({
+      idResenia: r.idResenia,
+      valoracionResenia: r.valoracionResenia ?? 0,
+      comentarioResenia: r.comentarioResenia ?? "",
+      usuarioNombres: r.usuarioNombres ?? "",
+      usuarioApellidos: r.usuarioApellidos ?? "",
+      fechaResenia: r.fechaResenia ?? new Date().toISOString(),
+    })) ?? [];
 
   return {
     idProyecto: data.idProyecto,
@@ -25,15 +36,7 @@ export const obtenerProyectoPorNombre = async (
     herramientasProyecto: data.herramientasProyecto ?? "",
     palabrasclaveProyecto: data.palabrasclaveProyecto ?? "",
     visualizacionesProyecto: data.visualizacionesProyecto ?? 0,
-    reseniasProyecto:
-      data.resenias?.map((r: any) => ({
-        idResenia: r.idResenia,
-        valoracion: r.valoracionResenia,
-        comentario: r.comentarioResenia,
-        usuarioNombres: r.usuarioNombres,
-        usuarioApellidos: r.usuarioApellidos,
-        fechaResenia: r.fechaResenia,
-      })) ?? [],
+    reseniasProyecto: resenias,
     estadoProyecto: data.estadoProyecto ?? 0,
   };
 };

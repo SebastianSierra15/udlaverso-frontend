@@ -4,10 +4,22 @@ import HeroNoticias from "../../components/Noticias/organisms/HeroNoticias";
 import BarraBusquedaNoticias from "../../components/Noticias/molecules/BarraBusquedaNoticias";
 import GridNoticias from "../../components/Noticias/organisms/GridNoticias";
 import Paginacion from "../../components/Shared/molecules/Paginacion";
+import GridNoticiasSkeleton from "../../components/Noticias/organisms/GridNoticiasSkeleton";
 
 const Noticias: React.FC = () => {
-  const { noticias, total, page, pages, q, setQ, setPage, cargando, error } =
-    useNoticias();
+  const {
+    noticias,
+    total,
+    page,
+    pages,
+    q,
+    orden,
+    setQ,
+    setPage,
+    setOrden,
+    cargando,
+    error,
+  } = useNoticias();
 
   return (
     <>
@@ -30,17 +42,16 @@ const Noticias: React.FC = () => {
             setQ(v);
             setPage(0);
           }}
-          orden="desc"
+          orden={orden}
           onOrdenar={(v) => {
-            console.log("Orden seleccionado:", v);
+            setOrden(v as "asc" | "desc");
+            setPage(0);
           }}
         />
 
         {/* Contenido principal */}
         {cargando ? (
-          <p className="text-center text-udlaverso-gris mt-10">
-            Cargando noticias...
-          </p>
+          <GridNoticiasSkeleton />
         ) : error ? (
           <p className="text-center text-red-600 mt-10">{error}</p>
         ) : (

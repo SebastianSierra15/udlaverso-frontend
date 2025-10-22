@@ -1,6 +1,7 @@
 import { FaChevronDown } from "react-icons/fa";
 import { animate } from "framer-motion";
 import Boton from "../../Shared/atoms/Boton";
+import BotonEnlace from "../../Shared/atoms/BotonEnlace";
 
 const Hero = () => {
   const scrollToNext = () => {
@@ -42,7 +43,13 @@ const Hero = () => {
         </p>
 
         <div className="flex gap-4">
-          <Boton texto="Descargar visor" variante="principal" modo="light" />
+          <BotonEnlace
+            texto="Descargar visor"
+            href="https://www.mediafire.com/file/yi7wyivkcffq3lb/UA3D-Viwer.exe"
+            variante="principal"
+            modo="light"
+          />
+
           <Boton
             texto="Nuestros Proyectos"
             variante="secundario"

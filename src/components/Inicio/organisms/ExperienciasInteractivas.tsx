@@ -24,7 +24,7 @@ const experiencias = [
 const ExperienciasInteractivas = () => {
   return (
     <section className="bg-gradient-to-b to-white from-udlaverso-verde/10 py-16 px-6 md:px-20 text-center">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-udlaverso-negro mb-12">
+      <h2 className="text-3xl font-extrabold text-udlaverso-negro mb-12">
         Experiencias Interactivas
       </h2>
 

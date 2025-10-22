@@ -1,10 +1,6 @@
 interface ContenidoHeroProps {
   titulo: string;
   descripcion: string;
-  textoBotonPrincipal?: string;
-  linkBotonPrincipal?: string;
-  textoBotonSecundario?: string;
-  linkBotonSecundario?: string;
 }
 
 const ContenidoHero: React.FC<ContenidoHeroProps> = ({

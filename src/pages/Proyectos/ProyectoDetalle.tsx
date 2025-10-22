@@ -1,30 +1,27 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useProyecto } from "../../hooks/useProyecto";
 import HeroProyectoIndividual from "../../components/Proyectos/organisms/HeroProyectoIndividual";
 import DetalleProyecto from "../../components/Proyectos/organisms/DetalleProyecto";
+import ProyectoDetalleSkeleton from "../../components/Proyectos/organisms/ProyectoDetalleSkeleton";
 
 const ProyectoDetalle: React.FC = () => {
   const { nombre } = useParams<{ nombre: string }>();
+  const navigate = useNavigate();
   const { proyecto, cargando, error } = useProyecto(
     decodeURIComponent(nombre || "")
   );
 
-  if (cargando)
-    return (
-      <section className="flex flex-col items-center justify-center py-20">
-        <p className="text-udlaverso-gris text-lg animate-pulse">
-          Cargando proyecto...
-        </p>
-      </section>
-    );
+  useEffect(() => {
+    if (!cargando && (error || !proyecto)) {
+      navigate("/404");
+    }
+  }, [cargando, error, proyecto, navigate]);
 
-  if (error || !proyecto)
-    return (
-      <section className="flex flex-col items-center justify-center py-20">
-        <p className="text-udlaverso-gris text-lg">{error}</p>
-      </section>
-    );
+  if (cargando) return <ProyectoDetalleSkeleton />;
+
+  if (error || !proyecto) return null;
 
   const promedio =
     proyecto.reseniasProyecto && proyecto.reseniasProyecto.length > 0

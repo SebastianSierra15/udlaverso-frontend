@@ -5,6 +5,7 @@ import HeroProyectos from "../../components/Proyectos/organisms/HeroProyectos";
 import BarraFiltros from "../../components/Proyectos/molecules/BarraFiltros";
 import GridProyectos from "../../components/Proyectos/organisms/GridProyectos";
 import Paginacion from "../../components/Shared/molecules/Paginacion";
+import GridProyectosSkeleton from "../../components/Proyectos/organisms/GridProyectosSkeleton";
 
 const Proyectos: React.FC = () => {
   const { categorias } = useCategorias();
@@ -60,9 +61,7 @@ const Proyectos: React.FC = () => {
         />
 
         {loading ? (
-          <p className="text-center text-gray-500 mt-10">
-            Cargando proyectos...
-          </p>
+          <GridProyectosSkeleton />
         ) : error ? (
           <p className="text-center text-red-600 mt-10">{error}</p>
         ) : (

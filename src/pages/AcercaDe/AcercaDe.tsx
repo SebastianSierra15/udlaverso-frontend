@@ -20,10 +20,6 @@ const AcercaDe: React.FC = () => {
         titulo="Acerca del UdlaVerso"
         descripcion="Una iniciativa tecnológica de la Universidad de la Amazonia que impulsa la educación inmersiva y la innovación académica."
         imagenFondo="/images/hero-acercade.webp"
-        textoBotonPrincipal="Descargar visor"
-        linkBotonPrincipal="/descargas"
-        textoBotonSecundario="Conoce más"
-        linkBotonSecundario="/proyectos"
       />
 
       <SeccionUniversidad />

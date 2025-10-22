@@ -51,7 +51,7 @@ const TarjetaProyecto: React.FC<Props> = ({
       </div>
 
       <h3
-        className={`absolute bottom-2 left-2 text-sm md:text-base font-bold text-white bg-black/50 px-2 py-1 rounded transition-opacity duration-300 leading-snug line-clamp-2 h-[3.2em] ${
+        className={`absolute w-full bottom-2 left-2 text-sm md:text-base font-bold text-white bg-black/50 px-2 py-1 rounded transition-opacity duration-300 leading-snug line-clamp-2 h-[3.2em] ${
           hover ? "opacity-0" : "opacity-100"
         }`}
       >
@@ -63,7 +63,7 @@ const TarjetaProyecto: React.FC<Props> = ({
           hover ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
         }`}
       >
-        <p className="text-xs md:text-sm text-center leading-snug">
+        <p className="text-xs md:text-sm text-center leading-snug line-clamp-3">
           {descripcion || "Descripción breve del proyecto"}
         </p>
       </div>

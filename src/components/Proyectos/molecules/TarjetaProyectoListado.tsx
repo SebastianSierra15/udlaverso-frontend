@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ImagenProyecto from "../atoms/ImagenProyecto";
 import CategoriaChip from "../atoms/CategoriaChip";
 

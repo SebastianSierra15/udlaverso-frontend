@@ -16,6 +16,8 @@ import NoticiaDetalle from "./pages/Noticias/NoticiaDetalle";
 import Contacto from "./pages/Contacto/Contacto";
 import FAQ from "./pages/FAQ/FAQ";
 import ComoEmpezar from "./pages/ComoEmpezar/ComoEmpezar";
+import Error404 from "./pages/Error/Error404";
+import ErrorGeneral from "./pages/Error/ErrorGeneral";
 // Páginas admin
 import Admin from "./pages/Admin/Admin";
 import AdminComentarios from "./pages/Admin/Comentarios/AdminComentarios";
@@ -30,6 +32,9 @@ function App() {
       <ScrollToTop />
 
       <Routes>
+        <Route path="/error" element={<ErrorGeneral />} />
+        <Route path="*" element={<Error404 />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/registrarse" element={<Registrarse />} />
         <Route path="/recuperar" element={<RecuperarContrasenia />} />

@@ -40,7 +40,10 @@ const Footer: React.FC = () => {
         <ListaEnlaces
           titulo="Recursos"
           enlaces={[
-            { texto: "Descargar visor", ruta: "/descargas" },
+            {
+              texto: "Descargar visor",
+              ruta: "https://www.mediafire.com/file/yi7wyivkcffq3lb/UA3D-Viwer.exe",
+            },
             { texto: "Cómo empezar", ruta: "/como-empezar" },
             { texto: "Preguntas Frecuentes", ruta: "/preguntas-frecuentes" },
           ]}

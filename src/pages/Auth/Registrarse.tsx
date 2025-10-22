@@ -22,7 +22,7 @@ const Registrarse: React.FC = () => {
   const handleRegistro = async (form: Record<string, any>) => {
     const resultado = await registrar(form);
     if (resultado.success) {
-      mostrarAlerta("✅ Registro exitoso. Redirigiendo...", "success");
+      mostrarAlerta("Registro exitoso. Redirigiendo...", "success");
       setTimeout(() => (window.location.href = "/login"), 2500);
     } else {
       mostrarAlerta(resultado.mensaje, "error");

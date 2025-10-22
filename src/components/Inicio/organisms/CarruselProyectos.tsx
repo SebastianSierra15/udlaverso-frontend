@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useProyectosMasVistos } from "../../../hooks/useProyectosMasVistos";
 import TarjetaProyecto from "../molecules/TarjetaProyecto";
+import CarruselProyectosSkeleton from "./CarruselProyectosSkeleton";
 
 const CarruselProyectos: React.FC = () => {
   const { proyectos, cargando } = useProyectosMasVistos(10);
@@ -22,12 +23,12 @@ const CarruselProyectos: React.FC = () => {
 
   return (
     <section className="bg-gradient-to-b from-white to-udlaverso-verde/10 px-8 py-16 overflow-hidden space-y-16">
-      <h2 className="text-3xl md:text-3xl text-center font-extrabold text-udlaverso-negro leading-tight">
+      <h2 className="text-3xl text-center font-extrabold text-udlaverso-negro leading-tight">
         Proyectos destacados
       </h2>
 
       {cargando ? (
-        <p className="text-center text-udlaverso-gris">Cargando proyectos...</p>
+        <CarruselProyectosSkeleton />
       ) : (
         <div className="relative w-full group">
           <div className="flex gap-6 animate-scroll group-hover:[animation-play-state:paused] [will-change:transform]">
@@ -35,7 +36,7 @@ const CarruselProyectos: React.FC = () => {
               <div
                 key={i}
                 style={{ flex: `0 0 ${100 / visible}%` }}
-                className="px-2"
+                className="px-2 max-w-96"
               >
                 <TarjetaProyecto
                   titulo={proyecto.nombreProyecto}

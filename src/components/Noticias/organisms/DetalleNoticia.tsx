@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import BotonVolver from "../atoms/BotonVolver";
 import FechaPublicacion from "../atoms/FechaPublicacion";
 
 interface Props {
@@ -39,12 +39,7 @@ const DetalleNoticia: React.FC<Props> = ({
         </div>
 
         <div className="mt-10">
-          <Link
-            to="/noticias"
-            className="inline-block px-6 py-3 border-2 border-udlaverso-verde text-udlaverso-verde font-semibold rounded-full hover:bg-udlaverso-verde hover:text-white transition-all duration-300"
-          >
-            ← Volver a noticias
-          </Link>
+          <BotonVolver to="/noticias" texto="← Volver a noticias" />
         </div>
       </div>
     </article>
