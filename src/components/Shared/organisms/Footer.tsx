@@ -46,6 +46,14 @@ const Footer: React.FC = () => {
             },
             { texto: "Cómo empezar", ruta: "/como-empezar" },
             { texto: "Preguntas Frecuentes", ruta: "/preguntas-frecuentes" },
+            {
+              texto: "Términos y Condiciones",
+              ruta: "/terminos-y-condiciones",
+            },
+            {
+              texto: "Política de Privacidad",
+              ruta: "https://www.uniamazonia.edu.co/inicio/index.php/politica-de-privacidad.html",
+            },
           ]}
         />
 

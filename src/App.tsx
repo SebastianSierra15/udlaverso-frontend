@@ -16,6 +16,7 @@ import NoticiaDetalle from "./pages/Noticias/NoticiaDetalle";
 import Contacto from "./pages/Contacto/Contacto";
 import FAQ from "./pages/FAQ/FAQ";
 import ComoEmpezar from "./pages/ComoEmpezar/ComoEmpezar";
+import TerminosYCondiciones from "./pages/Legales/TerminosYCondiciones";
 import Error404 from "./pages/Error/Error404";
 import ErrorGeneral from "./pages/Error/ErrorGeneral";
 // Páginas admin
@@ -49,6 +50,10 @@ function App() {
           <Route path="/noticias/:titulo" element={<NoticiaDetalle />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/preguntas-frecuentes" element={<FAQ />} />
+          <Route
+            path="/terminos-y-condiciones"
+            element={<TerminosYCondiciones />}
+          />
         </Route>
 
         <Route

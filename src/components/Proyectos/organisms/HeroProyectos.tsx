@@ -14,10 +14,6 @@ const HeroProyectos: React.FC = () => {
       <ContenidoHero
         titulo="Nuestros Proyectos"
         descripcion="Explora iniciativas en RA desarrolladas por estudiantes y docentes. Filtra por categoría y descubre experiencias inmersivas."
-        textoBotonPrincipal="Descargar visor"
-        linkBotonPrincipal="/descargas"
-        textoBotonSecundario="Acerca del UdlaVerso"
-        linkBotonSecundario="/acerca-de"
       />
     </section>
   );

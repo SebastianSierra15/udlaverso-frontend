@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import ImagenProyecto from "../atoms/ImagenProyecto";
 import CategoriaChip from "../atoms/CategoriaChip";
+import EstrellasValoracion from "../molecules/EstrellasValoracion";
 
 interface Props {
   titulo: string;
   resumen: string;
   imagenes: string[];
   categorias?: string[];
+  valoracion?: number;
 }
 
 const TarjetaProyectoListado: React.FC<Props> = ({
@@ -14,6 +16,7 @@ const TarjetaProyectoListado: React.FC<Props> = ({
   resumen,
   imagenes,
   categorias = [],
+  valoracion = 0,
 }) => {
   const [indice, setIndice] = useState(0);
   const [hover, setHover] = useState(false);
@@ -53,7 +56,13 @@ const TarjetaProyectoListado: React.FC<Props> = ({
       </div>
 
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-udlaverso-negro">{titulo}</h3>
+        <h3 className="text-lg font-semibold text-udlaverso-negro line-clamp-1">
+          {titulo}
+        </h3>
+
+        <div className="mt-1">
+          <EstrellasValoracion valor={valoracion} interactiva={false} />
+        </div>
 
         {categorias.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">

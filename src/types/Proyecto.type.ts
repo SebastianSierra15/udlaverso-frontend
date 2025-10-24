@@ -16,6 +16,7 @@ export interface Proyecto {
   visualizacionesProyecto?: string;
   reseniasProyecto?: Resenia[];
   estadoProyecto?: number;
+  valoracionPromedio?: number;
 }
 
 export type ProyectoData = {

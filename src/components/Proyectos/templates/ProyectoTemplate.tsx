@@ -6,7 +6,7 @@ interface Props {
 }
 
 const ProyectoTemplate: React.FC<Props> = ({ proyecto }) => (
-  <DetalleProyecto {...proyecto} promedio={5} linkProyecto={"#"} />
+  <DetalleProyecto {...proyecto} linkProyecto={"#"} />
 );
 
 export default ProyectoTemplate;

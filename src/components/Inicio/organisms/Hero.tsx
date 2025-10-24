@@ -1,9 +1,12 @@
-import { FaChevronDown } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { animate } from "framer-motion";
+import { FaChevronDown } from "react-icons/fa";
 import Boton from "../../Shared/atoms/Boton";
 import BotonEnlace from "../../Shared/atoms/BotonEnlace";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   const scrollToNext = () => {
     const target = document.getElementById("introduccion");
     if (target) {
@@ -54,6 +57,7 @@ const Hero = () => {
             texto="Nuestros Proyectos"
             variante="secundario"
             modo="light"
+            onClick={() => navigate("/proyectos")}
           />
         </div>
       </div>

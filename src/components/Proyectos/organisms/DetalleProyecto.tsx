@@ -7,14 +7,12 @@ import ContenidoProyecto from "./ContenidoProyecto";
 import ReseniasProyecto from "./ReseniasProyecto";
 
 type Props = Proyecto & {
-  promedio: number;
   linkProyecto: string;
 };
 
 const DetalleProyecto: React.FC<Props> = ({
   nombreProyecto,
   categoriaNombre,
-  promedio,
   visualizacionesProyecto,
   autorProyecto,
   herramientasProyecto,
@@ -26,6 +24,7 @@ const DetalleProyecto: React.FC<Props> = ({
   palabrasclaveProyecto,
   imagenesProyecto,
   reseniasProyecto = [],
+  valoracionPromedio = 0,
   linkProyecto,
 }) => {
   return (
@@ -40,7 +39,7 @@ const DetalleProyecto: React.FC<Props> = ({
       />
 
       <div className="flex items-center gap-2 mt-2">
-        <EstrellasValoracion valor={promedio} interactiva={false} />
+        <EstrellasValoracion valor={valoracionPromedio} interactiva={false} />
         <ContadorVisitas visitas={Number(visualizacionesProyecto) || 0} />
       </div>
 

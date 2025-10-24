@@ -23,14 +23,6 @@ const ProyectoDetalle: React.FC = () => {
 
   if (error || !proyecto) return null;
 
-  const promedio =
-    proyecto.reseniasProyecto && proyecto.reseniasProyecto.length > 0
-      ? proyecto.reseniasProyecto.reduce(
-          (sum, r) => sum + (r.valoracionResenia ?? 0),
-          0
-        ) / proyecto.reseniasProyecto.length
-      : 0;
-
   return (
     <>
       <>
@@ -48,7 +40,7 @@ const ProyectoDetalle: React.FC = () => {
           imagenFondo={proyecto.imagenesProyecto?.[0]}
         />
 
-        <DetalleProyecto {...proyecto} promedio={promedio} linkProyecto="#" />
+        <DetalleProyecto {...proyecto} linkProyecto="#" />
       </>
     </>
   );

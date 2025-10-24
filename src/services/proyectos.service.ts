@@ -38,6 +38,7 @@ export const obtenerProyectoPorNombre = async (
     visualizacionesProyecto: data.visualizacionesProyecto ?? 0,
     reseniasProyecto: resenias,
     estadoProyecto: data.estadoProyecto ?? 0,
+    valoracionPromedio: data.valoracionPromedio ?? 0,
   };
 };
 
@@ -80,6 +81,7 @@ export const listarProyectos = async (
       palabrasclaveProyecto: p.palabrasclaveProyecto ?? "",
       visualizacionesProyecto: p.visualizacionesProyecto ?? 0,
       estadoProyecto: p.estadoProyecto ?? 0,
+      valoracionPromedio: p.valoracionPromedio ?? 0,
     }));
 
     return {

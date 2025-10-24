@@ -23,6 +23,7 @@ const GridProyectos: React.FC<Props> = ({ proyectos }) => {
           resumen={p.descripcioncortaProyecto}
           categorias={p.categoriaNombre ? [p.categoriaNombre] : []}
           imagenes={p.imagenesProyecto || []}
+          valoracion={p.valoracionPromedio ?? 0}
         />
       ))}
     </div>

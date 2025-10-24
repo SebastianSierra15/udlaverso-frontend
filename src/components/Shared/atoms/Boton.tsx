@@ -1,5 +1,3 @@
-import React from "react";
-
 interface PropiedadesBoton {
   texto: string;
   onClick?: () => void;
