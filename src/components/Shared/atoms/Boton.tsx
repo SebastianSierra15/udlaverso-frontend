@@ -1,3 +1,5 @@
+import { BiLoaderAlt } from "react-icons/bi";
+
 interface PropiedadesBoton {
   texto: string;
   onClick?: () => void;
@@ -6,6 +8,7 @@ interface PropiedadesBoton {
   tipo?: "button" | "submit";
   claseExtra?: string;
   deshabilitado?: boolean;
+  cargando?: boolean;
 }
 
 const Boton: React.FC<PropiedadesBoton> = ({
@@ -16,9 +19,10 @@ const Boton: React.FC<PropiedadesBoton> = ({
   tipo = "button",
   claseExtra = "",
   deshabilitado = false,
+  cargando = false,
 }) => {
   const base =
-    "rounded-full font-semibold transition duration-300 ease-in-out text-sm md:text-base lg:text-lg px-3 md:px-4 lg:px-6 py-2 border";
+    "flex items-center justify-center rounded-full font-semibold transition duration-300 ease-in-out text-sm md:text-base lg:text-lg px-3 md:px-4 lg:px-6 py-2 border";
 
   const estilos: Record<string, Record<string, string>> = {
     principal: {
@@ -41,17 +45,25 @@ const Boton: React.FC<PropiedadesBoton> = ({
     },
   };
 
+  const estaDeshabilitado = deshabilitado || cargando;
+
   return (
     <button
       type={tipo}
+      disabled={estaDeshabilitado}
+      onClick={!cargando ? onClick : undefined}
       className={`
         ${base}
         ${estilos[variante][modo]}
-        ${deshabilitado ? "opacity-50 cursor-not-allowed" : ""}
-        ${claseExtra}`}
-      onClick={onClick}
+        ${estaDeshabilitado ? "opacity-50 cursor-not-allowed" : ""}
+        ${claseExtra}
+      `}
     >
-      {texto}
+      {cargando ? (
+        <BiLoaderAlt className="animate-spin w-5 h-5 text-current" />
+      ) : (
+        texto
+      )}
     </button>
   );
 };

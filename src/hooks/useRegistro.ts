@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { registroController } from "../controllers/authController";
+import {
+  registroController,
+  enviarCodigoController,
+  verificarCodigoController,
+} from "../controllers/authController";
 
 interface ResultadoRegistro {
   success: boolean;
@@ -8,27 +12,56 @@ interface ResultadoRegistro {
 
 export const useRegistro = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [codigoEnviado, setCodigoEnviado] = useState(false);
+  const [correoVerificado, setCorreoVerificado] = useState(false);
+  const [mensaje, setMensaje] = useState<string | null>(null);
+  const [registroExitoso, setRegistroExitoso] = useState(false);
+
+  const enviarCodigo = async (correo: string) => {
+    setLoading(true);
+    const res = await enviarCodigoController(correo);
+    setMensaje(res.mensaje);
+    setCodigoEnviado(res.success);
+    setLoading(false);
+    return res;
+  };
+
+  const verificarCodigo = async (correo: string, codigo: string) => {
+    setLoading(true);
+    const res = await verificarCodigoController(correo, codigo);
+    setMensaje(res.mensaje);
+    setCorreoVerificado(res.success);
+    setLoading(false);
+    return res;
+  };
 
   const registrar = async (
     formData: Record<string, any>
   ): Promise<ResultadoRegistro> => {
+    if (loading || registroExitoso) {
+      console.warn("Intento duplicado de registro ignorado");
+      return { success: false, mensaje: "Registro en proceso o completado..." };
+    }
+
+    setLoading(true);
     try {
-      setLoading(true);
-      setError(null);
-
-      const resultado = await registroController(formData);
-      if (!resultado.success) setError(resultado.mensaje);
-
-      return resultado;
-    } catch {
-      const msg = "Ocurrió un error al registrar el usuario.";
-      setError(msg);
-      return { success: false, mensaje: msg };
+      const res = await registroController(formData);
+      if (res.success) setRegistroExitoso(true);
+      setMensaje(res.mensaje);
+      return res;
     } finally {
       setLoading(false);
     }
   };
 
-  return { registrar, loading, error };
+  return {
+    loading,
+    registroExitoso,
+    codigoEnviado,
+    correoVerificado,
+    mensaje,
+    enviarCodigo,
+    verificarCodigo,
+    registrar,
+  };
 };

@@ -64,7 +64,7 @@ const InputFlotante: React.FC<Props> = ({
         maxLength={maxLength}
         className={`peer w-full px-4 ${
           mostrarTogglePassword ? "pr-10" : ""
-        } py-3 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-udlaverso-verde placeholder-transparent text-udlaverso-negro text-sm transition-all duration-300`}
+        } py-3 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-udlaverso-verde placeholder-transparent text-udlaverso-negro text-sm transition-all duration-300 cursor-text`}
       />
 
       {esPassword && mostrarTogglePassword && (
@@ -87,8 +87,8 @@ const InputFlotante: React.FC<Props> = ({
         htmlFor={id}
         className={`absolute left-4 ${
           valor
-            ? "-top-3 text-xs text-udlaverso-verde"
-            : "top-3 text-gray-500 text-base"
+            ? "-top-3 text-xs text-udlaverso-verde cursor-pointer"
+            : "top-3 text-gray-500 text-base cursor-text"
         } transition-all duration-300 bg-white rounded-md px-1 z-10 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-udlaverso-verde`}
       >
         {etiqueta}

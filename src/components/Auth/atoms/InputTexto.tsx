@@ -8,11 +8,15 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   requerido?: boolean;
+  name?: string;
+  autoComplete?: string;
 }
 
 const InputTexto: React.FC<Props> = ({
   etiqueta,
   tipo = "text",
+  name,
+  autoComplete,
   valor,
   onChange,
   placeholder,
@@ -31,6 +35,8 @@ const InputTexto: React.FC<Props> = ({
         <input
           type={esPassword ? (mostrarPassword ? "text" : "password") : tipo}
           value={valor}
+          name={name}
+          autoComplete={autoComplete}
           onChange={(e) => {
             let nuevoValor = e.target.value;
 

@@ -1,36 +1,157 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import InputFlotante from "../atoms/InputFlotante";
 import Boton from "../../Shared/atoms/Boton";
-import { Link } from "react-router-dom";
+import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
+import { useRecuperacion } from "../../../hooks/useRecuperacion";
 
 const FormularioRecuperar: React.FC = () => {
   const [correo, setCorreo] = useState("");
+  const [codigo, setCodigo] = useState("");
+  const [nueva, setNueva] = useState("");
+  const [confirmar, setConfirmar] = useState("");
+  const [bloqueado, setBloqueado] = useState(false);
 
-  const manejarEnvio = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const {
+    loading,
+    codigoEnviado,
+    codigoVerificado,
+    enviarCodigo,
+    verificarCodigo,
+    restablecerContrasenia,
+  } = useRecuperacion();
+
+  const [alerta, setAlerta] = useState({
+    visible: false,
+    mensaje: "",
+    tipo: "info" as "error" | "success" | "info" | "warning",
+  });
+
+  const mostrarAlerta = (
+    mensaje: string,
+    tipo: "error" | "success" | "info" | "warning" = "info"
+  ) => setAlerta({ visible: true, mensaje, tipo });
+
+  const handleEnviarCodigo = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Correo para recuperar:", correo);
+    if (!correo.trim()) {
+      mostrarAlerta("Por favor, ingresa tu correo electrónico.", "warning");
+      return;
+    }
+
+    const res = await enviarCodigo(correo);
+    mostrarAlerta(res.mensaje, res.success ? "success" : "error");
+  };
+
+  const handleVerificarCodigo = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await verificarCodigo(correo, codigo);
+    mostrarAlerta(res.mensaje, res.success ? "success" : "error");
+  };
+
+  const handleRestablecer = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (bloqueado || loading) return;
+
+    if (nueva !== confirmar) {
+      mostrarAlerta("Las contraseñas no coinciden.", "warning");
+      return;
+    }
+
+    setBloqueado(true);
+
+    const res = await restablecerContrasenia(correo, codigo, nueva);
+
+    mostrarAlerta(res.mensaje, res.success ? "success" : "error");
+
+    if (res.success) {
+      setTimeout(() => navigate("/login"), 2000);
+    } else {
+      setBloqueado(false);
+    }
   };
 
   return (
-    <form
-      onSubmit={manejarEnvio}
-      className="flex flex-col gap-5 w-full text-center"
-    >
-      <p className="text-sm text-udlaverso-gris">
-        Ingresa tu correo electrónico institucional para restablecer tu
-        contraseña.
-      </p>
+    <div className="flex flex-col gap-5 w-full text-center">
+      {!codigoEnviado && (
+        <form onSubmit={handleEnviarCodigo} className="flex flex-col gap-5">
+          <p className="text-sm text-udlaverso-gris">
+            Ingresa tu correo electrónico registrado para restablecer tu
+            contraseña.
+          </p>
+          <InputFlotante
+            id="correo"
+            tipo="email"
+            etiqueta="Correo electrónico"
+            valor={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            requerido
+          />
+          <Boton
+            texto="Enviar código de verificación"
+            cargando={loading}
+            variante="principal"
+            tipo="submit"
+          />
+        </form>
+      )}
 
-      <InputFlotante
-        id="correo"
-        tipo="email"
-        etiqueta="Correo electrónico"
-        valor={correo}
-        onChange={(e) => setCorreo(e.target.value)}
-        requerido
-      />
+      {codigoEnviado && !codigoVerificado && (
+        <form onSubmit={handleVerificarCodigo} className="flex flex-col gap-5">
+          <p className="text-sm text-udlaverso-gris">
+            Hemos enviado un código de verificación a <strong>{correo}</strong>.
+          </p>
+          <InputFlotante
+            id="codigo"
+            etiqueta="Código de verificación"
+            valor={codigo}
+            onChange={(e) => setCodigo(e.target.value)}
+            requerido
+            maxLength={6}
+          />
+          <Boton
+            texto="Verificar código"
+            cargando={loading}
+            variante="principal"
+            tipo="submit"
+          />
+        </form>
+      )}
 
-      <Boton texto="Enviar enlace de recuperación" variante="principal" />
+      {codigoVerificado && (
+        <form onSubmit={handleRestablecer} className="flex flex-col gap-5">
+          <InputFlotante
+            id="nueva"
+            tipo="password"
+            etiqueta="Nueva contraseña"
+            valor={nueva}
+            onChange={(e) => setNueva(e.target.value)}
+            requerido
+            mostrarTogglePassword
+          />
+
+          <InputFlotante
+            id="confirmar"
+            tipo="password"
+            etiqueta="Confirmar nueva contraseña"
+            valor={confirmar}
+            onChange={(e) => setConfirmar(e.target.value)}
+            requerido
+            mostrarTogglePassword
+          />
+
+          <Boton
+            texto="Restablecer contraseña"
+            cargando={loading}
+            variante="principal"
+            tipo="submit"
+            deshabilitado={loading || bloqueado}
+          />
+        </form>
+      )}
 
       <p className="text-sm text-center text-udlaverso-gris mt-2">
         ¿Recordaste tu contraseña?{" "}
@@ -41,7 +162,14 @@ const FormularioRecuperar: React.FC = () => {
           Inicia sesión
         </Link>
       </p>
-    </form>
+
+      <AlertaEmergente
+        mensaje={alerta.mensaje}
+        tipo={alerta.tipo}
+        visible={alerta.visible}
+        onClose={() => setAlerta((prev) => ({ ...prev, visible: false }))}
+      />
+    </div>
   );
 };
 

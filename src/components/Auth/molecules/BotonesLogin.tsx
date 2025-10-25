@@ -9,8 +9,8 @@ const BotonesLogin: React.FC<Props> = ({ loading }) => (
   <div className="flex flex-col gap-5 mt-6 w-full">
     {/* Botón principal */}
     <Boton
-      texto={loading ? "Entrando..." : "Iniciar sesión"}
-      variante="principal"
+      texto="Iniciar sesión"
+      cargando={loading}
       claseExtra="w-full"
       tipo="submit"
       deshabilitado={loading}
