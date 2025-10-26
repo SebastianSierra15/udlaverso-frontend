@@ -6,7 +6,9 @@ export const useCrearProyecto = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const crearProyecto = async (proyecto: ProyectoData): Promise<Proyecto> => {
+  const crearProyecto = async (
+    proyecto: ProyectoData & { hero: File; galeria: File[] }
+  ): Promise<Proyecto> => {
     try {
       setLoading(true);
       const nuevoProyecto = await crearProyectoController(proyecto);

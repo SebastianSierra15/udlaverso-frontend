@@ -131,8 +131,24 @@ export const listarProyectosMasVistos = async (
  * Crear nuevo proyecto
  */
 export const crearProyectoService = async (
-  proyecto: ProyectoData
+  proyecto: ProyectoData & { hero: File; galeria: File[] }
 ): Promise<Proyecto> => {
-  const { data } = await api.post("/proyectos", proyecto);
+  const token = localStorage.getItem("token");
+  const formData = new FormData();
+
+  formData.append(
+    "proyecto",
+    new Blob([JSON.stringify(proyecto)], { type: "application/json" })
+  );
+  formData.append("hero", proyecto.hero);
+  proyecto.galeria.forEach((img) => formData.append("galeria", img));
+
+  const { data } = await api.post("/proyectos/con-imagenes", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return data;
 };

@@ -65,7 +65,7 @@ export const obtenerProyectosMasVistos = async (limite = 10) => {
 };
 
 export const crearProyectoController = async (
-  proyecto: ProyectoData
+  proyecto: ProyectoData & { hero: File; galeria: File[] }
 ): Promise<Proyecto> => {
   try {
     const nuevoProyecto = await crearProyectoService(proyecto);
@@ -73,6 +73,19 @@ export const crearProyectoController = async (
   } catch (error: unknown) {
     const err = error as ApiError;
     console.error("❌ Error en crearProyectoController:", error);
+
+    if (err.response?.status === 403) {
+      alert("No tienes permiso para crear proyectos.");
+      throw new Error("Sin permiso");
+    }
+
+    if (err.response?.status === 401) {
+      alert("Tu sesión expiró. Inicia sesión nuevamente.");
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+      throw new Error("Sesión expirada");
+    }
+
     throw err;
   }
 };

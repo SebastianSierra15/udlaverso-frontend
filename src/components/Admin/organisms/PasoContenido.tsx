@@ -75,7 +75,7 @@ const PasoContenido: React.FC<Props> = ({
 
       <EditorTexto
         label="Descripción detallada"
-        maxLength={2200}
+        maxLength={3000}
         value={data.descripcionDetallada}
         onChange={(v) => actualizar("descripcionDetallada", v)}
         obligatorio

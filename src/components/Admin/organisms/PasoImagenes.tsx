@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { convertirAWebp } from "../../../utils/convertirAWebp";
 import CampoTexto from "../atoms/CampoTexto";
 import VistaPreviaImagen from "../atoms/VistaPreviaImagen";
 import LabelConTooltip from "../atoms/LabelConTooltip";
@@ -24,7 +25,7 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
     onChange({ ...data, [campo]: valor });
   };
 
-  // 🔍 Validar video de YouTube
+  // Validar video de YouTube
   const validarVideo = (url: string) => {
     const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
     if (!regex.test(url)) {
@@ -58,16 +59,25 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
           className={`text-sm text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-udlaverso-verde file:text-white hover:file:bg-udlaverso-verde/90 ${
             errores.hero ? "border border-red-500" : ""
           }`}
-          onChange={(e) => {
+          onChange={async (e) => {
             const archivo = e.target.files?.[0] || null;
-            actualizar("hero", archivo);
+
             if (!archivo) {
               setErrores((prev) => ({
                 ...prev,
                 hero: "Debe seleccionar una imagen principal.",
               }));
-            } else {
+              actualizar("hero", null);
+              return;
+            }
+
+            try {
+              // Convierte a WebP antes de actualizar el estado
+              const convertido = await convertirAWebp(archivo);
+              actualizar("hero", convertido);
               setErrores((prev) => ({ ...prev, hero: "" }));
+            } catch {
+              actualizar("hero", archivo); // fallback
             }
           }}
         />
@@ -104,14 +114,18 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
         <GaleriaImagenes
           minimo={3}
           maxImagenes={10}
-          onChange={(v) => {
-            actualizar("galeria", v);
-            if (v.length < 3) {
+          onChange={async (archivos) => {
+            const convertidos = await Promise.all(
+              archivos.map((f) => convertirAWebp(f))
+            );
+            actualizar("galeria", convertidos);
+
+            if (convertidos.length < 3) {
               setErrores((prev) => ({
                 ...prev,
                 galeria: "Debes subir al menos 3 imágenes.",
               }));
-            } else if (v.length > 10) {
+            } else if (convertidos.length > 10) {
               setErrores((prev) => ({
                 ...prev,
                 galeria: "Solo puedes subir hasta 10 imágenes.",

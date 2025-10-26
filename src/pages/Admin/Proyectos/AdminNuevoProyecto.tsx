@@ -113,15 +113,23 @@ const AdminNuevoProyecto = () => {
   const handleGuardarProyecto = async () => {
     if (!validarPaso()) return;
 
+    const token = localStorage.getItem("token");
+    if (!token) {
+      mostrarAlerta("Debes iniciar sesión para crear un proyecto.", "error");
+      return;
+    }
+
     try {
-      const data: ProyectoData = {
+      const data: ProyectoData & { hero: File; galeria: File[] } = {
         nombreProyecto: datosBasicos.titulo,
         autorProyecto: datosBasicos.autor,
         objetivoProyecto: datosBasicos.objetivo,
         descripcioncortaProyecto: datosBasicos.descripcionCorta,
         descripcionlargaProyecto: contenido.descripcionDetallada,
         videoProyecto: imagenes.video,
-        categoriaId: 1,
+        categoriaId: Number(contenido.categorias[0]),
+        hero: imagenes.hero!,
+        galeria: imagenes.galeria,
       };
 
       const nuevoProyecto = await crearProyecto(data);
@@ -130,7 +138,10 @@ const AdminNuevoProyecto = () => {
         "success"
       );
     } catch (error) {
-      mostrarAlerta("Error al crear el proyecto.", "error");
+      mostrarAlerta(
+        "Error al crear el proyecto o permisos insuficientes.",
+        "error"
+      );
     }
   };
 
