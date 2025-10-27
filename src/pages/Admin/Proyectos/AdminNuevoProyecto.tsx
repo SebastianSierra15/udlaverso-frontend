@@ -9,9 +9,11 @@ import PasoImagenes from "../../../components/Admin/organisms/PasoImagenes";
 import PasoRevision from "../../../components/Admin/organisms/PasoRevision";
 import BotonAdmin from "../../../components/Admin/atoms/BotonAdmin";
 import AlertaEmergente from "../../../components/Shared/atoms/AlertaEmergente";
+import ConfirmacionGlobal from "../../../components/Shared/molecules/ConfirmacionGlobal";
 
 const AdminNuevoProyecto = () => {
   const { crearProyecto } = useCrearProyecto();
+  const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
 
   const {
     categorias,
@@ -128,10 +130,13 @@ const AdminNuevoProyecto = () => {
         descripcionlargaProyecto: contenido.descripcionDetallada,
         videoProyecto: imagenes.video,
         categoriaId: Number(contenido.categorias[0]),
+        herramientasProyecto: contenido.herramientas.join(", "),
+        palabrasclaveProyecto: contenido.palabrasClave.join(", "),
         hero: imagenes.hero!,
         galeria: imagenes.galeria,
       };
 
+      console.log(data);
       const nuevoProyecto = await crearProyecto(data);
       mostrarAlerta(
         `Proyecto creado con éxito (ID: ${nuevoProyecto.idProyecto})`,
@@ -152,6 +157,19 @@ const AdminNuevoProyecto = () => {
         tipo={alerta.tipo}
         visible={alerta.visible}
         onClose={cerrarAlerta}
+      />
+
+      <ConfirmacionGlobal
+        visible={mostrarConfirmacion}
+        titulo="Confirmar creación de proyecto"
+        mensaje="¿Deseas guardar este proyecto con la información actual? Esta acción no se puede deshacer."
+        textoConfirmar="Sí, guardar"
+        textoCancelar="Cancelar"
+        onConfirmar={() => {
+          setMostrarConfirmacion(false);
+          handleGuardarProyecto();
+        }}
+        onCancelar={() => setMostrarConfirmacion(false)}
       />
 
       <h1 className="text-xl md:text-2xl font-bold text-udlaverso-negro">
@@ -196,7 +214,7 @@ const AdminNuevoProyecto = () => {
         ) : (
           <BotonAdmin
             texto="Guardar proyecto"
-            onClick={handleGuardarProyecto}
+            onClick={() => setMostrarConfirmacion(true)}
             variante="principal"
           />
         )}

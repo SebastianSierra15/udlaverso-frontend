@@ -28,7 +28,10 @@ const PasoContenido: React.FC<Props> = ({
     onChange({ ...data, [campo]: valor });
   };
 
-  const opcionesCategorias = categorias.map((cat) => cat.nombreCategoria);
+  const opcionesCategorias = categorias.map((cat) => ({
+    label: cat.nombreCategoria,
+    value: String(cat.idCategoria),
+  }));
 
   return (
     <div className="space-y-5">

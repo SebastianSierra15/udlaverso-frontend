@@ -27,4 +27,6 @@ export type ProyectoData = {
   descripcionlargaProyecto: string;
   videoProyecto?: string;
   categoriaId?: number;
+  herramientasProyecto?: string;
+  palabrasclaveProyecto?: string;
 };

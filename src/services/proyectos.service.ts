@@ -32,7 +32,9 @@ export const obtenerProyectoPorNombre = async (
     fechacreacionProyecto: data.fechacreacionProyecto,
     categoriaNombre: data.categoriaNombre ?? "Sin categoría",
     imagenesProyecto:
-      data.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
+      data.imagenesProyecto?.map(
+        (img: any) => `${import.meta.env.VITE_API_URL}${img.rutaImagen}`
+      ) ?? [],
     herramientasProyecto: data.herramientasProyecto ?? "",
     palabrasclaveProyecto: data.palabrasclaveProyecto ?? "",
     visualizacionesProyecto: data.visualizacionesProyecto ?? 0,
@@ -76,7 +78,9 @@ export const listarProyectos = async (
       fechacreacionProyecto: p.fechacreacionProyecto,
       categoriaNombre: p.categoriaNombre ?? "Sin categoría",
       imagenesProyecto:
-        p.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
+        p.imagenesProyecto?.map(
+          (img: any) => `${import.meta.env.VITE_API_URL}${img.rutaImagen}`
+        ) ?? [],
       herramientasProyecto: p.herramientasProyecto ?? "",
       palabrasclaveProyecto: p.palabrasclaveProyecto ?? "",
       visualizacionesProyecto: p.visualizacionesProyecto ?? 0,
@@ -118,7 +122,9 @@ export const listarProyectosMasVistos = async (
       fechacreacionProyecto: p.fechacreacionProyecto,
       categoriaNombre: p.categoriaNombre ?? "Sin categoría",
       imagenesProyecto:
-        p.imagenesProyecto?.map((img: any) => img.rutaImagen) ?? [],
+        p.imagenesProyecto?.map(
+          (img: any) => `${import.meta.env.VITE_API_URL}${img.rutaImagen}`
+        ) ?? [],
       herramientasProyecto: p.herramientasProyecto ?? "",
       palabrasclaveProyecto: p.palabrasclaveProyecto ?? "",
       visualizacionesProyecto: p.visualizacionesProyecto ?? 0,

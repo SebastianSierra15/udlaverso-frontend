@@ -5,7 +5,7 @@ import TooltipInfo from "../atoms/Tooltip";
 type Props = {
   label?: string;
   tooltip?: string;
-  opciones: string[];
+  opciones: (string | { label: string; value: string })[];
   seleccionadas: string[];
   onChange: (nuevas: string[]) => void;
   maxSeleccion?: number;
@@ -27,20 +27,24 @@ const SelectorOpciones: React.FC<Props> = ({
   const [error, setError] = useState("");
 
   const agregarOpcion = (nueva: string) => {
-    if (
-      nueva &&
-      !seleccionadas.includes(nueva) &&
-      seleccionadas.length < maxSeleccion
-    ) {
-      onChange([...seleccionadas, nueva]);
-      setError("");
-    } else if (seleccionadas.length >= maxSeleccion) {
+    if (!nueva) return;
+
+    if (seleccionadas.includes(nueva)) {
+      setError("Esa opción ya fue seleccionada.");
+      return;
+    }
+
+    if (seleccionadas.length >= maxSeleccion) {
       setError(
         `Solo puedes seleccionar ${maxSeleccion} opción${
           maxSeleccion > 1 ? "es" : ""
         }.`
       );
+      return;
     }
+
+    onChange([...seleccionadas, nueva]);
+    setError("");
   };
 
   const eliminarOpcion = (opt: string) => {
@@ -76,26 +80,41 @@ const SelectorOpciones: React.FC<Props> = ({
         }`}
       >
         <option value="">{placeholder}</option>
-        {opciones
-          .filter((o) => o && !seleccionadas.includes(o))
-          .map((o, index) => (
-            <option key={`${o}-${index}`} value={o}>
-              {o}
+        {opciones.map((o, index) => {
+          const value = typeof o === "string" ? o : o.value;
+          const label = typeof o === "string" ? o : o.label;
+
+          if (seleccionadas.includes(value)) return null;
+
+          return (
+            <option key={`${value}-${index}`} value={value}>
+              {label}
             </option>
-          ))}
+          );
+        })}
       </select>
 
       {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
 
       {seleccionadas.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-2">
-          {seleccionadas.map((opt) => (
-            <EtiquetaSeleccion
-              key={opt}
-              texto={opt}
-              onRemove={() => eliminarOpcion(opt)}
-            />
-          ))}
+          {seleccionadas.map((opt) => {
+            const encontrado = opciones.find((o) =>
+              typeof o === "string" ? o === opt : o.value === opt
+            );
+            const label =
+              typeof encontrado === "string"
+                ? encontrado
+                : encontrado?.label ?? opt;
+
+            return (
+              <EtiquetaSeleccion
+                key={opt}
+                texto={label}
+                onRemove={() => eliminarOpcion(opt)}
+              />
+            );
+          })}
         </div>
       )}
     </div>

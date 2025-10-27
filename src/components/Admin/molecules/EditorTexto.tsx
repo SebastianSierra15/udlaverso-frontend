@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   EditorProvider,
   Editor,
@@ -9,7 +10,6 @@ import {
   BtnNumberedList,
   BtnBulletList,
 } from "react-simple-wysiwyg";
-import React, { useState } from "react";
 
 type Props = {
   label: string;
@@ -21,7 +21,7 @@ type Props = {
 
 const EditorTexto: React.FC<Props> = ({
   label,
-  maxLength = 2200,
+  maxLength = 3000,
   value,
   onChange,
   obligatorio = false,
@@ -30,11 +30,14 @@ const EditorTexto: React.FC<Props> = ({
   const [error, setError] = useState("");
 
   const manejarCambio = (e: any) => {
-    const texto = e.target.value;
-    if (plainText.length <= maxLength) {
-      onChange(texto);
+    const textoHtml = e.target.value;
+    const textoPlano = textoHtml.replace(/<[^>]+>/g, "");
+
+    if (textoPlano.length <= maxLength) {
+      onChange(textoHtml);
     }
-    if (obligatorio && !texto.trim()) {
+
+    if (obligatorio && !textoPlano.trim()) {
       setError("Este campo es obligatorio.");
     } else {
       setError("");
