@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCrearProyecto } from "../../../hooks/useCrearProyectos";
 import { useCategorias } from "../../../hooks/useCategorias";
 import type { ProyectoData } from "../../../types/Proyecto.type";
@@ -12,6 +13,8 @@ import AlertaEmergente from "../../../components/Shared/atoms/AlertaEmergente";
 import ConfirmacionGlobal from "../../../components/Shared/molecules/ConfirmacionGlobal";
 
 const AdminNuevoProyecto = () => {
+  const navigate = useNavigate();
+
   const { crearProyecto } = useCrearProyecto();
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
 
@@ -141,6 +144,8 @@ const AdminNuevoProyecto = () => {
         `Proyecto creado con éxito (ID: ${nuevoProyecto.idProyecto})`,
         "success"
       );
+
+      setTimeout(() => navigate("/admin/proyectos"), 1000);
     } catch (error) {
       mostrarAlerta(
         "Error al crear el proyecto o permisos insuficientes.",

@@ -45,8 +45,8 @@ const NoticiaDetalle: React.FC = () => {
       <section className="max-w-7xl mx-auto px-6 md:px-8 -mt-10 relative z-10">
         <DetalleNoticia
           titulo={noticia.tituloNoticia}
-          fecha={noticia.fechapublicacionNoticia}
-          imagen={noticia.imagenNoticia}
+          fecha={noticia.fechapublicacionNoticia ?? ""}
+          imagen={noticia.imagenNoticia ?? "/images/hero.png"}
           contenido={noticia.contenidoNoticia}
         />
       </section>

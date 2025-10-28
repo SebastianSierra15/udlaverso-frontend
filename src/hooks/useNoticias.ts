@@ -49,6 +49,7 @@ export const useNoticias = () => {
     size,
     q,
     orden,
+    setNoticias,
     setPage,
     setSize,
     setQ,

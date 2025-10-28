@@ -59,10 +59,10 @@ const Noticias: React.FC = () => {
             <GridNoticias
               noticias={noticias.map((n) => ({
                 id: n.idNoticia,
-                titulo: n.tituloNoticia,
-                descripcion: n.contenidoNoticia,
-                fecha: n.fechapublicacionNoticia,
-                imagen: n.imagenNoticia,
+                titulo: n.tituloNoticia ?? "Sin título",
+                descripcion: n.contenidoNoticia ?? "Sin descripción",
+                fecha: n.fechapublicacionNoticia ?? "",
+                imagen: n.imagenNoticia ?? "/images/hero.png",
               }))}
             />
 

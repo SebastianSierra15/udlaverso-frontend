@@ -40,7 +40,7 @@ const ProyectoDetalle: React.FC = () => {
           imagenFondo={proyecto.imagenesProyecto?.[0]}
         />
 
-        <DetalleProyecto {...proyecto} linkProyecto="#" />
+        <DetalleProyecto {...proyecto} />
       </>
     </>
   );

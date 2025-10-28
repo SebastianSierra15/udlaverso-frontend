@@ -40,3 +40,38 @@ export const obtenerNoticia = async (id: number) => {
     return null;
   }
 };
+
+export const crearNoticia = async (noticia: any, imagen: File) => {
+  try {
+    return await noticiasService.crearNoticia(noticia, imagen);
+  } catch (error) {
+    console.error("Error al crear noticia:", error);
+    throw error;
+  }
+};
+
+export const actualizarNoticiaConImagen = async (
+  id: number,
+  noticia: any,
+  imagen?: File
+) => {
+  try {
+    return await noticiasService.actualizarNoticiaConImagen(
+      id,
+      noticia,
+      imagen
+    );
+  } catch (error) {
+    console.error("Error al actualizar noticia:", error);
+    throw error;
+  }
+};
+
+export const eliminarNoticia = async (id: number) => {
+  try {
+    return await noticiasService.eliminarNoticia(id);
+  } catch (error) {
+    console.error("Error al eliminar noticia:", error);
+    throw error;
+  }
+};

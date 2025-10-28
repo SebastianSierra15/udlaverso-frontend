@@ -26,7 +26,7 @@ const NoticiasRecientes: React.FC = () => {
               key={n.idNoticia}
               titulo={n.tituloNoticia}
               descripcion={n.contenidoNoticia}
-              imagen={n.imagenNoticia}
+              imagen={n.imagenNoticia ?? "/images/hero.png"}
               ruta={`/noticias/${encodeURIComponent(n.tituloNoticia)}`}
             />
           ))}

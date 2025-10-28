@@ -24,6 +24,8 @@ import Admin from "./pages/Admin/Admin";
 import AdminComentarios from "./pages/Admin/Comentarios/AdminComentarios";
 import AdminFAQ from "./pages/Admin/FAQ/AdminFAQ";
 import AdminNoticias from "./pages/Admin/Noticias/AdminNoticias";
+import AdminNuevaNoticia from "./pages/Admin/Noticias/AdminNuevaNoticia";
+import AdminEditarNoticia from "./pages/Admin/Noticias/AdminEditarNoticia";
 import AdminProyectos from "./pages/Admin/Proyectos/AdminProyectos";
 import AdminNuevoProyecto from "./pages/Admin/Proyectos/AdminNuevoProyecto";
 import AdminEditarProyecto from "./pages/Admin/Proyectos/AdminEditarProyecto";
@@ -86,6 +88,22 @@ function App() {
             element={
               <RutaProtegida permisosRequeridos={["ver_noticias"]}>
                 <AdminNoticias />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="noticias/nueva-noticia"
+            element={
+              <RutaProtegida permisosRequeridos={["crear_noticias"]}>
+                <AdminNuevaNoticia />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="noticias/editar/:id"
+            element={
+              <RutaProtegida permisosRequeridos={["editar_noticias"]}>
+                <AdminEditarNoticia />
               </RutaProtegida>
             }
           />

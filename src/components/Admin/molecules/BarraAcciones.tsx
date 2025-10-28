@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import BotonAdmin from "../atoms/BotonAdmin";
 
 type Props = {
@@ -14,11 +13,13 @@ const BarraAcciones: React.FC<Props> = ({
   placeholder = "Buscar...",
   valor = "",
 }) => {
-  const navigate = useNavigate();
-
   const manejarNuevo = () => {
-    if (onNuevo) onNuevo();
-    navigate("/admin/proyectos/nuevo-proyecto");
+    if (onNuevo) {
+      onNuevo();
+      return;
+    }
+
+    console.warn("⚠️ No se definió onNuevo, no se realiza navegación.");
   };
 
   return (

@@ -4,11 +4,15 @@ import Boton from "../../Shared/atoms/Boton";
 
 interface Props {
   titulo: string;
-  linkProyecto: string;
+  linkProyecto?: string;
 }
 
 const TituloAccionProyecto: React.FC<Props> = ({ titulo, linkProyecto }) => {
-  const abrirProyecto = () => window.open(linkProyecto, "_blank");
+  const enlace =
+    linkProyecto?.trim() ||
+    "https://www.mediafire.com/file/yi7wyivkcffq3lb/UA3D-Viwer.exe";
+
+  const abrirProyecto = () => window.open(enlace, "_blank");
 
   return (
     <div className="flex justify-between items-start md:items-center gap-4">

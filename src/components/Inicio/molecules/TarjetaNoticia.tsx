@@ -13,20 +13,17 @@ interface Props {
 const TarjetaNoticia: React.FC<Props> = ({
   titulo,
   descripcion,
-  imagen = "/images/placeholder.png",
+  imagen = "/images/hero.png",
   ruta = "/noticias",
 }) => {
   return (
     <div className="flex bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden p-4">
       <ImagenNoticia src={imagen} alt={titulo} ruta={ruta} />
-
       <div className="flex flex-col justify-between flex-1 pl-4">
         <div>
           <TituloNoticia texto={titulo} ruta={ruta} />
-
           <DescripcionNoticia texto={descripcion} />
         </div>
-
         <EnlaceLeerMas ruta={ruta} />
       </div>
     </div>

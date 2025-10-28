@@ -7,7 +7,7 @@ import ContenidoProyecto from "./ContenidoProyecto";
 import ReseniasProyecto from "./ReseniasProyecto";
 
 type Props = Proyecto & {
-  linkProyecto: string;
+  linkProyecto?: string;
 };
 
 const DetalleProyecto: React.FC<Props> = ({
@@ -25,14 +25,11 @@ const DetalleProyecto: React.FC<Props> = ({
   imagenesProyecto,
   reseniasProyecto = [],
   valoracionPromedio = 0,
-  linkProyecto,
+  // linkProyecto,
 }) => {
   return (
     <section className="max-w-7xl mx-auto px-6 md:px-10 py-10 bg-white rounded-2xl shadow-sm -mt-10 relative z-10">
-      <TituloAccionProyecto
-        titulo={nombreProyecto}
-        linkProyecto={linkProyecto}
-      />
+      <TituloAccionProyecto titulo={nombreProyecto} />
       <CategoriaSocialProyecto
         categoria={categoriaNombre ?? "General"}
         titulo={nombreProyecto}

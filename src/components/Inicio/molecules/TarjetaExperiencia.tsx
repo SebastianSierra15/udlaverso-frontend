@@ -15,6 +15,13 @@ const TarjetaExperiencia: React.FC<Props> = ({
   descripcion,
   delay = 0,
 }) => {
+  const esDescarga =
+    titulo.toLowerCase().includes("ua3d") ||
+    titulo.toLowerCase().includes("events");
+
+  const urlDescarga =
+    "https://www.mediafire.com/file/yi7wyivkcffq3lb/UA3D-Viwer.exe";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 80 }}
@@ -39,18 +46,24 @@ const TarjetaExperiencia: React.FC<Props> = ({
           </p>
         </div>
 
-        <div className="mt-auto">
-          <Link
-            to={`/proyectos/${encodeURIComponent(
-              titulo.toLowerCase().replace(/\s+/g, "-")
-            )}`}
-          >
-            <Boton
-              texto="Más información"
-              variante="alternativo"
-              modo="light"
-            />
-          </Link>
+        <div className="mt-auto flex justify-center items-center w-full">
+          {esDescarga ? (
+            <a href={urlDescarga} target="_blank" rel="noopener noreferrer">
+              <Boton texto="Descargar" variante="alternativo" modo="light" />
+            </a>
+          ) : (
+            <Link
+              to={`/proyectos/${encodeURIComponent(
+                titulo.toLowerCase().replace(/\s+/g, "-")
+              )}`}
+            >
+              <Boton
+                texto="Más información"
+                variante="alternativo"
+                modo="light"
+              />
+            </Link>
+          )}
         </div>
       </div>
     </motion.div>

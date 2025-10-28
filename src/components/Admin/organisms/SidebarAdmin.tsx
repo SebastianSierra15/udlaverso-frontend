@@ -2,9 +2,9 @@ import { NavLink, useLocation } from "react-router-dom";
 import {
   FaChartPie,
   FaCube,
-  FaComments,
+  // FaComments,
   FaNewspaper,
-  FaQuestionCircle,
+  // FaQuestionCircle,
 } from "react-icons/fa";
 import { useAuth } from "../../../hooks/useAuth";
 
@@ -21,24 +21,24 @@ const enlaces = [
     icon: <FaCube />,
     permiso: "ver_proyectos",
   },
-  {
-    to: "/admin/resenias",
-    label: "Reseñas",
-    icon: <FaComments />,
-    permiso: "moderar_reseñas",
-  },
+  // {
+  //   to: "/admin/resenias",
+  //   label: "Reseñas",
+  //   icon: <FaComments />,
+  //   permiso: "moderar_reseñas",
+  // },
   {
     to: "/admin/noticias",
     label: "Noticias",
     icon: <FaNewspaper />,
     permiso: "ver_noticias",
   },
-  {
-    to: "/admin/preguntas-frecuentes",
-    label: "Preguntas frecuentes",
-    icon: <FaQuestionCircle />,
-    permiso: "gestionar_faq",
-  },
+  // {
+  //   to: "/admin/preguntas-frecuentes",
+  //   label: "Preguntas frecuentes",
+  //   icon: <FaQuestionCircle />,
+  //   permiso: "gestionar_faq",
+  // },
 ];
 
 const SidebarAdmin: React.FC = () => {

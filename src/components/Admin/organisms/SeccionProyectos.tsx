@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { useProyectos } from "../../../hooks/useProyectos";
 import { useEliminarProyecto } from "../../../hooks/useEliminarProyecto";
+import type { Proyecto } from "../../../types/Proyecto.type";
 import TablaSimple from "../molecules/TablaSimple";
 import BarraAcciones from "../molecules/BarraAcciones";
 import InsigniaEstado from "../atoms/InsigniaEstado";
@@ -46,7 +47,7 @@ const SeccionProyectos: React.FC = () => {
   });
 
   const [proyectoSeleccionado, setProyectoSeleccionado] =
-    useState<FilaProyecto | null>(null);
+    useState<Proyecto | null>(null);
 
   const {
     proyectos,
@@ -75,14 +76,7 @@ const SeccionProyectos: React.FC = () => {
           icono: <FaEye className="w-4 h-4" />,
           color: "text-green-600 hover:text-green-700",
           titulo: "Ver proyecto",
-          onClick: () =>
-            setProyectoSeleccionado({
-              nombre: p.nombreProyecto || "Sin nombre",
-              categoria: p.categoriaNombre || "Sin categoría",
-              autor: p.autorProyecto || "Desconocido",
-              estado: p.estadoProyecto === 1 ? "activo" : "inactivo",
-              visitas: Number(p.visualizacionesProyecto) || 0,
-            }),
+          onClick: () => setProyectoSeleccionado(p),
         },
         {
           icono: <FaEdit className="w-4 h-4" />,
@@ -159,7 +153,7 @@ const SeccionProyectos: React.FC = () => {
           </h2>
 
           <BarraAcciones
-            onNuevo={() => alert("Nuevo proyecto")}
+            onNuevo={() => navigate("/admin/proyectos/nuevo-proyecto")}
             onBuscar={setQ}
             valor={q}
             placeholder="Buscar proyecto..."
@@ -183,19 +177,31 @@ const SeccionProyectos: React.FC = () => {
         {proyectoSeleccionado && (
           <ModalVistaProyecto
             proyecto={{
-              id: "1",
-              titulo: proyectoSeleccionado.nombre,
-              categoria: proyectoSeleccionado.categoria,
-              promedio: 4.5,
-              visitas: proyectoSeleccionado.visitas,
-              autor: proyectoSeleccionado.autor,
-              fecha: new Date().toISOString(),
+              id: String(proyectoSeleccionado.idProyecto ?? ""), // fuerza string
+              titulo: proyectoSeleccionado.nombreProyecto ?? "Sin título",
+              categoria:
+                proyectoSeleccionado.categoriaNombre ?? "Sin categoría",
+              promedio: proyectoSeleccionado.valoracionPromedio ?? 0,
+              visitas: Number(
+                proyectoSeleccionado.visualizacionesProyecto ?? 0
+              ),
+              autor: proyectoSeleccionado.autorProyecto ?? "Desconocido",
+              fecha:
+                proyectoSeleccionado.fechacreacionProyecto ??
+                new Date().toISOString(),
               descripcionCorta:
-                "Vista previa del proyecto en modo administrador.",
+                proyectoSeleccionado.descripcioncortaProyecto ??
+                "Sin descripción disponible.",
               linkProyecto:
                 "/proyectos/" +
-                proyectoSeleccionado.nombre.toLowerCase().replace(/\s+/g, "-"),
-              imagenes: ["/images/imagen1.png"],
+                (proyectoSeleccionado.nombreProyecto ?? "sin-nombre")
+                  .toLowerCase()
+                  .replace(/\s+/g, "-"),
+              imagenes:
+                proyectoSeleccionado.imagenesProyecto &&
+                proyectoSeleccionado.imagenesProyecto.length > 0
+                  ? proyectoSeleccionado.imagenesProyecto
+                  : ["/images/no-image.png"],
             }}
             onClose={() => setProyectoSeleccionado(null)}
           />

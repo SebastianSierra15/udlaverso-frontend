@@ -1,9 +1,13 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useNoticias } from "../../../hooks/useNoticias";
+import { useEliminarNoticia } from "../../../hooks/useEliminarNoticia";
 import TablaSimple from "../molecules/TablaSimple";
 import BarraAcciones from "../molecules/BarraAcciones";
 import InsigniaEstado from "../atoms/InsigniaEstado";
+import ConfirmacionGlobal from "../../Shared/molecules/ConfirmacionGlobal";
+import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
 
 type Fila = {
   titulo: string;
@@ -20,6 +24,7 @@ type Fila = {
 const SeccionNoticias: React.FC = () => {
   const {
     noticias,
+    setNoticias,
     total,
     page,
     pages,
@@ -32,23 +37,67 @@ const SeccionNoticias: React.FC = () => {
     error,
   } = useNoticias();
 
+  const navigate = useNavigate();
+
+  const { eliminar, cargando: eliminando } = useEliminarNoticia();
+
+  const [noticiaSeleccionada, setNoticiaSeleccionada] = useState<any>(null);
+  const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
+  const [alerta, setAlerta] = useState({
+    visible: false,
+    mensaje: "",
+    tipo: "info" as "error" | "success" | "info" | "warning",
+  });
+
+  const manejarEliminar = (n: any) => {
+    setNoticiaSeleccionada(n);
+    setMostrarConfirmacion(true);
+  };
+
+  const confirmarEliminacion = async () => {
+    setMostrarConfirmacion(false);
+    try {
+      await eliminar(noticiaSeleccionada.idNoticia);
+
+      const nuevasNoticias = noticias.filter(
+        (n) => n.idNoticia !== noticiaSeleccionada.idNoticia
+      );
+
+      setNoticias(nuevasNoticias);
+
+      setAlerta({
+        visible: true,
+        mensaje: "Noticia eliminada correctamente 🗑️",
+        tipo: "success",
+      });
+    } catch {
+      setAlerta({
+        visible: true,
+        mensaje: "Error al eliminar la noticia.",
+        tipo: "error",
+      });
+    }
+  };
+
   const filas = useMemo(() => {
     return noticias.map((n) => ({
       titulo: n.tituloNoticia,
-      fecha: new Date(n.fechapublicacionNoticia).toLocaleDateString("es-ES"),
+      fecha: n.fechapublicacionNoticia
+        ? new Date(n.fechapublicacionNoticia).toLocaleDateString("es-ES")
+        : "Sin fecha",
       estado: n.estadoNoticia === 1 ? "activo" : "inactivo",
       acciones: [
         {
           icono: <FaEdit className="w-4 h-4" />,
           color: "text-blue-600 hover:text-blue-700",
           titulo: "Editar noticia",
-          onClick: () => alert(`Editar: ${n.tituloNoticia}`),
+          onClick: () => navigate(`/admin/noticias/editar/${n.idNoticia}`),
         },
         {
           icono: <FaTrash className="w-4 h-4" />,
           color: "text-red-600 hover:text-red-700",
           titulo: "Eliminar noticia",
-          onClick: () => alert(`Eliminar: ${n.tituloNoticia}`),
+          onClick: () => manejarEliminar(n),
         },
       ],
     }));
@@ -97,8 +146,9 @@ const SeccionNoticias: React.FC = () => {
         <h2 className="text-lg md:text-xl font-bold text-udlaverso-negro">
           Noticias
         </h2>
+
         <BarraAcciones
-          onNuevo={() => alert("Nueva noticia")}
+          onNuevo={() => navigate("/admin/noticias/nueva-noticia")}
           onBuscar={setQ}
           valor={q}
           placeholder="Buscar noticia..."
@@ -116,6 +166,25 @@ const SeccionNoticias: React.FC = () => {
         porPagina={size}
         onCambioPagina={(nueva) => setPage(nueva - 1)}
         onCambioCantidad={(nueva) => setSize(nueva)}
+      />
+
+      {/* Confirmación */}
+      <ConfirmacionGlobal
+        visible={mostrarConfirmacion}
+        titulo="Eliminar noticia"
+        mensaje={`¿Estás seguro de eliminar "${noticiaSeleccionada?.tituloNoticia}"?`}
+        textoConfirmar={eliminando ? "Eliminando..." : "Sí, eliminar"}
+        textoCancelar="Cancelar"
+        onConfirmar={confirmarEliminacion}
+        onCancelar={() => setMostrarConfirmacion(false)}
+      />
+
+      {/* Alerta */}
+      <AlertaEmergente
+        visible={alerta.visible}
+        mensaje={alerta.mensaje}
+        tipo={alerta.tipo}
+        onClose={() => setAlerta({ ...alerta, visible: false })}
       />
     </section>
   );

@@ -4,10 +4,11 @@ type Variante = "principal" | "secundario" | "peligro";
 
 interface Props {
   texto: string;
-  onClick: () => void;
+  onClick?: () => void;
   variante?: Variante;
   icono?: React.ReactNode;
   claseExtra?: string;
+  tipo?: "button" | "submit" | "reset";
 }
 
 const coloresPorVariante: Record<Variante, string> = {
@@ -25,8 +26,10 @@ const BotonAdmin: React.FC<Props> = ({
   variante = "principal",
   icono,
   claseExtra = "",
+  tipo = "button",
 }) => (
   <button
+    type={tipo}
     onClick={onClick}
     className={`flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-lg shadow-sm transition ${coloresPorVariante[variante]} ${claseExtra}`}
   >
