@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import VistaPreviaImagen from "../atoms/VistaPreviaImagen";
 import BotonFlecha from "../atoms/BotonFlecha";
 
@@ -6,55 +6,106 @@ type Props = {
   minimo?: number;
   maxVisibles?: number;
   maxImagenes?: number;
-  onChange: (archivos: File[]) => void;
+  iniciales?: string[]; // imágenes ya existentes (URLs)
+  archivos?: File[];
+  onChange: (data: {
+    archivos: File[];
+    urls: string[];
+    eliminadas: string[];
+  }) => void;
 };
 
 const GaleriaImagenes: React.FC<Props> = ({
   minimo = 3,
   maxVisibles = 5,
   maxImagenes = 10,
+  iniciales = [],
+  archivos = [],
   onChange,
 }) => {
-  const [imagenes, setImagenes] = useState<File[]>([]);
+  const [imagenes, setImagenes] = useState<File[]>(archivos ?? []);
+  const [urls, setUrls] = useState<string[]>(iniciales);
   const [indice, setIndice] = useState(0);
   const [mensajeError, setMensajeError] = useState("");
+  const [eliminadas, setEliminadas] = useState<string[]>([]);
+
+  useEffect(() => {
+    setUrls(iniciales);
+  }, [iniciales]);
+
+  useEffect(() => {
+    setImagenes(archivos);
+  }, [archivos]);
 
   const handleSeleccion = (e: React.ChangeEvent<HTMLInputElement>) => {
     const archivos = e.target.files ? Array.from(e.target.files) : [];
     const nuevas = [...imagenes, ...archivos];
 
-    if (nuevas.length > maxImagenes) {
+    const total = nuevas.length + urls.length;
+
+    if (total > maxImagenes) {
       setMensajeError(`Solo se permiten ${maxImagenes} imágenes como máximo.`);
       return;
     }
 
-    if (nuevas.length < minimo) {
-      setMensajeError(`Debes subir al menos ${minimo} imágenes.`);
+    if (total < minimo) {
+      setMensajeError(`Debes tener al menos ${minimo} imágenes en total.`);
     } else {
       setMensajeError("");
     }
 
     setImagenes(nuevas);
-    onChange(nuevas);
+    onChange({ archivos: nuevas, urls, eliminadas });
   };
 
-  const eliminarImagen = (index: number) => {
-    const nuevas = imagenes.filter((_, i) => i !== index);
-    setImagenes(nuevas);
-    onChange(nuevas);
-    setMensajeError("");
+  const eliminarImagen = (index: number, esUrl = false) => {
+    if (esUrl) {
+      // Si es una imagen del backend (URL)
+      const urlEliminada = urls[index];
+      const nuevasUrls = urls.filter((_, i) => i !== index);
+
+      setUrls(nuevasUrls);
+      setEliminadas((prev) => [...prev, urlEliminada]);
+      onChange({
+        archivos: imagenes,
+        urls: nuevasUrls,
+        eliminadas: [...eliminadas, urlEliminada],
+      });
+    } else {
+      const indexReal = index - urls.length;
+      if (indexReal < 0 || indexReal >= imagenes.length) return;
+
+      const nuevas = imagenes.filter((_, i) => i !== indexReal);
+      setImagenes(nuevas);
+      onChange({ archivos: nuevas, urls, eliminadas });
+
+      if (nuevas.length === 0 && urls.length === 0) {
+        setMensajeError("Debes subir al menos 3 imágenes.");
+      }
+    }
   };
 
   const navegar = (direccion: "prev" | "next") => {
-    if (imagenes.length <= maxVisibles) return;
+    const total = imagenes.length + urls.length;
+    if (total <= maxVisibles) return;
+
     setIndice((prev) =>
       direccion === "next"
-        ? Math.min(prev + 1, imagenes.length - maxVisibles)
+        ? Math.min(prev + 1, total - maxVisibles)
         : Math.max(prev - 1, 0)
     );
   };
 
-  const visibleImagenes = imagenes.slice(indice, indice + maxVisibles);
+  // Combinar imágenes existentes y nuevas
+  const todasLasImagenes = [
+    ...urls.map((u) => ({ src: u, esUrl: true })),
+    ...imagenes.map((f) => ({
+      src: URL.createObjectURL(f),
+      esUrl: false,
+    })),
+  ];
+
+  const visibles = todasLasImagenes.slice(indice, indice + maxVisibles);
 
   return (
     <div>
@@ -70,15 +121,18 @@ const GaleriaImagenes: React.FC<Props> = ({
         <p className="text-xs text-red-500 mt-1">{mensajeError}</p>
       )}
 
-      {imagenes.length > 0 && (
+      {todasLasImagenes.length > 0 && (
         <div className="mt-3 space-y-3">
           <p className="text-xs text-gray-500">
-            {imagenes.length} imagen{imagenes.length !== 1 ? "es" : ""} cargada
-            {imagenes.length < minimo && <> — se requieren al menos {minimo}</>}
+            {todasLasImagenes.length} imagen
+            {todasLasImagenes.length !== 1 ? "es" : ""} cargada
+            {todasLasImagenes.length < minimo && (
+              <> — se requieren al menos {minimo}</>
+            )}
           </p>
 
           <div className="flex items-center gap-2 mt-2">
-            {imagenes.length > maxVisibles && (
+            {todasLasImagenes.length > maxVisibles && (
               <BotonFlecha
                 direccion="left"
                 onClick={() => navegar("prev")}
@@ -87,21 +141,21 @@ const GaleriaImagenes: React.FC<Props> = ({
             )}
 
             <div className="flex gap-3 overflow-hidden">
-              {visibleImagenes.map((img, i) => (
+              {visibles.map((img, i) => (
                 <VistaPreviaImagen
                   key={i + indice}
-                  src={URL.createObjectURL(img)}
-                  alt={`Miniatura ${i + 1}`}
-                  onRemove={() => eliminarImagen(i + indice)}
+                  src={img.src}
+                  alt={`Imagen ${i + 1}`}
+                  onRemove={() => eliminarImagen(i + indice, img.esUrl)}
                 />
               ))}
             </div>
 
-            {imagenes.length > maxVisibles && (
+            {todasLasImagenes.length > maxVisibles && (
               <BotonFlecha
                 direccion="right"
                 onClick={() => navegar("next")}
-                deshabilitado={indice + maxVisibles >= imagenes.length}
+                deshabilitado={indice + maxVisibles >= todasLasImagenes.length}
               />
             )}
           </div>

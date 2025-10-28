@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { convertirAWebp } from "../../../utils/convertirAWebp";
 import CampoTexto from "../atoms/CampoTexto";
 import VistaPreviaImagen from "../atoms/VistaPreviaImagen";
@@ -10,6 +10,9 @@ interface Props {
     hero: File | null;
     galeria: File[];
     video: string;
+    heroUrl?: string;
+    galeriaUrls?: string[];
+    galeriaEliminadas?: string[];
   };
   onChange: (nuevaData: Props["data"]) => void;
 }
@@ -20,6 +23,7 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
     galeria: "",
     video: "",
   });
+  const [inputKey, setInputKey] = useState(0);
 
   const actualizar = (campo: keyof Props["data"], valor: any) => {
     onChange({ ...data, [campo]: valor });
@@ -38,6 +42,19 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
     }
   };
 
+  useEffect(() => {
+    if (data.hero) {
+      (data.hero as any).preview =
+        (data.hero as any).preview || URL.createObjectURL(data.hero);
+    }
+  }, [data.hero]);
+
+  useEffect(() => {
+    if (data.galeria && data.galeria.length > 0) {
+      onChange({ ...data });
+    }
+  }, []);
+
   return (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold text-udlaverso-negro">
@@ -53,6 +70,7 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
         />
 
         <input
+          key={inputKey}
           type="file"
           accept="image/*"
           required
@@ -74,9 +92,11 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
             try {
               // Convierte a WebP antes de actualizar el estado
               const convertido = await convertirAWebp(archivo);
+              (convertido as any).preview = URL.createObjectURL(convertido);
               actualizar("hero", convertido);
               setErrores((prev) => ({ ...prev, hero: "" }));
             } catch {
+              (archivo as any).preview = URL.createObjectURL(archivo);
               actualizar("hero", archivo); // fallback
             }
           }}
@@ -86,21 +106,72 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
           <p className="text-xs text-red-600 mt-1">{errores.hero}</p>
         )}
 
-        {data.hero && (
-          <div className="mt-3">
-            <VistaPreviaImagen
-              src={URL.createObjectURL(data.hero)}
-              alt="Hero"
-              onRemove={() => {
-                actualizar("hero", null);
-                setErrores((prev) => ({
-                  ...prev,
-                  hero: "Debe seleccionar una imagen principal.",
-                }));
-              }}
-            />
-          </div>
-        )}
+        {/* Imagen principal (único bloque para hero o heroUrl) */}
+        {(() => {
+          if (data.hero) {
+            return (
+              <div className="mt-3" key="hero-preview">
+                <VistaPreviaImagen
+                  key={(data.hero as any).preview || (data.hero as any).name}
+                  src={
+                    (data.hero as any).preview || URL.createObjectURL(data.hero)
+                  }
+                  alt="Imagen principal"
+                  onRemove={() => {
+                    if ((data.hero as any)?.preview) {
+                      URL.revokeObjectURL((data.hero as any).preview);
+                    }
+
+                    // 🔧 Agrupamos todo en un solo update
+                    onChange({
+                      ...data,
+                      hero: null,
+                      heroUrl: "",
+                    });
+
+                    setInputKey((prev) => prev + 1);
+                    setErrores((prev) => ({
+                      ...prev,
+                      hero: "Debe seleccionar una imagen principal.",
+                    }));
+                  }}
+                />
+              </div>
+            );
+          }
+
+          if (data.heroUrl && data.heroUrl.trim() !== "") {
+            return (
+              <div className="mt-3" key="hero-url">
+                <VistaPreviaImagen
+                  key={data.heroUrl}
+                  src={data.heroUrl}
+                  alt="Imagen principal"
+                  onRemove={() => {
+                    if ((data.hero as any)?.preview) {
+                      URL.revokeObjectURL((data.hero as any).preview);
+                    }
+
+                    // 🔧 Agrupamos todo en un solo update
+                    onChange({
+                      ...data,
+                      hero: null,
+                      heroUrl: "",
+                    });
+
+                    setInputKey((prev) => prev + 1);
+                    setErrores((prev) => ({
+                      ...prev,
+                      hero: "Debe seleccionar una imagen principal.",
+                    }));
+                  }}
+                />
+              </div>
+            );
+          }
+
+          return null;
+        })()}
       </div>
 
       {/* Galería de imágenes */}
@@ -114,18 +185,28 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
         <GaleriaImagenes
           minimo={3}
           maxImagenes={10}
-          onChange={async (archivos) => {
+          iniciales={data.galeriaUrls ?? []}
+          archivos={data.galeria ?? []}
+          onChange={async ({ archivos, urls, eliminadas }) => {
             const convertidos = await Promise.all(
               archivos.map((f) => convertirAWebp(f))
             );
-            actualizar("galeria", convertidos);
 
-            if (convertidos.length < 3) {
+            onChange({
+              ...data,
+              galeria: convertidos,
+              galeriaUrls: urls,
+              galeriaEliminadas: eliminadas,
+            });
+
+            const total = convertidos.length + urls.length;
+
+            if (total < 3) {
               setErrores((prev) => ({
                 ...prev,
                 galeria: "Debes subir al menos 3 imágenes.",
               }));
-            } else if (convertidos.length > 10) {
+            } else if (total > 10) {
               setErrores((prev) => ({
                 ...prev,
                 galeria: "Solo puedes subir hasta 10 imágenes.",

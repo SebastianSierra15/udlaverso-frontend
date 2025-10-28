@@ -31,10 +31,20 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const status = error.response?.status;
+    const data = error.response?.data;
+
+    // Detectar token expirado o inválido
+    if (
+      status === 401 ||
+      (status === 403 && typeof data === "string" && data.includes("JWT"))
+    ) {
+      console.warn("⚠️ Token expirado o inválido. Redirigiendo a login...");
       localStorage.removeItem("token");
       window.location.href = "/login";
+      return Promise.reject(new Error("Sesión expirada"));
     }
+
     return Promise.reject(error);
   }
 );

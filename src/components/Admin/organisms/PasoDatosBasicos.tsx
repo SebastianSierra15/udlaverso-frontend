@@ -50,7 +50,7 @@ const PasoDatosBasicos: React.FC<Props> = ({ data, onChange }) => {
         label="Objetivo principal del proyecto"
         placeholder="Describe el objetivo principal del proyecto..."
         tooltip="Describe el propósito central del proyecto. Este texto se mostrará debajo del título en la sección principal del proyecto."
-        maxLength={100}
+        maxLength={200}
         filas={3}
         value={data.objetivo}
         onChange={(v) => actualizar("objetivo", v)}

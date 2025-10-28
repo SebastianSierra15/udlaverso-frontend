@@ -136,7 +136,6 @@ const AdminNuevoProyecto = () => {
         galeria: imagenes.galeria,
       };
 
-      console.log(data);
       const nuevoProyecto = await crearProyecto(data);
       mostrarAlerta(
         `Proyecto creado con éxito (ID: ${nuevoProyecto.idProyecto})`,

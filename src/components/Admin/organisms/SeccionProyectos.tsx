@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { useProyectos } from "../../../hooks/useProyectos";
 import TablaSimple from "../molecules/TablaSimple";
@@ -7,6 +8,7 @@ import InsigniaEstado from "../atoms/InsigniaEstado";
 import ModalVistaProyecto from "../molecules/ModalVistaProyecto";
 
 type FilaProyecto = {
+  id?: string | number;
   nombre: string;
   categoria: string;
   autor: string;
@@ -21,6 +23,8 @@ type FilaProyecto = {
 };
 
 const SeccionProyectos: React.FC = () => {
+  const navigate = useNavigate();
+
   const [proyectoSeleccionado, setProyectoSeleccionado] =
     useState<FilaProyecto | null>(null);
 
@@ -40,6 +44,7 @@ const SeccionProyectos: React.FC = () => {
 
   const filas = useMemo(() => {
     return proyectos.map((p) => ({
+      id: p.idProyecto,
       nombre: p.nombreProyecto || "Sin nombre",
       categoria: p.categoriaNombre || "Sin categoría",
       autor: p.autorProyecto || "Desconocido",
@@ -64,7 +69,11 @@ const SeccionProyectos: React.FC = () => {
           color: "text-blue-600 hover:text-blue-700",
           titulo: "Editar proyecto",
           onClick: () =>
-            alert(`Editar proyecto: ${p.nombreProyecto || "Sin nombre"}`),
+            navigate(
+              `/admin/proyectos/editar/${p.nombreProyecto
+                .toLowerCase()
+                .replace(/\s+/g, "-")}`
+            ),
         },
         {
           icono: <FaTrash className="w-4 h-4" />,

@@ -158,3 +158,70 @@ export const crearProyectoService = async (
 
   return data;
 };
+
+export async function validarNombreProyecto(
+  nombre: string,
+  excluirId?: number
+) {
+  const { data } = await api.get("/proyectos/validar-nombre", {
+    params: { nombre, excluirId },
+  });
+  return data as { disponible: boolean };
+}
+
+export async function actualizarProyectoService(
+  id: number,
+  payload: ProyectoData
+) {
+  const token = localStorage.getItem("token");
+
+  const { data } = await api.put(`/proyectos/${id}`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  return data as Proyecto;
+}
+
+/**
+ * Actualizar proyecto con imágenes
+ */
+export const actualizarProyectoConImagenesService = async (
+  id: number,
+  proyecto: ProyectoData & {
+    hero?: File;
+    galeria?: File[];
+    imagenesEliminadas?: string[];
+  }
+): Promise<Proyecto> => {
+  const token = localStorage.getItem("token");
+  const formData = new FormData();
+
+  formData.append(
+    "proyecto",
+    new Blob([JSON.stringify(proyecto)], { type: "application/json" })
+  );
+
+  if (proyecto.hero) formData.append("hero", proyecto.hero);
+  proyecto.galeria?.forEach((img) => formData.append("galeria", img));
+
+  if (proyecto.imagenesEliminadas && proyecto.imagenesEliminadas.length > 0) {
+    formData.append(
+      "imagenesEliminadas",
+      new Blob([JSON.stringify(proyecto.imagenesEliminadas)], {
+        type: "application/json",
+      })
+    );
+  }
+
+  const { data } = await api.put(`/proyectos/${id}/con-imagenes`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data;
+};

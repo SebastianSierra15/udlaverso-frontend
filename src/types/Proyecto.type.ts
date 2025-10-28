@@ -20,6 +20,7 @@ export interface Proyecto {
 }
 
 export type ProyectoData = {
+  idProyecto?: number;
   nombreProyecto: string;
   autorProyecto: string;
   objetivoProyecto: string;
@@ -29,4 +30,7 @@ export type ProyectoData = {
   categoriaId?: number;
   herramientasProyecto?: string;
   palabrasclaveProyecto?: string;
+  imagenesEliminadas?: string[];
+  hero?: File;
+  galeria?: File[];
 };

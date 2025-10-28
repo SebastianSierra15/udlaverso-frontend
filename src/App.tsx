@@ -26,6 +26,7 @@ import AdminFAQ from "./pages/Admin/FAQ/AdminFAQ";
 import AdminNoticias from "./pages/Admin/Noticias/AdminNoticias";
 import AdminProyectos from "./pages/Admin/Proyectos/AdminProyectos";
 import AdminNuevoProyecto from "./pages/Admin/Proyectos/AdminNuevoProyecto";
+import AdminEditarProyecto from "./pages/Admin/Proyectos/AdminEditarProyecto";
 
 function App() {
   return (
@@ -109,6 +110,14 @@ function App() {
             element={
               <RutaProtegida permisosRequeridos={["crear_proyectos"]}>
                 <AdminNuevoProyecto />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="proyectos/editar/:nombre"
+            element={
+              <RutaProtegida permisosRequeridos={["editar_proyectos"]}>
+                <AdminEditarProyecto />
               </RutaProtegida>
             }
           />

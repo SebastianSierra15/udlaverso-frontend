@@ -19,6 +19,8 @@ interface Props {
     hero: File | null;
     galeria: File[];
     video: string;
+    heroUrl?: string;
+    galeriaUrls?: string[];
   };
 }
 
@@ -28,8 +30,14 @@ const PasoRevision: React.FC<Props> = ({
   imagenes,
 }) => {
   const imagenesUrls = [
-    ...(imagenes.hero ? [URL.createObjectURL(imagenes.hero)] : []),
-    ...imagenes.galeria.map((img) => URL.createObjectURL(img)),
+    ...(imagenes.hero
+      ? [URL.createObjectURL(imagenes.hero)]
+      : imagenes.heroUrl
+      ? [imagenes.heroUrl]
+      : []),
+    ...(imagenes.galeria.length
+      ? imagenes.galeria.map((img) => URL.createObjectURL(img))
+      : imagenes.galeriaUrls || []),
   ];
 
   const heroUrl = imagenes.hero

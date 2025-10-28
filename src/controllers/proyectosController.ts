@@ -3,6 +3,8 @@ import {
   listarProyectos as listarProyectosService,
   listarProyectosMasVistos,
   crearProyectoService,
+  actualizarProyectoService,
+  actualizarProyectoConImagenesService,
 } from "../services/proyectos.service";
 import type { Proyecto, ProyectoData } from "../types/Proyecto.type";
 
@@ -76,6 +78,48 @@ export const crearProyectoController = async (
 
     if (err.response?.status === 403) {
       alert("No tienes permiso para crear proyectos.");
+      throw new Error("Sin permiso");
+    }
+
+    if (err.response?.status === 401) {
+      alert("Tu sesión expiró. Inicia sesión nuevamente.");
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+      throw new Error("Sesión expirada");
+    }
+
+    throw err;
+  }
+};
+
+export const actualizarProyectoController = async (
+  id: number,
+  data: ProyectoData & {
+    hero?: File;
+    galeria?: File[];
+    imagenesEliminadas?: string[];
+  }
+): Promise<Proyecto> => {
+  try {
+    let actualizado: Proyecto;
+
+    if (
+      data.hero ||
+      (data.galeria && data.galeria.length > 0) ||
+      (data.imagenesEliminadas && data.imagenesEliminadas.length > 0)
+    ) {
+      actualizado = await actualizarProyectoConImagenesService(id, data);
+    } else {
+      actualizado = await actualizarProyectoService(id, data);
+    }
+
+    return actualizado;
+  } catch (error: unknown) {
+    const err = error as ApiError;
+    console.error("❌ Error en actualizarProyectoController:", err);
+
+    if (err.response?.status === 403) {
+      alert("No tienes permiso para editar proyectos.");
       throw new Error("Sin permiso");
     }
 

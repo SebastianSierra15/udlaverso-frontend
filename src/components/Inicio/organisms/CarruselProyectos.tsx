@@ -41,9 +41,7 @@ const CarruselProyectos: React.FC = () => {
                 <TarjetaProyecto
                   titulo={proyecto.nombreProyecto}
                   imagenes={
-                    proyecto.imagenesProyecto?.map((img) => img) || [
-                      "/images/placeholder.png",
-                    ]
+                    proyecto.imagenesProyecto ?? ["/images/placeholder.png"]
                   }
                   descripcion={proyecto.descripcioncortaProyecto}
                 />
