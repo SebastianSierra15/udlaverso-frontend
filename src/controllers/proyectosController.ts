@@ -5,6 +5,7 @@ import {
   crearProyectoService,
   actualizarProyectoService,
   actualizarProyectoConImagenesService,
+  eliminarProyectoService,
 } from "../services/proyectos.service";
 import type { Proyecto, ProyectoData } from "../types/Proyecto.type";
 
@@ -131,5 +132,32 @@ export const actualizarProyectoController = async (
     }
 
     throw err;
+  }
+};
+
+export const eliminarProyectoController = async (
+  id: number
+): Promise<boolean> => {
+  try {
+    await eliminarProyectoService(id);
+    return true;
+  } catch (error: unknown) {
+    const err = error as ApiError;
+    console.error("❌ Error en eliminarProyectoController:", error);
+
+    if (err.response?.status === 403) {
+      alert("No tienes permiso para eliminar proyectos.");
+      return false;
+    }
+
+    if (err.response?.status === 401) {
+      alert("Tu sesión expiró. Inicia sesión nuevamente.");
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+      return false;
+    }
+
+    alert("Error al eliminar el proyecto. Intenta nuevamente.");
+    return false;
   }
 };

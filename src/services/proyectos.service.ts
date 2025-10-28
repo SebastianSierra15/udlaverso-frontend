@@ -225,3 +225,13 @@ export const actualizarProyectoConImagenesService = async (
 
   return data;
 };
+
+/**
+ * Eliminar proyecto (eliminación lógica)
+ */
+export const eliminarProyectoService = async (id: number): Promise<void> => {
+  const token = localStorage.getItem("token");
+  await api.delete(`/proyectos/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};

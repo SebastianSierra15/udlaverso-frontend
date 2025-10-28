@@ -33,15 +33,26 @@ const AdminEditarProyecto = () => {
   const [paso, setPaso] = useState(1);
   const totalPasos = 4;
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
-  const [alerta, setAlerta] = useState({
+  const [alerta, setAlerta] = useState<{
+    visible: boolean;
+    mensaje: string;
+    tipo: "error" | "success" | "info" | "warning";
+  }>({
     visible: false,
     mensaje: "",
-    tipo: "error" as "error" | "success" | "info" | "warning",
+    tipo: "info",
   });
 
-  const mostrarAlerta = (mensaje: string, tipo: typeof alerta.tipo = "error") =>
-    setAlerta({ visible: true, mensaje, tipo });
-  const cerrarAlerta = () => setAlerta((a) => ({ ...a, visible: false }));
+  const mostrarAlerta = (
+    mensaje: string,
+    tipo: "error" | "success" | "info" | "warning" = "info"
+  ) => setAlerta({ visible: true, mensaje, tipo });
+
+  const cerrarAlerta = () =>
+    setAlerta((prev) => ({
+      ...prev,
+      visible: false,
+    }));
 
   // Estados de formulario
   const [datosBasicos, setDatosBasicos] = useState({

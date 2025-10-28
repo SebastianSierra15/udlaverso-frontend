@@ -2,10 +2,13 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { useProyectos } from "../../../hooks/useProyectos";
+import { useEliminarProyecto } from "../../../hooks/useEliminarProyecto";
 import TablaSimple from "../molecules/TablaSimple";
 import BarraAcciones from "../molecules/BarraAcciones";
 import InsigniaEstado from "../atoms/InsigniaEstado";
 import ModalVistaProyecto from "../molecules/ModalVistaProyecto";
+import ConfirmacionGlobal from "../../Shared/molecules/ConfirmacionGlobal";
+import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
 
 type FilaProyecto = {
   id?: string | number;
@@ -24,6 +27,23 @@ type FilaProyecto = {
 
 const SeccionProyectos: React.FC = () => {
   const navigate = useNavigate();
+
+  const { eliminarProyecto } = useEliminarProyecto();
+
+  const [confirmVisible, setConfirmVisible] = useState(false);
+  const [proyectoAEliminar, setProyectoAEliminar] = useState<{
+    id: number;
+    nombre: string;
+  } | null>(null);
+  const [alerta, setAlerta] = useState<{
+    visible: boolean;
+    mensaje: string;
+    tipo: "success" | "error";
+  }>({
+    visible: false,
+    mensaje: "",
+    tipo: "success",
+  });
 
   const [proyectoSeleccionado, setProyectoSeleccionado] =
     useState<FilaProyecto | null>(null);
@@ -79,8 +99,13 @@ const SeccionProyectos: React.FC = () => {
           icono: <FaTrash className="w-4 h-4" />,
           color: "text-red-600 hover:text-red-700",
           titulo: "Eliminar proyecto",
-          onClick: () =>
-            alert(`Eliminar proyecto: ${p.nombreProyecto || "Sin nombre"}`),
+          onClick: () => {
+            setProyectoAEliminar({
+              id: Number(p.idProyecto),
+              nombre: p.nombreProyecto,
+            });
+            setConfirmVisible(true);
+          },
         },
       ],
     }));
@@ -126,55 +151,99 @@ const SeccionProyectos: React.FC = () => {
   }
 
   return (
-    <section id="proyectos" className="space-y-3">
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <h2 className="text-lg md:text-xl font-bold text-udlaverso-negro">
-          Proyectos
-        </h2>
+    <>
+      <section id="proyectos" className="space-y-3">
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <h2 className="text-lg md:text-xl font-bold text-udlaverso-negro">
+            Proyectos
+          </h2>
 
-        <BarraAcciones
-          onNuevo={() => alert("Nuevo proyecto")}
-          onBuscar={setQ}
-          valor={q}
-          placeholder="Buscar proyecto..."
+          <BarraAcciones
+            onNuevo={() => alert("Nuevo proyecto")}
+            onBuscar={setQ}
+            valor={q}
+            placeholder="Buscar proyecto..."
+          />
+        </div>
+
+        {/* Tabla */}
+        <TablaSimple
+          columnas={columnas as any}
+          filas={filas}
+          nombreEntidad="proyectos"
+          paginaActual={page + 1}
+          totalPaginas={pages}
+          totalRegistros={total}
+          porPagina={size}
+          onCambioPagina={(nueva) => setPage(nueva - 1)}
+          onCambioCantidad={(nueva) => setSize(nueva)}
         />
-      </div>
 
-      {/* Tabla */}
-      <TablaSimple
-        columnas={columnas as any}
-        filas={filas}
-        nombreEntidad="proyectos"
-        paginaActual={page + 1}
-        totalPaginas={pages}
-        totalRegistros={total}
-        porPagina={size}
-        onCambioPagina={(nueva) => setPage(nueva - 1)}
-        onCambioCantidad={(nueva) => setSize(nueva)}
+        {/* Modal de vista rápida */}
+        {proyectoSeleccionado && (
+          <ModalVistaProyecto
+            proyecto={{
+              id: "1",
+              titulo: proyectoSeleccionado.nombre,
+              categoria: proyectoSeleccionado.categoria,
+              promedio: 4.5,
+              visitas: proyectoSeleccionado.visitas,
+              autor: proyectoSeleccionado.autor,
+              fecha: new Date().toISOString(),
+              descripcionCorta:
+                "Vista previa del proyecto en modo administrador.",
+              linkProyecto:
+                "/proyectos/" +
+                proyectoSeleccionado.nombre.toLowerCase().replace(/\s+/g, "-"),
+              imagenes: ["/images/imagen1.png"],
+            }}
+            onClose={() => setProyectoSeleccionado(null)}
+          />
+        )}
+      </section>
+
+      {/* Modal de confirmación para eliminar */}
+      <ConfirmacionGlobal
+        visible={confirmVisible}
+        titulo="Eliminar proyecto"
+        mensaje={`¿Seguro que deseas eliminar "${proyectoAEliminar?.nombre}"?`}
+        textoConfirmar="Eliminar"
+        textoCancelar="Cancelar"
+        onConfirmar={async () => {
+          if (proyectoAEliminar) {
+            const ok = await eliminarProyecto(proyectoAEliminar.id);
+            setConfirmVisible(false);
+
+            if (ok) {
+              setAlerta({
+                visible: true,
+                mensaje: "Proyecto eliminado correctamente",
+                tipo: "success",
+              });
+              setTimeout(() => window.location.reload(), 1200);
+            } else {
+              setAlerta({
+                visible: true,
+                mensaje: "Error al eliminar el proyecto",
+                tipo: "error",
+              });
+            }
+          }
+        }}
+        onCancelar={() => {
+          setConfirmVisible(false);
+          setProyectoAEliminar(null);
+        }}
       />
 
-      {/* Modal de vista rápida */}
-      {proyectoSeleccionado && (
-        <ModalVistaProyecto
-          proyecto={{
-            id: "1",
-            titulo: proyectoSeleccionado.nombre,
-            categoria: proyectoSeleccionado.categoria,
-            promedio: 4.5,
-            visitas: proyectoSeleccionado.visitas,
-            autor: proyectoSeleccionado.autor,
-            fecha: new Date().toISOString(),
-            descripcionCorta:
-              "Vista previa del proyecto en modo administrador.",
-            linkProyecto:
-              "/proyectos/" +
-              proyectoSeleccionado.nombre.toLowerCase().replace(/\s+/g, "-"),
-            imagenes: ["/images/imagen1.png"],
-          }}
-          onClose={() => setProyectoSeleccionado(null)}
-        />
-      )}
-    </section>
+      {/* Alerta emergente para mostrar resultado */}
+      <AlertaEmergente
+        visible={alerta.visible}
+        mensaje={alerta.mensaje}
+        tipo={alerta.tipo}
+        onClose={() => setAlerta((prev) => ({ ...prev, visible: false }))}
+      />
+    </>
   );
 };
 
