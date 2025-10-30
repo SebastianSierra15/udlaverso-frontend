@@ -1,46 +1,51 @@
 import { useState } from "react";
-import type { Resenia } from "../../../types/Resenia.type";
+import { useAuth } from "../../../hooks/useAuth";
+import { useResenias } from "../../../hooks/useResenias";
 import TarjetaResenia from "../molecules/TarjetaResenia";
 import ModalResenia from "../molecules/ModalResenia";
 import Boton from "../../Shared/atoms/Boton";
 
 interface Props {
-  resenias: Resenia[];
-  mostrarBoton?: boolean;
+  idProyecto: number | string;
 }
 
-const ReseniasProyecto: React.FC<Props> = ({
-  resenias: iniciales,
-  mostrarBoton = true,
-}) => {
-  const [resenias, setResenias] = useState(iniciales);
+const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
+  const { user } = useAuth();
+  const puedeEscribir = user?.permisos?.some(
+    (p) => p.nombrePermiso === "escribir_reseña"
+  );
+
+  const {
+    resenias: reseñasActualizadas,
+    miResenia,
+    crear,
+    editar,
+    eliminar,
+  } = useResenias(Number(idProyecto), user?.idUsuario);
+
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [nuevoComentario] = useState("");
+  const [nuevasEstrellas] = useState(0);
 
-  const agregarResenia = (
-    usuario: string,
-    comentario: string,
-    estrellas: number
-  ) => {
-    const nueva: Resenia = {
-      idResenia: Date.now(),
-      valoracionResenia: estrellas,
-      comentarioResenia: comentario,
-      fechaResenia: new Date().toLocaleDateString("es-ES", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }),
-      usuarioNombres: usuario,
-      usuarioApellidos: "",
-    };
+  const reseñasOrdenadas = miResenia
+    ? [
+        miResenia,
+        ...reseñasActualizadas.filter(
+          (r) => r.idResenia !== miResenia.idResenia
+        ),
+      ]
+    : reseñasActualizadas;
 
-    setResenias([nueva, ...resenias]);
-    setMostrarModal(false);
+  const agregarResenia = async (comentario: string, estrellas: number) => {
+    if (comentario && estrellas > 0) {
+      await crear(comentario, estrellas);
+      setMostrarModal(false);
+    }
   };
 
   return (
     <div className="mt-14 bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-      {/* Encabezado */}
+      {/* Encabezado de las reseñas */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
           <h3 className="text-2xl font-semibold text-udlaverso-negro">
@@ -51,7 +56,7 @@ const ReseniasProyecto: React.FC<Props> = ({
           </p>
         </div>
 
-        {mostrarBoton && (
+        {puedeEscribir && !miResenia && (
           <Boton
             texto="Escribe una reseña"
             onClick={() => setMostrarModal(true)}
@@ -63,9 +68,9 @@ const ReseniasProyecto: React.FC<Props> = ({
       </div>
 
       {/* Lista de reseñas */}
-      {resenias.length ? (
+      {reseñasOrdenadas.length ? (
         <div className="space-y-4">
-          {resenias.map((r) => (
+          {reseñasOrdenadas.map((r) => (
             <TarjetaResenia
               key={r.idResenia}
               usuario={`${r.usuarioNombres} ${r.usuarioApellidos ?? ""}`.trim()}
@@ -76,6 +81,11 @@ const ReseniasProyecto: React.FC<Props> = ({
                 month: "long",
                 year: "numeric",
               })}
+              esPropia={r.idResenia === miResenia?.idResenia}
+              onEditar={
+                () => editar(r.idResenia, nuevoComentario, nuevasEstrellas) // Llamada para editar la reseña
+              }
+              onEliminar={() => eliminar(r.idResenia)}
             />
           ))}
         </div>

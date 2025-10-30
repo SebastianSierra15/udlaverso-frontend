@@ -2,7 +2,7 @@ import { useState } from "react";
 import Estrella from "../atoms/Estrella";
 
 interface Props {
-  onSubmit: (usuario: string, comentario: string, estrellas: number) => void;
+  onSubmit: (comentario: string, estrellas: number) => void;
 }
 
 const FormularioResenia: React.FC<Props> = ({ onSubmit }) => {
@@ -13,7 +13,7 @@ const FormularioResenia: React.FC<Props> = ({ onSubmit }) => {
   const enviar = (e: React.FormEvent) => {
     e.preventDefault();
     if (!usuario || !comentario || estrellas === 0) return;
-    onSubmit(usuario, comentario, estrellas);
+    onSubmit(comentario, estrellas);
     setUsuario("");
     setComentario("");
     setEstrellas(0);

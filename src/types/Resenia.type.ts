@@ -3,6 +3,7 @@ export interface Resenia {
   valoracionResenia: number;
   comentarioResenia: string;
   fechaResenia: string;
+  usuarioId: number;
   usuarioNombres: string;
   usuarioApellidos: string;
 }

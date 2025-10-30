@@ -6,6 +6,9 @@ interface Props {
   comentario: string;
   estrellas: number;
   fecha?: string;
+  esPropia?: boolean;
+  onEditar?: () => void;
+  onEliminar?: () => void;
 }
 
 const TarjetaResenia: React.FC<Props> = ({
@@ -13,6 +16,9 @@ const TarjetaResenia: React.FC<Props> = ({
   comentario,
   estrellas,
   fecha,
+  esPropia,
+  onEditar,
+  onEliminar,
 }) => (
   <div className="p-5 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition bg-white">
     <div className="flex items-center gap-3 mb-2">
@@ -33,6 +39,23 @@ const TarjetaResenia: React.FC<Props> = ({
     <p className="text-[14px] text-udlaverso-gris leading-relaxed">
       {comentario}
     </p>
+
+    {esPropia && (
+      <div className="flex gap-2 mt-2">
+        <button
+          onClick={onEditar}
+          className="text-sm text-udlaverso-verde hover:underline"
+        >
+          Editar
+        </button>
+        <button
+          onClick={onEliminar}
+          className="text-sm text-red-500 hover:underline"
+        >
+          Eliminar
+        </button>
+      </div>
+    )}
   </div>
 );
 

@@ -3,7 +3,7 @@ import FormularioResenia from "./FormularioResenia";
 
 interface Props {
   onClose: () => void;
-  onSubmit: (usuario: string, comentario: string, estrellas: number) => void;
+  onSubmit: (comentario: string, estrellas: number) => void;
 }
 
 const ModalResenia: React.FC<Props> = ({ onClose, onSubmit }) => (

@@ -11,6 +11,7 @@ type Props = Proyecto & {
 };
 
 const DetalleProyecto: React.FC<Props> = ({
+  idProyecto,
   nombreProyecto,
   categoriaNombre,
   visualizacionesProyecto,
@@ -23,9 +24,7 @@ const DetalleProyecto: React.FC<Props> = ({
   videoProyecto,
   palabrasclaveProyecto,
   imagenesProyecto,
-  reseniasProyecto = [],
   valoracionPromedio = 0,
-  // linkProyecto,
 }) => {
   return (
     <section className="max-w-7xl mx-auto px-6 md:px-10 py-10 bg-white rounded-2xl shadow-sm -mt-10 relative z-10">
@@ -57,7 +56,7 @@ const DetalleProyecto: React.FC<Props> = ({
         video={videoProyecto ?? ""}
       />
 
-      <ReseniasProyecto resenias={reseniasProyecto} />
+      <ReseniasProyecto idProyecto={idProyecto} />
     </section>
   );
 };
