@@ -11,10 +11,11 @@ export const crearReseniaController = async (
   data: {
     comentarioResenia: string;
     valoracionResenia: number;
-  }
+  },
+  token: string
 ): Promise<Resenia | null> => {
   try {
-    return await crearReseniaService(proyectoId, data);
+    return await crearReseniaService(proyectoId, data, token);
   } catch (err) {
     console.error("Error creando reseña:", err);
     return null;
@@ -23,10 +24,11 @@ export const crearReseniaController = async (
 
 export const actualizarReseniaController = async (
   idResenia: number,
-  data: { comentarioResenia: string; valoracionResenia: number }
+  data: { comentarioResenia: string; valoracionResenia: number },
+  token: string
 ): Promise<Resenia | null> => {
   try {
-    return await actualizarReseniaService(idResenia, data);
+    return await actualizarReseniaService(idResenia, data, token);
   } catch (err) {
     console.error("Error actualizando reseña:", err);
     return null;
@@ -34,10 +36,11 @@ export const actualizarReseniaController = async (
 };
 
 export const eliminarReseniaController = async (
-  idResenia: number
+  idResenia: number,
+  token: string
 ): Promise<boolean> => {
   try {
-    await eliminarReseniaService(idResenia);
+    await eliminarReseniaService(idResenia, token);
     return true;
   } catch (err) {
     console.error("Error eliminando reseña:", err);

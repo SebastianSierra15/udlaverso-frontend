@@ -11,24 +11,27 @@ export const useResenias = (proyectoId: number, usuarioId?: number) => {
   const [resenias, setResenias] = useState<Resenia[]>([]);
   const [miResenia, setMiResenia] = useState<Resenia | null>(null);
 
+  const token = localStorage.getItem("token") || "";
+
+  const cargar = async () => {
+    const data = await obtenerReseniasPorProyectoController(proyectoId);
+    setResenias(data);
+    if (usuarioId) {
+      const propia = data.find((r) => r.usuarioId === usuarioId);
+      if (propia) setMiResenia(propia);
+    }
+  };
+
   useEffect(() => {
-    if (!proyectoId) return;
-    const cargar = async () => {
-      const data = await obtenerReseniasPorProyectoController(proyectoId);
-      setResenias(data);
-      if (usuarioId) {
-        const propia = data.find((r) => r.usuarioId === usuarioId);
-        if (propia) setMiResenia(propia);
-      }
-    };
-    cargar();
+    if (proyectoId) cargar();
   }, [proyectoId, usuarioId]);
 
   const crear = async (comentario: string, estrellas: number) => {
-    const nueva = await crearReseniaController(proyectoId, {
-      comentarioResenia: comentario,
-      valoracionResenia: estrellas,
-    });
+    const nueva = await crearReseniaController(
+      proyectoId,
+      { comentarioResenia: comentario, valoracionResenia: estrellas },
+      token
+    );
     if (nueva) {
       setResenias([nueva, ...resenias]);
       setMiResenia(nueva);
@@ -36,10 +39,11 @@ export const useResenias = (proyectoId: number, usuarioId?: number) => {
   };
 
   const editar = async (id: number, comentario: string, estrellas: number) => {
-    const actualizada = await actualizarReseniaController(id, {
-      comentarioResenia: comentario,
-      valoracionResenia: estrellas,
-    });
+    const actualizada = await actualizarReseniaController(
+      id,
+      { comentarioResenia: comentario, valoracionResenia: estrellas },
+      token
+    );
     if (actualizada) {
       setResenias((prev) =>
         prev.map((r) => (r.idResenia === id ? actualizada : r))
@@ -49,7 +53,7 @@ export const useResenias = (proyectoId: number, usuarioId?: number) => {
   };
 
   const eliminar = async (id: number) => {
-    const ok = await eliminarReseniaController(id);
+    const ok = await eliminarReseniaController(id, token);
     if (ok) {
       setResenias((prev) => prev.filter((r) => r.idResenia !== id));
       setMiResenia(null);

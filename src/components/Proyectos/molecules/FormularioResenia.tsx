@@ -1,34 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Estrella from "../atoms/Estrella";
+import BotonAccion from "../atoms/BotonAccion";
 
 interface Props {
   onSubmit: (comentario: string, estrellas: number) => void;
+  valoresIniciales?: {
+    comentario: string;
+    estrellas: number;
+  };
 }
 
-const FormularioResenia: React.FC<Props> = ({ onSubmit }) => {
-  const [usuario, setUsuario] = useState("");
+const FormularioResenia: React.FC<Props> = ({ onSubmit, valoresIniciales }) => {
   const [comentario, setComentario] = useState("");
   const [estrellas, setEstrellas] = useState(0);
 
+  // 🧩 Cargar valores iniciales cuando se edita
+  useEffect(() => {
+    if (valoresIniciales) {
+      setComentario(valoresIniciales.comentario);
+      setEstrellas(valoresIniciales.estrellas);
+    }
+  }, [valoresIniciales]);
+
   const enviar = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!usuario || !comentario || estrellas === 0) return;
+    if (!comentario.trim() || estrellas === 0) return;
     onSubmit(comentario, estrellas);
-    setUsuario("");
-    setComentario("");
-    setEstrellas(0);
   };
 
   return (
     <form onSubmit={enviar} className="flex flex-col gap-4">
-      <input
-        type="text"
-        placeholder="Tu nombre"
-        value={usuario}
-        onChange={(e) => setUsuario(e.target.value)}
-        className="border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-udlaverso-verde outline-none"
-      />
-
+      {/* === Estrellas === */}
       <div className="flex justify-center gap-2">
         {[1, 2, 3, 4, 5].map((n) => (
           <Estrella
@@ -40,8 +42,9 @@ const FormularioResenia: React.FC<Props> = ({ onSubmit }) => {
         ))}
       </div>
 
+      {/* === Comentario === */}
       <textarea
-        placeholder="Describe tu experiencia (opcional)"
+        placeholder="Describe tu experiencia..."
         value={comentario}
         onChange={(e) => setComentario(e.target.value)}
         maxLength={500}
@@ -49,13 +52,12 @@ const FormularioResenia: React.FC<Props> = ({ onSubmit }) => {
         rows={4}
       />
 
+      {/* === Botón de acción === */}
       <div className="flex justify-end">
-        <button
-          type="submit"
-          className="bg-udlaverso-verde text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-udlaverso-verdeOscuro transition"
-        >
-          Publicar reseña
-        </button>
+        <BotonAccion
+          texto={valoresIniciales ? "Guardar cambios" : "Publicar reseña"}
+          claseExtra="mt-2"
+        />
       </div>
     </form>
   );

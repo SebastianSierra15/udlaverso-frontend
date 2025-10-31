@@ -25,6 +25,7 @@ export const useAuth = () => {
       const data = await loginService(correo, contrasenia);
 
       const usuario: Usuario = {
+        idUsuario: data.idUsuario,
         correoUsuario: correo,
         rolUsuario: {
           idRol: 0,

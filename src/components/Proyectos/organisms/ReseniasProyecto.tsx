@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import { useResenias } from "../../../hooks/useResenias";
+import type { Resenia } from "../../../types/Resenia.type";
 import TarjetaResenia from "../molecules/TarjetaResenia";
 import ModalResenia from "../molecules/ModalResenia";
+import ModalConfirmacion from "../molecules/ModalConfirmacion";
 import Boton from "../../Shared/atoms/Boton";
 
 interface Props {
@@ -24,8 +26,11 @@ const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
   } = useResenias(Number(idProyecto), user?.idUsuario);
 
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [nuevoComentario] = useState("");
-  const [nuevasEstrellas] = useState(0);
+  const [modalModo, setModalModo] = useState<
+    "crear" | "editar" | "eliminar" | null
+  >(null);
+  const [reseniaSeleccionada, setReseniaSeleccionada] =
+    useState<Resenia | null>(null);
 
   const reseñasOrdenadas = miResenia
     ? [
@@ -59,7 +64,10 @@ const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
         {puedeEscribir && !miResenia && (
           <Boton
             texto="Escribe una reseña"
-            onClick={() => setMostrarModal(true)}
+            onClick={() => {
+              setModalModo("crear");
+              setMostrarModal(true);
+            }}
             variante="alternativo"
             modo="light"
             claseExtra="mt-4 md:mt-0 shadow-sm"
@@ -82,10 +90,16 @@ const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
                 year: "numeric",
               })}
               esPropia={r.idResenia === miResenia?.idResenia}
-              onEditar={
-                () => editar(r.idResenia, nuevoComentario, nuevasEstrellas) // Llamada para editar la reseña
-              }
-              onEliminar={() => eliminar(r.idResenia)}
+              onEditar={() => {
+                setReseniaSeleccionada(r);
+                setModalModo("editar");
+                setMostrarModal(true);
+              }}
+              onEliminar={() => {
+                setReseniaSeleccionada(r);
+                setModalModo("eliminar");
+                setMostrarModal(true);
+              }}
             />
           ))}
         </div>
@@ -100,6 +114,61 @@ const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
         <ModalResenia
           onClose={() => setMostrarModal(false)}
           onSubmit={agregarResenia}
+        />
+      )}
+
+      {/* Modal de Crear o Editar Reseña */}
+      {mostrarModal && (modalModo === "crear" || modalModo === "editar") && (
+        <ModalResenia
+          onClose={() => {
+            setMostrarModal(false);
+            setModalModo(null);
+            setReseniaSeleccionada(null);
+          }}
+          onSubmit={async (comentario, estrellas) => {
+            if (modalModo === "crear") {
+              await crear(comentario, estrellas);
+            } else if (modalModo === "editar" && reseniaSeleccionada) {
+              await editar(
+                reseniaSeleccionada.idResenia,
+                comentario,
+                estrellas
+              );
+            }
+            setMostrarModal(false);
+            setModalModo(null);
+            setReseniaSeleccionada(null);
+          }}
+          valoresIniciales={
+            modalModo === "editar" && reseniaSeleccionada
+              ? {
+                  comentario: reseniaSeleccionada.comentarioResenia,
+                  estrellas: reseniaSeleccionada.valoracionResenia,
+                }
+              : undefined
+          }
+        />
+      )}
+
+      {/* Modal de Confirmación de Eliminación */}
+      {mostrarModal && modalModo === "eliminar" && (
+        <ModalConfirmacion
+          titulo="¿Deseas eliminar tu reseña?"
+          mensaje="Esta acción no se puede deshacer."
+          textoConfirmar="Eliminar"
+          textoCancelar="Cancelar"
+          onConfirmar={async () => {
+            if (reseniaSeleccionada)
+              await eliminar(reseniaSeleccionada.idResenia);
+            setMostrarModal(false);
+            setModalModo(null);
+            setReseniaSeleccionada(null);
+          }}
+          onCancelar={() => {
+            setMostrarModal(false);
+            setModalModo(null);
+            setReseniaSeleccionada(null);
+          }}
         />
       )}
 
