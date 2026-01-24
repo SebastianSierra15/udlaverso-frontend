@@ -14,6 +14,7 @@ const publicEndpoints = [
   "/proyectos",
   "/noticias",
   "/faqs",
+  "/analiticas",
 ];
 
 api.interceptors.request.use((config) => {

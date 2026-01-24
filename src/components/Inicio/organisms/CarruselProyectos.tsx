@@ -29,6 +29,10 @@ const CarruselProyectos: React.FC = () => {
 
       {cargando ? (
         <CarruselProyectosSkeleton />
+      ) : proyectos.length === 0 ? (
+        <p className="text-center text-udlaverso-gris text-lg">
+          No hay proyectos disponibles en este momento.
+        </p>
       ) : (
         <div className="relative w-full group">
           <div className="flex gap-6 animate-scroll group-hover:[animation-play-state:paused] [will-change:transform]">

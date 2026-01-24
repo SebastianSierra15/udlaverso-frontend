@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { loginService } from "../services/auth.service";
+import { AnaliticaController } from "../controllers/analiticaController";
 import type { Usuario } from "../types/Usuario.type";
 
 export const useAuth = () => {
@@ -41,6 +42,12 @@ export const useAuth = () => {
       localStorage.setItem("token", data.token);
 
       setUser(usuario);
+
+      // Registrar inicio de sesión
+      if (usuario.idUsuario) {
+        AnaliticaController.registrarInicioSesion(usuario.idUsuario);
+      }
+
       return true;
     } catch (err: unknown) {
       const errorResponse = err as {
@@ -55,8 +62,14 @@ export const useAuth = () => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    if (user?.idUsuario) {
+      // Registrar cierre de sesión antes de limpiar datos
+      await AnaliticaController.registrarCierreSesion(user.idUsuario);
+    }
+
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUser(null);
     window.location.href = "/login";
   };

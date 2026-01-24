@@ -45,7 +45,7 @@ const PasoContenido: React.FC<Props> = ({
         <p className="text-red-600 text-sm">{error}</p>
       ) : (
         <SelectorOpciones
-          label="Categorías del proyecto"
+          label="Categoría del proyecto"
           tooltip="Selecciona la categoría a la que pertenece el proyecto."
           opciones={opcionesCategorias}
           maxSeleccion={1}
@@ -59,7 +59,7 @@ const PasoContenido: React.FC<Props> = ({
       <CampoEtiquetas
         label="Herramientas utilizadas"
         placeholder="Ej: Unity, Blender, OpenSim..."
-        tooltip="Lista las herramientas o tecnologías utilizadas para el desarrollo del proyecto."
+        tooltip="Lista las herramientas o tecnologías utilizadas para el desarrollo del proyecto. (presiona Enter para agregar)"
         maxEtiquetas={5}
         valores={data.herramientas}
         onChange={(v) => actualizar("herramientas", v)}
@@ -69,7 +69,7 @@ const PasoContenido: React.FC<Props> = ({
       <CampoEtiquetas
         label="Palabras clave"
         placeholder="Ej: RA, IoT, biodiversidad..."
-        tooltip="Ayudan a la búsqueda y clasificación del proyecto."
+        tooltip="Ayudan a la búsqueda y clasificación del proyecto. (presiona Enter para agregar)"
         maxEtiquetas={5}
         valores={data.palabrasClave}
         onChange={(v) => actualizar("palabrasClave", v)}
