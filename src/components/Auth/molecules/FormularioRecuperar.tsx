@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecuperacion } from "../../../hooks";
+import {
+  recuperacionCodigoSchema,
+  recuperacionCorreoSchema,
+  recuperacionRestablecerSchema,
+} from "../../../schemas";
 import { InputFlotante } from "../atoms";
 import { Boton, AlertaEmergente } from "../../Shared";
 
@@ -35,8 +40,12 @@ export const FormularioRecuperar: React.FC = () => {
 
   const handleEnviarCodigo = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!correo.trim()) {
-      mostrarAlerta("Por favor, ingresa tu correo electrónico.", "warning");
+    const validacion = recuperacionCorreoSchema.safeParse({ correo });
+    if (!validacion.success) {
+      mostrarAlerta(
+        validacion.error.issues[0]?.message || "Correo invalido.",
+        "warning"
+      );
       return;
     }
 
@@ -46,6 +55,14 @@ export const FormularioRecuperar: React.FC = () => {
 
   const handleVerificarCodigo = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validacion = recuperacionCodigoSchema.safeParse({ correo, codigo });
+    if (!validacion.success) {
+      mostrarAlerta(
+        validacion.error.issues[0]?.message || "Datos invalidos.",
+        "warning"
+      );
+      return;
+    }
     const res = await verificarCodigo(correo, codigo);
     mostrarAlerta(res.mensaje, res.success ? "success" : "error");
   };
@@ -55,8 +72,17 @@ export const FormularioRecuperar: React.FC = () => {
 
     if (bloqueado || loading) return;
 
-    if (nueva !== confirmar) {
-      mostrarAlerta("Las contraseñas no coinciden.", "warning");
+    const validacion = recuperacionRestablecerSchema.safeParse({
+      correo,
+      codigo,
+      nueva,
+      confirmar,
+    });
+    if (!validacion.success) {
+      mostrarAlerta(
+        validacion.error.issues[0]?.message || "Revisa los datos.",
+        "warning"
+      );
       return;
     }
 
@@ -171,3 +197,6 @@ export const FormularioRecuperar: React.FC = () => {
     </div>
   );
 };
+
+
+

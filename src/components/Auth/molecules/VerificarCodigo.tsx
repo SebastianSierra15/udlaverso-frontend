@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { InputFlotante } from "../atoms";
 import { Boton, AlertaEmergente } from "../../Shared";
+import { codigoVerificacionSchema } from "../../../schemas";
 
 interface Props {
   correo: string;
@@ -26,10 +27,13 @@ export const VerificarCodigo: React.FC<Props> = ({
 
   const manejarVerificar = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!codigo.trim()) {
+    const validacion = codigoVerificacionSchema.safeParse({ codigo });
+    if (!validacion.success) {
       setAlerta({
         visible: true,
-        mensaje: "Por favor ingresa el código recibido.",
+        mensaje:
+          validacion.error.issues[0]?.message ||
+          "Por favor ingresa el código recibido.",
         tipo: "warning",
       });
       return;

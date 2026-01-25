@@ -4,6 +4,11 @@ import {
   verificarCodigoService,
   restablecerContraseniaService,
 } from "../services/auth.service";
+import {
+  recuperacionCodigoSchema,
+  recuperacionCorreoSchema,
+  recuperacionRestablecerPayloadSchema,
+} from "../schemas";
 
 type ApiMensaje = {
   mensaje?: string;
@@ -17,6 +22,14 @@ export const useRecuperacion = () => {
   const [mensaje, setMensaje] = useState<string | null>(null);
 
   const enviarCodigo = async (correo: string) => {
+    const validacion = recuperacionCorreoSchema.safeParse({ correo });
+    if (!validacion.success) {
+      const mensaje =
+        validacion.error.issues[0]?.message || "Correo invalido.";
+      setMensaje(mensaje);
+      return { success: false, mensaje };
+    }
+
     setLoading(true);
     try {
       const res = (await enviarCodigoService(correo, "recuperacion")) as ApiMensaje;
@@ -38,6 +51,14 @@ export const useRecuperacion = () => {
   };
 
   const verificarCodigo = async (correo: string, codigo: string) => {
+    const validacion = recuperacionCodigoSchema.safeParse({ correo, codigo });
+    if (!validacion.success) {
+      const mensaje =
+        validacion.error.issues[0]?.message || "Datos invalidos.";
+      setMensaje(mensaje);
+      return { success: false, mensaje };
+    }
+
     setLoading(true);
     try {
       const res = (await verificarCodigoService(
@@ -65,6 +86,18 @@ export const useRecuperacion = () => {
     codigo: string,
     nueva: string
   ) => {
+    const validacion = recuperacionRestablecerPayloadSchema.safeParse({
+      correo,
+      codigo,
+      nueva,
+    });
+    if (!validacion.success) {
+      const mensaje =
+        validacion.error.issues[0]?.message || "Datos invalidos.";
+      setMensaje(mensaje);
+      return { success: false, mensaje };
+    }
+
     setLoading(true);
     try {
       const res = (await restablecerContraseniaService(

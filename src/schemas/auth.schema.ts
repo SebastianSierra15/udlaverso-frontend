@@ -2,7 +2,15 @@ import { z } from "zod";
 
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#^_])[A-Za-z\d@$!%*?&.#^_]{8,64}$/;
-const emailSchema = z.email("Correo inválido.");
+export const emailSchema = z.email("Correo invalido.");
+export const passwordSchema = z
+  .string()
+  .min(8, "La contrasena debe tener entre 8 y 64 caracteres.")
+  .max(64, "La contrasena debe tener entre 8 y 64 caracteres.")
+  .regex(
+    passwordRegex,
+    "La contrasena debe incluir mayuscula, minuscula, numero y caracter especial."
+  );
 
 const validarCorreo = (
   correo: string,
@@ -27,7 +35,7 @@ const validarCorreo = (
     ctx.addIssue({
       code: "custom",
       path: ["correo"],
-      message: "Correo inválido.",
+      message: "Correo invalido.",
     });
   }
 
@@ -47,7 +55,7 @@ export const loginSchema = z.object({
     .trim()
     .min(1, "Ingresa tu correo.")
     .refine((value) => emailSchema.safeParse(value).success, {
-      message: "Correo inválido.",
+      message: "Correo invalido.",
     }),
   contrasenia: z.string().trim().min(1, "Ingresa tu contraseña."),
 });
@@ -67,14 +75,7 @@ export const registroSchema = z
     apellido: z.string().trim().min(1, "El apellido es obligatorio."),
     correo: z.string().trim().min(1, "El correo es obligatorio."),
     universidad: z.string().trim().optional(),
-    contrasena: z
-      .string()
-      .min(8, "La contraseña debe tener entre 8 y 64 caracteres.")
-      .max(64, "La contraseña debe tener entre 8 y 64 caracteres.")
-      .regex(
-        passwordRegex,
-        "La contraseña debe incluir mayúscula, minúscula, número y caracter especial.",
-      ),
+    contrasena: passwordSchema,
     confirmarContrasena: z.string().min(1, "Confirma la contraseña."),
     terminos: z.boolean(),
     esInstitucional: z.boolean(),
@@ -106,3 +107,7 @@ export const registroSchema = z
       });
     }
   });
+
+
+
+

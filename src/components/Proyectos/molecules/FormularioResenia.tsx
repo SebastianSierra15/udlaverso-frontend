@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { reseniaSchema } from "../../../schemas";
 import { Estrella, BotonAccion } from "../atoms";
 
 interface Props {
@@ -15,6 +16,7 @@ export const FormularioResenia: React.FC<Props> = ({
 }) => {
   const [comentario, setComentario] = useState("");
   const [estrellas, setEstrellas] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   // Cargar valores iniciales cuando se edita
   useEffect(() => {
@@ -26,7 +28,12 @@ export const FormularioResenia: React.FC<Props> = ({
 
   const enviar = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!comentario.trim() || estrellas === 0) return;
+    const validacion = reseniaSchema.safeParse({ comentario, estrellas });
+    if (!validacion.success) {
+      setError(validacion.error.issues[0]?.message || "Datos invalidos.");
+      return;
+    }
+    setError(null);
     onSubmit(comentario, estrellas);
   };
 
@@ -38,7 +45,10 @@ export const FormularioResenia: React.FC<Props> = ({
           <Estrella
             key={n}
             activa={n <= estrellas}
-            onClick={() => setEstrellas(n)}
+            onClick={() => {
+              setEstrellas(n);
+              setError(null);
+            }}
             grande
           />
         ))}
@@ -48,11 +58,15 @@ export const FormularioResenia: React.FC<Props> = ({
       <textarea
         placeholder="Describe tu experiencia..."
         value={comentario}
-        onChange={(e) => setComentario(e.target.value)}
+        onChange={(e) => {
+          setComentario(e.target.value);
+          setError(null);
+        }}
         maxLength={500}
         className="border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-udlaverso-verde outline-none resize-none"
         rows={4}
       />
+      {error && <p className="text-xs text-red-600">{error}</p>}
 
       {/* === Botón de acción === */}
       <div className="flex justify-end">

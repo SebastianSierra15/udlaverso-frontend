@@ -3,6 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import type { ProyectoData } from "../../../types";
 import { useCategorias, useProyecto, useEditarProyecto } from "../../../hooks";
 import { validarNombreProyecto } from "../../../services";
+import {
+  proyectoContenidoSchema,
+  proyectoDatosBasicosSchema,
+  proyectoImagenesEditarSchema,
+} from "../../../schemas";
 import { STORAGE_KEYS } from "../../../constants";
 import { ROUTES } from "../../../routes";
 import {
@@ -129,16 +134,15 @@ export const AdminEditarProyecto = () => {
 
   const validarPaso = async (): Promise<boolean> => {
     if (paso === 1) {
-      if (
-        !datosBasicos.titulo.trim() ||
-        !datosBasicos.autor.trim() ||
-        !datosBasicos.objetivo.trim() ||
-        !datosBasicos.descripcionCorta.trim()
-      ) {
-        mostrarAlerta("Completa todos los campos del paso Datos Básicos.");
+      const validacion = proyectoDatosBasicosSchema.safeParse(datosBasicos);
+      if (!validacion.success) {
+        mostrarAlerta(
+          validacion.error.issues[0]?.message ||
+            "Completa todos los campos del paso Datos Basicos.",
+        );
         return false;
       }
-      // validación de nombre único (solo si cambió)
+      // validacion de nombre unico (solo si cambio)
       if (
         datosBasicos.titulo.trim().toLowerCase() !==
         (proyecto?.nombreProyecto ?? "").trim().toLowerCase()
@@ -155,22 +159,24 @@ export const AdminEditarProyecto = () => {
       }
     }
     if (paso === 2) {
-      if (
-        contenido.categorias.length < 1 ||
-        contenido.herramientas.length < 1 ||
-        contenido.descripcionDetallada.trim().length === 0
-      ) {
+      const validacion = proyectoContenidoSchema.safeParse(contenido);
+      if (!validacion.success) {
         mostrarAlerta(
-          "Completa todos los campos del paso Contenido y Herramientas.",
+          validacion.error.issues[0]?.message ||
+            "Completa todos los campos del paso Contenido y Herramientas.",
         );
         return false;
       }
     }
     if (paso === 3) {
-      const regexYoutube =
-        /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
-      if (!regexYoutube.test(imagenes.video)) {
-        mostrarAlerta("Debes ingresar un video válido de YouTube.");
+      const validacion = proyectoImagenesEditarSchema.safeParse({
+        video: imagenes.video,
+      });
+      if (!validacion.success) {
+        mostrarAlerta(
+          validacion.error.issues[0]?.message ||
+            "Debes ingresar un video valido de YouTube.",
+        );
         return false;
       }
     }
@@ -320,3 +326,4 @@ export const AdminEditarProyecto = () => {
     </section>
   );
 };
+

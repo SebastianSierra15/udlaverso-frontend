@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCrearNoticia } from "../../../hooks";
+import { noticiaCrearSchema } from "../../../schemas";
 import { BotonAdmin } from "../atoms";
 import { FormularioNoticia } from "../molecules";
 import { ConfirmacionGlobal, AlertaEmergente } from "../../Shared";
@@ -25,10 +26,17 @@ export const FormNuevaNoticia: React.FC = () => {
   const manejarSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!titulo.trim() || !contenido.trim() || !imagen) {
+    const validacion = noticiaCrearSchema.safeParse({
+      titulo,
+      contenido,
+      imagen,
+    });
+    if (!validacion.success) {
       setAlerta({
         visible: true,
-        mensaje: "Completa todos los campos antes de guardar.",
+        mensaje:
+          validacion.error.issues[0]?.message ||
+          "Completa todos los campos antes de guardar.",
         tipo: "warning",
       });
       return;

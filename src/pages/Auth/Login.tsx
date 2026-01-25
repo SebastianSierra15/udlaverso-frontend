@@ -6,12 +6,14 @@ import { STORAGE_KEYS } from "../../constants";
 import { ROUTES } from "../../routes";
 import { TarjetaLogin } from "../../components/Auth";
 import { AlertaEmergente } from "../../components/Shared";
+import { loginSchema } from "../../schemas";
 
 export const Login: React.FC = () => {
   const { login, loading, error } = useAuth();
   const [correo, setCorreo] = useState("");
   const [contrasenia, setContrasenia] = useState("");
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const [errorLocal, setErrorLocal] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +26,14 @@ export const Login: React.FC = () => {
 
   const manejarEnvio = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validacion = loginSchema.safeParse({ correo, contrasenia });
+    if (!validacion.success) {
+      setErrorLocal(validacion.error.issues[0]?.message || "Datos invalidos");
+      setMostrarAlerta(true);
+      return;
+    }
+
+    setErrorLocal(null);
     const exito = await login(correo, contrasenia);
 
     if (!exito) {
@@ -72,9 +82,9 @@ export const Login: React.FC = () => {
       </section>
 
       <AlertaEmergente
-        mensaje={error || "Credenciales incorrectas"}
+        mensaje={errorLocal || error || "Credenciales incorrectas"}
         tipo="error"
-        visible={mostrarAlerta && !!error}
+        visible={mostrarAlerta && !!(errorLocal || error)}
         onClose={() => setMostrarAlerta(false)}
       />
     </>

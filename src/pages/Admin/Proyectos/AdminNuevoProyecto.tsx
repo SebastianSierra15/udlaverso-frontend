@@ -2,6 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { ProyectoData } from "../../../types";
 import { useCrearProyecto, useCategorias } from "../../../hooks";
+import {
+  proyectoContenidoSchema,
+  proyectoDatosBasicosSchema,
+  proyectoImagenesCrearSchema,
+} from "../../../schemas";
 import { STORAGE_KEYS } from "../../../constants";
 import { ROUTES } from "../../../routes";
 import {
@@ -67,44 +72,34 @@ export const AdminNuevoProyecto = () => {
   });
 
   const validarPaso = (): boolean => {
-    // Paso 1: Datos Básicos
     if (paso === 1) {
-      if (
-        !datosBasicos.titulo.trim() ||
-        !datosBasicos.autor.trim() ||
-        !datosBasicos.objetivo.trim() ||
-        !datosBasicos.descripcionCorta.trim()
-      ) {
-        mostrarAlerta("Completa todos los campos del paso Datos Básicos.");
-        return false;
-      }
-    }
-
-    // Paso 2: Contenido
-    if (paso === 2) {
-      if (
-        contenido.categorias.length < 1 ||
-        contenido.herramientas.length < 1 ||
-        contenido.descripcionDetallada.trim().length === 0
-      ) {
+      const validacion = proyectoDatosBasicosSchema.safeParse(datosBasicos);
+      if (!validacion.success) {
         mostrarAlerta(
-          "Completa todos los campos del paso Contenido y Herramientas.",
+          validacion.error.issues[0]?.message ||
+            "Completa todos los campos del paso Datos Basicos.",
         );
         return false;
       }
     }
 
-    // Paso 3: Imágenes
-    if (paso === 3) {
-      const regexYoutube =
-        /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
-      if (
-        !imagenes.hero ||
-        imagenes.galeria.length < 3 ||
-        !regexYoutube.test(imagenes.video)
-      ) {
+    if (paso === 2) {
+      const validacion = proyectoContenidoSchema.safeParse(contenido);
+      if (!validacion.success) {
         mostrarAlerta(
-          "Debes subir una imagen principal, al menos 3 imágenes y un video válido de YouTube.",
+          validacion.error.issues[0]?.message ||
+            "Completa todos los campos del paso Contenido y Herramientas.",
+        );
+        return false;
+      }
+    }
+
+    if (paso === 3) {
+      const validacion = proyectoImagenesCrearSchema.safeParse(imagenes);
+      if (!validacion.success) {
+        mostrarAlerta(
+          validacion.error.issues[0]?.message ||
+            "Debes subir una imagen principal, al menos 3 imagenes y un video valido de YouTube.",
         );
         return false;
       }
@@ -231,3 +226,4 @@ export const AdminNuevoProyecto = () => {
     </section>
   );
 };
+

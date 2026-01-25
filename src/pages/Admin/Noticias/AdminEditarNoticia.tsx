@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import type { Noticia } from "../../../types";
 import { obtenerNoticiaPorId } from "../../../services";
 import { useActualizarNoticia } from "../../../hooks";
+import { noticiaEditarSchema } from "../../../schemas";
 import { FormularioNoticia } from "../../../components/Admin";
 import { BotonAdmin } from "../../../components/Admin";
 import {
@@ -44,10 +45,16 @@ export const AdminEditarNoticia: React.FC = () => {
   const manejarSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!titulo.trim() || !contenido.trim()) {
+    const validacion = noticiaEditarSchema.safeParse({
+      titulo,
+      contenido,
+    });
+    if (!validacion.success) {
       setAlerta({
         visible: true,
-        mensaje: "Completa los campos requeridos.",
+        mensaje:
+          validacion.error.issues[0]?.message ||
+          "Completa los campos requeridos.",
         tipo: "warning",
       });
       return;
