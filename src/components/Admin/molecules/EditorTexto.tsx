@@ -10,6 +10,7 @@ import {
   BtnNumberedList,
   BtnBulletList,
 } from "react-simple-wysiwyg";
+import type { ContentEditableEvent } from "react-simple-wysiwyg/lib/editor/ContentEditable";
 
 type Props = {
   label: string;
@@ -29,7 +30,7 @@ const EditorTexto: React.FC<Props> = ({
   const plainText = value.replace(/<[^>]+>/g, "");
   const [error, setError] = useState("");
 
-  const manejarCambio = (e: any) => {
+  const manejarCambio = (e: ContentEditableEvent) => {
     const textoHtml = e.target.value;
     const textoPlano = textoHtml.replace(/<[^>]+>/g, "");
 

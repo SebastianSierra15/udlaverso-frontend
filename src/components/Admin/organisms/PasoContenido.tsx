@@ -24,7 +24,10 @@ const PasoContenido: React.FC<Props> = ({
   cargando,
   error,
 }) => {
-  const actualizar = (campo: keyof Props["data"], valor: any) => {
+  const actualizar = <K extends keyof Props["data"]>(
+    campo: K,
+    valor: Props["data"][K]
+  ) => {
     onChange({ ...data, [campo]: valor });
   };
 

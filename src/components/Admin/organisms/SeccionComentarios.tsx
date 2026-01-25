@@ -69,7 +69,7 @@ const SeccionComentarios: React.FC = () => {
     { id: "proyecto", titulo: "Proyecto" },
     { id: "usuario", titulo: "Usuario" },
     { id: "estrellas", titulo: "⭐" },
-    { id: "resenias", titulo: "Reseñas" },
+    { id: "comentario", titulo: "Reseñas" },
     { id: "fecha", titulo: "Fecha" },
     {
       id: "acciones",
@@ -90,7 +90,7 @@ const SeccionComentarios: React.FC = () => {
         </div>
       ),
     },
-  ] as const;
+  ]
 
   return (
     <section id="comentarios" className="space-y-3">
@@ -106,7 +106,7 @@ const SeccionComentarios: React.FC = () => {
         />
       </div>
       <TablaSimple<Fila>
-        columnas={columnas as any}
+        columnas={columnas}
         filas={filas}
         nombreEntidad="reseñas"
       />

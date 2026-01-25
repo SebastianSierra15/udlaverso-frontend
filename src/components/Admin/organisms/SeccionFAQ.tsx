@@ -68,7 +68,7 @@ const SeccionFAQ: React.FC = () => {
         </div>
       ),
     },
-  ] as const;
+  ]
 
   return (
     <section id="faq" className="space-y-3">
@@ -82,7 +82,7 @@ const SeccionFAQ: React.FC = () => {
           placeholder="Buscar pregunta..."
         />
       </div>
-      <TablaSimple<Fila> columnas={columnas as any} filas={filas} />
+      <TablaSimple<Fila> columnas={columnas} filas={filas} />
     </section>
   );
 };

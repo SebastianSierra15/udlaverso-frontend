@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useNoticias } from "../../../hooks/useNoticias";
 import { useEliminarNoticia } from "../../../hooks/useEliminarNoticia";
+import type { Noticia } from "../../../types/Noticia.type";
 import TablaSimple from "../molecules/TablaSimple";
 import BarraAcciones from "../molecules/BarraAcciones";
 import InsigniaEstado from "../atoms/InsigniaEstado";
@@ -41,7 +42,8 @@ const SeccionNoticias: React.FC = () => {
 
   const { eliminar, cargando: eliminando } = useEliminarNoticia();
 
-  const [noticiaSeleccionada, setNoticiaSeleccionada] = useState<any>(null);
+  const [noticiaSeleccionada, setNoticiaSeleccionada] =
+    useState<Noticia | null>(null);
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
   const [alerta, setAlerta] = useState({
     visible: false,
@@ -49,12 +51,17 @@ const SeccionNoticias: React.FC = () => {
     tipo: "info" as "error" | "success" | "info" | "warning",
   });
 
-  const manejarEliminar = (n: any) => {
+  const manejarEliminar = useCallback((n: Noticia) => {
     setNoticiaSeleccionada(n);
     setMostrarConfirmacion(true);
-  };
+  }, []);
 
   const confirmarEliminacion = async () => {
+    if (!noticiaSeleccionada) {
+      setMostrarConfirmacion(false);
+      return;
+    }
+
     setMostrarConfirmacion(false);
     try {
       await eliminar(noticiaSeleccionada.idNoticia);
@@ -79,29 +86,34 @@ const SeccionNoticias: React.FC = () => {
     }
   };
 
-  const filas = useMemo(() => {
-    return noticias.map((n) => ({
-      titulo: n.tituloNoticia,
-      fecha: n.fechapublicacionNoticia
-        ? new Date(n.fechapublicacionNoticia).toLocaleDateString("es-ES")
-        : "Sin fecha",
-      estado: n.estadoNoticia === 1 ? "activo" : "inactivo",
-      acciones: [
-        {
-          icono: <FaEdit className="w-4 h-4" />,
-          color: "text-blue-600 hover:text-blue-700",
-          titulo: "Editar noticia",
-          onClick: () => navigate(`/admin/noticias/editar/${n.idNoticia}`),
-        },
-        {
-          icono: <FaTrash className="w-4 h-4" />,
-          color: "text-red-600 hover:text-red-700",
-          titulo: "Eliminar noticia",
-          onClick: () => manejarEliminar(n),
-        },
-      ],
-    }));
-  }, [noticias]);
+  const filas = useMemo<Fila[]>(() => {
+    return noticias.map((n) => {
+      const estado: Fila["estado"] =
+        n.estadoNoticia === 1 ? "activo" : "inactivo";
+
+      return {
+        titulo: n.tituloNoticia,
+        fecha: n.fechapublicacionNoticia
+          ? new Date(n.fechapublicacionNoticia).toLocaleDateString("es-ES")
+          : "Sin fecha",
+        estado,
+        acciones: [
+          {
+            icono: <FaEdit className="w-4 h-4" />,
+            color: "text-blue-600 hover:text-blue-700",
+            titulo: "Editar noticia",
+            onClick: () => navigate(`/admin/noticias/editar/${n.idNoticia}`),
+          },
+          {
+            icono: <FaTrash className="w-4 h-4" />,
+            color: "text-red-600 hover:text-red-700",
+            titulo: "Eliminar noticia",
+            onClick: () => manejarEliminar(n),
+          },
+        ],
+      };
+    });
+  }, [noticias, navigate, manejarEliminar]);
 
   const columnas = [
     { id: "titulo", titulo: "Título" },
@@ -130,7 +142,7 @@ const SeccionNoticias: React.FC = () => {
         </div>
       ),
     },
-  ] as const;
+  ];
 
   if (cargando) {
     return <p className="text-gray-500 text-sm">Cargando noticias...</p>;
@@ -157,7 +169,7 @@ const SeccionNoticias: React.FC = () => {
 
       {/* Tabla con paginación */}
       <TablaSimple
-        columnas={columnas as any}
+        columnas={columnas}
         filas={filas}
         nombreEntidad="noticias"
         paginaActual={page + 1}

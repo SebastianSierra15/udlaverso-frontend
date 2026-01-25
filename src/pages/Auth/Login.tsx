@@ -20,7 +20,7 @@ const Login: React.FC = () => {
       if (rol.toLowerCase() === "administrador") navigate(ROUTES.admin);
       else navigate(ROUTES.home);
     }
-  }, []);
+  }, [navigate]);
 
   const manejarEnvio = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { convertirAWebp } from "../../../utils/convertirAWebp";
 import CampoTexto from "../atoms/CampoTexto";
 import VistaPreviaImagen from "../atoms/VistaPreviaImagen";
@@ -17,6 +17,8 @@ interface Props {
   onChange: (nuevaData: Props["data"]) => void;
 }
 
+type ArchivoConPreview = File & { preview?: string };
+
 const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
   const [errores, setErrores] = useState({
     hero: "",
@@ -24,9 +26,28 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
     video: "",
   });
   const [inputKey, setInputKey] = useState(0);
+  const inicializado = useRef(false);
 
-  const actualizar = (campo: keyof Props["data"], valor: any) => {
+  const actualizar = <K extends keyof Props["data"]>(
+    campo: K,
+    valor: Props["data"][K]
+  ) => {
     onChange({ ...data, [campo]: valor });
+  };
+
+  const obtenerPreview = (archivo: File) => {
+    const conPreview = archivo as ArchivoConPreview;
+    if (!conPreview.preview) {
+      conPreview.preview = URL.createObjectURL(archivo);
+    }
+    return conPreview.preview;
+  };
+
+  const liberarPreview = (archivo: File | null) => {
+    const conPreview = archivo as ArchivoConPreview | null;
+    if (conPreview?.preview) {
+      URL.revokeObjectURL(conPreview.preview);
+    }
   };
 
   // Validar video de YouTube
@@ -44,16 +65,18 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
 
   useEffect(() => {
     if (data.hero) {
-      (data.hero as any).preview =
-        (data.hero as any).preview || URL.createObjectURL(data.hero);
+      obtenerPreview(data.hero);
     }
   }, [data.hero]);
 
   useEffect(() => {
+    if (inicializado.current) return;
+    inicializado.current = true;
+
     if (data.galeria && data.galeria.length > 0) {
       onChange({ ...data });
     }
-  }, []);
+  }, [data, onChange]);
 
   return (
     <div className="space-y-6">
@@ -92,11 +115,11 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
             try {
               // Convierte a WebP antes de actualizar el estado
               const convertido = await convertirAWebp(archivo);
-              (convertido as any).preview = URL.createObjectURL(convertido);
+              obtenerPreview(convertido);
               actualizar("hero", convertido);
               setErrores((prev) => ({ ...prev, hero: "" }));
             } catch {
-              (archivo as any).preview = URL.createObjectURL(archivo);
+              obtenerPreview(archivo);
               actualizar("hero", archivo); // fallback
             }
           }}
@@ -112,15 +135,11 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
             return (
               <div className="mt-3" key="hero-preview">
                 <VistaPreviaImagen
-                  key={(data.hero as any).preview || (data.hero as any).name}
-                  src={
-                    (data.hero as any).preview || URL.createObjectURL(data.hero)
-                  }
+                  key={obtenerPreview(data.hero)}
+                  src={obtenerPreview(data.hero)}
                   alt="Imagen principal"
                   onRemove={() => {
-                    if ((data.hero as any)?.preview) {
-                      URL.revokeObjectURL((data.hero as any).preview);
-                    }
+                    liberarPreview(data.hero);
 
                     // 🔧 Agrupamos todo en un solo update
                     onChange({
@@ -148,9 +167,7 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
                   src={data.heroUrl}
                   alt="Imagen principal"
                   onRemove={() => {
-                    if ((data.hero as any)?.preview) {
-                      URL.revokeObjectURL((data.hero as any).preview);
-                    }
+                    liberarPreview(data.hero);
 
                     // 🔧 Agrupamos todo en un solo update
                     onChange({

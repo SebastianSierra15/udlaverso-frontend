@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import FormularioRegistro from "../molecules/FormularioRegistro";
+import type { RegistroForm } from "../../../types/RegistroForm.type";
 
 interface Props {
-  onSubmit: (form: Record<string, any>) => void;
+  onSubmit: (form: RegistroForm) => void;
   loading?: boolean;
 }
 

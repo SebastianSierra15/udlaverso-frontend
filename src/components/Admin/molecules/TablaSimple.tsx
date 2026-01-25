@@ -21,7 +21,7 @@ type Props<T> = {
   onCambioCantidad?: (cantidad: number) => void;
 };
 
-function TablaSimple<T extends Record<string, any>>({
+function TablaSimple<T extends Record<string, unknown>>({
   columnas,
   filas,
   vacio = "Sin registros",
@@ -33,6 +33,11 @@ function TablaSimple<T extends Record<string, any>>({
   onCambioPagina,
   onCambioCantidad,
 }: Props<T>) {
+  const obtenerValor = (fila: T, id: keyof T | string) => {
+    if (typeof id === "string" && !(id in fila)) return null;
+    return fila[id as keyof T];
+  };
+
   return (
     <div className="overflow-x-auto border rounded-xl bg-white">
       <div className="flex items-center justify-between px-4 py-2 border-b bg-gray-50 flex-wrap gap-3">
@@ -83,7 +88,7 @@ function TablaSimple<T extends Record<string, any>>({
                 >
                   {col.render
                     ? col.render(fila)
-                    : (fila[col.id] as React.ReactNode)}
+                    : (obtenerValor(fila, col.id) as React.ReactNode)}
                 </td>
               ))}
             </tr>

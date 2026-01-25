@@ -4,15 +4,7 @@ import {
   enviarCodigoService,
   verificarCodigoService,
 } from "../services/auth.service";
-
-type RegistroForm = {
-  nombre: string;
-  apellido: string;
-  correo: string;
-  contrasena: string;
-  universidad?: string;
-  esInstitucional?: boolean;
-};
+import type { RegistroForm } from "../types/RegistroForm.type";
 
 type ApiMensaje = {
   mensaje?: string;

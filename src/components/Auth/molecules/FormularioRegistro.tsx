@@ -8,9 +8,10 @@ import CamposDatosPersonales from "../molecules/CamposDatosPersonales";
 import CamposCorreo from "../molecules/CamposCorreo";
 import CamposContrasenia from "../molecules/CamposContrasenia";
 import VerificarCodigo from "./VerificarCodigo";
+import type { RegistroForm } from "../../../types/RegistroForm.type";
 
 interface Props {
-  onSubmit: (form: Record<string, any>) => void;
+  onSubmit: (form: RegistroForm) => void;
   loading?: boolean;
 }
 

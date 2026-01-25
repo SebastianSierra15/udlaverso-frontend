@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { listarNoticias } from "../services/noticias.service";
 import type { Noticia } from "../types/Noticia.type";
 
@@ -22,7 +22,7 @@ export const useNoticias = () => {
     return () => clearTimeout(handler);
   }, [q]);
 
-  const cargarNoticias = async () => {
+  const cargarNoticias = useCallback(async () => {
     try {
       setCargando(true);
       const res = await listarNoticias(page, size, debouncedQ, orden);
@@ -35,11 +35,11 @@ export const useNoticias = () => {
     } finally {
       setCargando(false);
     }
-  };
+  }, [page, size, debouncedQ, orden]);
 
   useEffect(() => {
     cargarNoticias();
-  }, [page, size, debouncedQ, orden]);
+  }, [cargarNoticias]);
 
   return {
     noticias,

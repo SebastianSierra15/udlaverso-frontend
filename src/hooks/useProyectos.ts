@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { listarProyectos } from "../services/proyectos.service";
 import type { Proyecto } from "../types/Proyecto.type";
 
@@ -22,13 +22,13 @@ export const useProyectos = () => {
     return () => clearTimeout(handler);
   }, [q]);
 
-  const cargarProyectos = async () => {
+  const cargarProyectos = useCallback(async () => {
     try {
       setLoading(true);
       const res = await listarProyectos(
         page,
         size,
-        q,
+        debouncedQ,
         categoria === "Todas" ? "" : categoria
       );
       setProyectos(res.content);
@@ -40,11 +40,11 @@ export const useProyectos = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, size, debouncedQ, categoria]);
 
   useEffect(() => {
     cargarProyectos();
-  }, [page, size, debouncedQ, categoria]);
+  }, [cargarProyectos]);
 
   return {
     proyectos,

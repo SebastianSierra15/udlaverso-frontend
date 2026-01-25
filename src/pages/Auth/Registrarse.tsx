@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRegistro } from "../../hooks/useRegistro";
 import TarjetaRegistro from "../../components/Auth/organisms/TarjetaRegistro";
 import AlertaEmergente from "../../components/Shared/atoms/AlertaEmergente";
+import type { RegistroForm } from "../../types/RegistroForm.type";
 
 const Registrarse: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Registrarse: React.FC = () => {
     setAlerta({ visible: true, mensaje, tipo });
   };
 
-  const handleRegistro = async (form: Record<string, any>) => {
+  const handleRegistro = async (form: RegistroForm) => {
     const resultado = await registrar(form);
     if (resultado.success) {
       mostrarAlerta("Registro exitoso. Redirigiendo...", "success");

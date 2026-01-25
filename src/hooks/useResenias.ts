@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { Resenia } from "../types/Resenia.type";
 import {
   crearReseniaService,
@@ -14,7 +14,7 @@ export const useResenias = (proyectoId: number, usuarioId?: number) => {
 
   const token = localStorage.getItem(STORAGE_KEYS.token) || "";
 
-  const cargar = async () => {
+  const cargar = useCallback(async () => {
     try {
       const data = await obtenerReseniasPorProyectoService(proyectoId);
       setResenias(data);
@@ -27,11 +27,11 @@ export const useResenias = (proyectoId: number, usuarioId?: number) => {
       setResenias([]);
       setMiResenia(null);
     }
-  };
+  }, [proyectoId, usuarioId]);
 
   useEffect(() => {
     if (proyectoId) cargar();
-  }, [proyectoId, usuarioId]);
+  }, [proyectoId, cargar]);
 
   const crear = async (comentario: string, estrellas: number) => {
     try {
@@ -75,3 +75,5 @@ export const useResenias = (proyectoId: number, usuarioId?: number) => {
 
   return { resenias, miResenia, crear, editar, eliminar };
 };
+
+

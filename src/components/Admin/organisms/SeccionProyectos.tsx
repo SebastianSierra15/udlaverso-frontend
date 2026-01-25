@@ -63,47 +63,52 @@ const SeccionProyectos: React.FC = () => {
     error,
   } = useProyectos();
 
-  const filas = useMemo(() => {
-    return proyectos.map((p) => ({
-      id: p.idProyecto,
-      nombre: p.nombreProyecto || "Sin nombre",
-      categoria: p.categoriaNombre || "Sin categoría",
-      autor: p.autorProyecto || "Desconocido",
-      estado: p.estadoProyecto === 1 ? "activo" : "inactivo",
-      visitas: Number(p.visualizacionesProyecto) || 0,
-      acciones: [
-        {
-          icono: <FaEye className="w-4 h-4" />,
-          color: "text-green-600 hover:text-green-700",
-          titulo: "Ver proyecto",
-          onClick: () => setProyectoSeleccionado(p),
-        },
-        {
-          icono: <FaEdit className="w-4 h-4" />,
-          color: "text-blue-600 hover:text-blue-700",
-          titulo: "Editar proyecto",
-          onClick: () =>
-            navigate(
-              `/admin/proyectos/editar/${p.nombreProyecto
-                .toLowerCase()
-                .replace(/\s+/g, "-")}`
-            ),
-        },
-        {
-          icono: <FaTrash className="w-4 h-4" />,
-          color: "text-red-600 hover:text-red-700",
-          titulo: "Eliminar proyecto",
-          onClick: () => {
-            setProyectoAEliminar({
-              id: Number(p.idProyecto),
-              nombre: p.nombreProyecto,
-            });
-            setConfirmVisible(true);
+  const filas = useMemo<FilaProyecto[]>(() => {
+    return proyectos.map((p) => {
+      const estado: FilaProyecto["estado"] =
+        p.estadoProyecto === 1 ? "activo" : "inactivo";
+
+      return {
+        id: p.idProyecto,
+        nombre: p.nombreProyecto || "Sin nombre",
+        categoria: p.categoriaNombre || "Sin categoría",
+        autor: p.autorProyecto || "Desconocido",
+        estado,
+        visitas: Number(p.visualizacionesProyecto) || 0,
+        acciones: [
+          {
+            icono: <FaEye className="w-4 h-4" />,
+            color: "text-green-600 hover:text-green-700",
+            titulo: "Ver proyecto",
+            onClick: () => setProyectoSeleccionado(p),
           },
-        },
-      ],
-    }));
-  }, [proyectos]);
+          {
+            icono: <FaEdit className="w-4 h-4" />,
+            color: "text-blue-600 hover:text-blue-700",
+            titulo: "Editar proyecto",
+            onClick: () =>
+              navigate(
+                `/admin/proyectos/editar/${p.nombreProyecto
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}`
+              ),
+          },
+          {
+            icono: <FaTrash className="w-4 h-4" />,
+            color: "text-red-600 hover:text-red-700",
+            titulo: "Eliminar proyecto",
+            onClick: () => {
+              setProyectoAEliminar({
+                id: Number(p.idProyecto),
+                nombre: p.nombreProyecto,
+              });
+              setConfirmVisible(true);
+            },
+          },
+        ],
+      };
+    });
+  }, [proyectos, navigate]);
 
   const columnas = [
     { id: "nombre", titulo: "Proyecto" },
@@ -134,7 +139,7 @@ const SeccionProyectos: React.FC = () => {
         </div>
       ),
     },
-  ] as const;
+  ];
 
   if (loading) {
     return <p className="text-gray-500 text-sm">Cargando proyectos...</p>;
@@ -162,7 +167,7 @@ const SeccionProyectos: React.FC = () => {
 
         {/* Tabla */}
         <TablaSimple
-          columnas={columnas as any}
+          columnas={columnas}
           filas={filas}
           nombreEntidad="proyectos"
           paginaActual={page + 1}
