@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarProyectos } from "../controllers/proyectosController";
+import { listarProyectos } from "../services/proyectos.service";
 import type { Proyecto } from "../types/Proyecto.type";
 
 export const useProyectos = () => {

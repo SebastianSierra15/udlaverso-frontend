@@ -5,6 +5,8 @@ import { useProyecto } from "../../../hooks/useProyecto";
 import { useEditarProyecto } from "../../../hooks/useEditarProyecto";
 import { validarNombreProyecto } from "../../../services/proyectos.service";
 import type { ProyectoData } from "../../../types/Proyecto.type";
+import { STORAGE_KEYS } from "../../../constants";
+import { ROUTES } from "../../../routes";
 import Stepper from "../../../components/Admin/molecules/Stepper";
 import PasoDatosBasicos from "../../../components/Admin/organisms/PasoDatosBasicos";
 import PasoContenido from "../../../components/Admin/organisms/PasoContenido";
@@ -182,7 +184,7 @@ const AdminEditarProyecto = () => {
 
   const handleActualizarProyecto = async () => {
     if (!(await validarPaso())) return;
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(STORAGE_KEYS.token);
     if (!token) {
       mostrarAlerta("Debes iniciar sesión para editar un proyecto.");
       return;
@@ -216,7 +218,7 @@ const AdminEditarProyecto = () => {
         `Proyecto actualizado con éxito (ID: ${actualizado.idProyecto})`,
         "success"
       );
-      navigate("/admin/proyectos");
+      navigate(ROUTES.adminProyectos);
     } catch {
       mostrarAlerta(
         "Error al actualizar el proyecto o permisos insuficientes.",

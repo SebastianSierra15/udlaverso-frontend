@@ -1,9 +1,23 @@
 import { useState } from "react";
 import {
-  registroController,
-  enviarCodigoController,
-  verificarCodigoController,
-} from "../controllers/authController";
+  registroService,
+  enviarCodigoService,
+  verificarCodigoService,
+} from "../services/auth.service";
+
+type RegistroForm = {
+  nombre: string;
+  apellido: string;
+  correo: string;
+  contrasena: string;
+  universidad?: string;
+  esInstitucional?: boolean;
+};
+
+type ApiMensaje = {
+  mensaje?: string;
+  error?: string;
+};
 
 interface ResultadoRegistro {
   success: boolean;
@@ -19,24 +33,46 @@ export const useRegistro = () => {
 
   const enviarCodigo = async (correo: string) => {
     setLoading(true);
-    const res = await enviarCodigoController(correo);
-    setMensaje(res.mensaje);
-    setCodigoEnviado(res.success);
-    setLoading(false);
-    return res;
+    try {
+      const res = (await enviarCodigoService(correo)) as ApiMensaje;
+      const mensaje = res.mensaje || "CÃ³digo enviado al correo.";
+      setMensaje(mensaje);
+      setCodigoEnviado(true);
+      return { success: true, mensaje };
+    } catch (error: unknown) {
+      const err = error as ApiError;
+      const mensaje =
+        err.response?.data?.error || "Error al enviar el cÃ³digo.";
+      setMensaje(mensaje);
+      setCodigoEnviado(false);
+      return { success: false, mensaje };
+    } finally {
+      setLoading(false);
+    }
   };
 
   const verificarCodigo = async (correo: string, codigo: string) => {
     setLoading(true);
-    const res = await verificarCodigoController(correo, codigo);
-    setMensaje(res.mensaje);
-    setCorreoVerificado(res.success);
-    setLoading(false);
-    return res;
+    try {
+      const res = (await verificarCodigoService(correo, codigo)) as ApiMensaje;
+      const mensaje = res.mensaje || "CÃ³digo verificado correctamente.";
+      setMensaje(mensaje);
+      setCorreoVerificado(true);
+      return { success: true, mensaje };
+    } catch (error: unknown) {
+      const err = error as ApiError;
+      const mensaje =
+        err.response?.data?.error || "CÃ³digo invÃ¡lido o expirado.";
+      setMensaje(mensaje);
+      setCorreoVerificado(false);
+      return { success: false, mensaje };
+    } finally {
+      setLoading(false);
+    }
   };
 
   const registrar = async (
-    formData: Record<string, any>
+    formData: RegistroForm
   ): Promise<ResultadoRegistro> => {
     if (loading || registroExitoso) {
       console.warn("Intento duplicado de registro ignorado");
@@ -45,10 +81,29 @@ export const useRegistro = () => {
 
     setLoading(true);
     try {
-      const res = await registroController(formData);
-      if (res.success) setRegistroExitoso(true);
-      setMensaje(res.mensaje);
-      return res;
+      const payload = {
+        nombresUsuario: formData.nombre,
+        apellidosUsuario: formData.apellido,
+        correoUsuario: formData.esInstitucional
+          ? `${formData.correo}@udla.edu.co`
+          : formData.correo,
+        contraseniaUsuario: formData.contrasena,
+        universidadUsuario: formData.esInstitucional
+          ? "Universidad de la Amazonia"
+          : formData.universidad || "",
+      };
+      const res = (await registroService(payload)) as ApiMensaje;
+      const mensaje = res.mensaje || "Registro exitoso";
+      setRegistroExitoso(true);
+      setMensaje(mensaje);
+      return { success: true, mensaje };
+    } catch (error: unknown) {
+      const err = error as ApiError;
+      const mensaje =
+        err.response?.data?.error ||
+        "OcurriÃ³ un error al registrar el usuario.";
+      setMensaje(mensaje);
+      return { success: false, mensaje };
     } finally {
       setLoading(false);
     }

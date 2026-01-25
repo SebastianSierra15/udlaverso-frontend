@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { obtenerNoticiasRecientes } from "../controllers/noticiasController";
+import { listarNoticiasRecientes } from "../services/noticias.service";
 import type { Noticia } from "../types/Noticia.type";
 
 export const useNoticiasRecientes = () => {
@@ -9,8 +9,13 @@ export const useNoticiasRecientes = () => {
   useEffect(() => {
     const fetchNoticias = async () => {
       setCargando(true);
-      const data = await obtenerNoticiasRecientes();
-      setNoticias(data);
+      try {
+        const data = await listarNoticiasRecientes();
+        setNoticias(data);
+      } catch (error) {
+        console.error("Error al obtener noticias recientes:", error);
+        setNoticias([]);
+      }
       setCargando(false);
     };
     fetchNoticias();

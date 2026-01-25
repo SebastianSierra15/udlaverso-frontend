@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import TarjetaLogin from "../../components/Auth/organisms/TarjetaLogin";
 import AlertaEmergente from "../../components/Shared/atoms/AlertaEmergente";
+import { STORAGE_KEYS } from "../../constants";
+import { ROUTES } from "../../routes";
 
 const Login: React.FC = () => {
   const { login, loading, error } = useAuth();
@@ -13,10 +15,10 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const rol = localStorage.getItem("rol");
+    const rol = localStorage.getItem(STORAGE_KEYS.role);
     if (rol) {
-      if (rol.toLowerCase() === "administrador") navigate("/admin");
-      else navigate("/");
+      if (rol.toLowerCase() === "administrador") navigate(ROUTES.admin);
+      else navigate(ROUTES.home);
     }
   }, []);
 
@@ -29,12 +31,12 @@ const Login: React.FC = () => {
       return;
     }
 
-    const rol = localStorage.getItem("rol");
+    const rol = localStorage.getItem(STORAGE_KEYS.role);
 
     if (rol?.toLowerCase() === "administrador") {
-      navigate("/admin");
+      navigate(ROUTES.admin);
     } else {
-      navigate("/");
+      navigate(ROUTES.home);
     }
   };
 

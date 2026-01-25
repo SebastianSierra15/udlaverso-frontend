@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarCategorias } from "../controllers/categoriaController";
+import { obtenerCategorias } from "../services/categorias.service";
 import type { Categoria } from "../types/Categoria.type";
 
 export const useCategorias = () => {
@@ -8,9 +8,12 @@ export const useCategorias = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    listarCategorias()
+    obtenerCategorias()
       .then(setCategorias)
-      .catch(() => setError("Error al cargar categorías"))
+      .catch((error) => {
+        console.error("Error al cargar categorías:", error);
+        setError("Error al cargar categorías");
+      })
       .finally(() => setLoading(false));
   }, []);
 

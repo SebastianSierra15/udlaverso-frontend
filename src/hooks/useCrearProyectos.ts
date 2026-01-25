@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { crearProyectoController } from "../controllers/proyectosController";
+import { crearProyectoService } from "../services/proyectos.service";
 import type { Proyecto, ProyectoData } from "../types/Proyecto.type";
 
 export const useCrearProyecto = () => {
@@ -11,7 +11,7 @@ export const useCrearProyecto = () => {
   ): Promise<Proyecto> => {
     try {
       setLoading(true);
-      const nuevoProyecto = await crearProyectoController(proyecto);
+      const nuevoProyecto = await crearProyectoService(proyecto);
       return nuevoProyecto;
     } catch (err) {
       console.error("❌ Error al crear proyecto:", err);

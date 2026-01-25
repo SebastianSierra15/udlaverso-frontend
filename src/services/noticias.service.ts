@@ -1,18 +1,43 @@
 import api from "./api";
+import { appConfig } from "../config";
+import { STORAGE_KEYS } from "../constants";
 import type { Noticia } from "../types/Noticia.type";
+
+type NoticiaApi = {
+  idNoticia?: number;
+  tituloNoticia?: string;
+  contenidoNoticia?: string;
+  fechapublicacionNoticia?: string;
+  imagenNoticia?: string | null;
+  estadoNoticia?: number;
+};
+
+type NoticiasListApi = {
+  content?: NoticiaApi[];
+  total?: number;
+  page?: number;
+  pages?: number;
+};
+
+export type NoticiaPayload = {
+  tituloNoticia: string;
+  contenidoNoticia: string;
+  estadoNoticia?: number;
+  [key: string]: unknown;
+};
 
 /**
  * Agrega el dominio base a las rutas de imagen
  */
-const mapearNoticia = (n: any): Noticia => ({
-  idNoticia: n.idNoticia,
-  tituloNoticia: n.tituloNoticia,
-  contenidoNoticia: n.contenidoNoticia,
-  fechapublicacionNoticia: n.fechapublicacionNoticia,
+const mapearNoticia = (n: NoticiaApi): Noticia => ({
+  idNoticia: n.idNoticia ?? 0,
+  tituloNoticia: n.tituloNoticia ?? "",
+  contenidoNoticia: n.contenidoNoticia ?? "",
+  fechapublicacionNoticia: n.fechapublicacionNoticia ?? null,
   imagenNoticia: n.imagenNoticia
-    ? `${import.meta.env.VITE_API_URL}${n.imagenNoticia}`
+    ? `${appConfig.apiUrl}${n.imagenNoticia}`
     : null,
-  estadoNoticia: n.estadoNoticia,
+  estadoNoticia: n.estadoNoticia ?? 0,
 });
 
 /**
@@ -22,7 +47,7 @@ export const obtenerNoticiaPorTitulo = async (
   titulo: string
 ): Promise<Noticia> => {
   const encoded = encodeURIComponent(titulo);
-  const { data } = await api.get(`/noticias/titulo/${encoded}`);
+  const { data } = await api.get<NoticiaApi>(`/noticias/titulo/${encoded}`);
   return mapearNoticia(data);
 };
 
@@ -40,12 +65,13 @@ export const listarNoticias = async (
   page: number;
   pages: number;
 }> => {
-  const { data } = await api.get("/noticias", {
+  const { data } = await api.get<NoticiasListApi>("/noticias", {
     params: { page, size, q, orden },
   });
 
-  const noticias: Noticia[] =
-    data.content?.map((n: any) => mapearNoticia(n)) ?? [];
+  const noticias: Noticia[] = Array.isArray(data.content)
+    ? data.content.map((n) => mapearNoticia(n))
+    : [];
 
   return {
     content: noticias,
@@ -59,23 +85,23 @@ export const listarNoticias = async (
  * Listar noticias recientes
  */
 export const listarNoticiasRecientes = async (): Promise<Noticia[]> => {
-  const { data } = await api.get("/noticias/recientes");
-  return data.map((n: any) => mapearNoticia(n));
+  const { data } = await api.get<NoticiaApi[]>("/noticias/recientes");
+  return Array.isArray(data) ? data.map((n) => mapearNoticia(n)) : [];
 };
 
 /**
  * Obtener noticia por ID
  */
 export const obtenerNoticiaPorId = async (id: number): Promise<Noticia> => {
-  const { data } = await api.get(`/noticias/${id}`);
+  const { data } = await api.get<NoticiaApi>(`/noticias/${id}`);
   return mapearNoticia(data);
 };
 
 /**
  * Crear noticia con imagen
  */
-export const crearNoticia = async (noticia: any, imagen: File) => {
-  const token = localStorage.getItem("token");
+export const crearNoticia = async (noticia: NoticiaPayload, imagen: File) => {
+  const token = localStorage.getItem(STORAGE_KEYS.token);
   const formData = new FormData();
 
   formData.append(
@@ -99,10 +125,10 @@ export const crearNoticia = async (noticia: any, imagen: File) => {
  */
 export const actualizarNoticiaConImagen = async (
   id: number,
-  noticia: any,
+  noticia: NoticiaPayload,
   imagen?: File
 ) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem(STORAGE_KEYS.token);
   const formData = new FormData();
 
   formData.append(
@@ -128,7 +154,7 @@ export const actualizarNoticiaConImagen = async (
  * Eliminar noticia (cambio de estado + eliminación de imagen)
  */
 export const eliminarNoticia = async (id: number) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem(STORAGE_KEYS.token);
   const { data } = await api.delete(`/noticias/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,

@@ -1,7 +1,25 @@
 import { useState, useEffect } from "react";
 import { loginService } from "../services/auth.service";
-import { AnaliticaController } from "../controllers/analiticaController";
+import { registrarAnalitica } from "../services/analiticas.service";
+import { STORAGE_KEYS } from "../constants";
+import { ROUTES } from "../routes";
 import type { Usuario } from "../types/Usuario.type";
+
+const registrarInicioSesion = async (usuarioId: number) => {
+  await registrarAnalitica({
+    idUsuario: usuarioId,
+    idTipoAnalitica: 4,
+    descripcionAnalitica: "Inicio de sesión del usuario",
+  });
+};
+
+const registrarCierreSesion = async (usuarioId: number) => {
+  await registrarAnalitica({
+    idUsuario: usuarioId,
+    idTipoAnalitica: 5,
+    descripcionAnalitica: "Cierre de sesión del usuario",
+  });
+};
 
 export const useAuth = () => {
   const [user, setUser] = useState<Usuario | null>(null);
@@ -10,7 +28,7 @@ export const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem(STORAGE_KEYS.user);
     if (storedUser) setUser(JSON.parse(storedUser));
     setLoadingUser(false);
   }, []);
@@ -38,14 +56,14 @@ export const useAuth = () => {
         token: data.token,
       };
 
-      localStorage.setItem("user", JSON.stringify(usuario));
-      localStorage.setItem("token", data.token);
+      localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(usuario));
+      localStorage.setItem(STORAGE_KEYS.token, data.token);
 
       setUser(usuario);
 
       // Registrar inicio de sesión
       if (usuario.idUsuario) {
-        AnaliticaController.registrarInicioSesion(usuario.idUsuario);
+        registrarInicioSesion(usuario.idUsuario);
       }
 
       return true;
@@ -65,13 +83,13 @@ export const useAuth = () => {
   const logout = async () => {
     if (user?.idUsuario) {
       // Registrar cierre de sesión antes de limpiar datos
-      await AnaliticaController.registrarCierreSesion(user.idUsuario);
+      await registrarCierreSesion(user.idUsuario);
     }
 
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    localStorage.removeItem(STORAGE_KEYS.user);
+    localStorage.removeItem(STORAGE_KEYS.token);
     setUser(null);
-    window.location.href = "/login";
+    window.location.href = ROUTES.login;
   };
 
   return { user, login, logout, loading, loadingUser, error };

@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { obtenerNoticia } from "../../../controllers/noticiasController";
+import { obtenerNoticiaPorId } from "../../../services/noticias.service";
 import { useActualizarNoticia } from "../../../hooks/useActualizarNoticia";
 import FormularioNoticia from "../../../components/Admin/molecules/FormularioNoticia";
 import BotonAdmin from "../../../components/Admin/atoms/BotonAdmin";
 import ConfirmacionGlobal from "../../../components/Shared/molecules/ConfirmacionGlobal";
 import AlertaEmergente from "../../../components/Shared/atoms/AlertaEmergente";
+import type { Noticia } from "../../../types/Noticia.type";
 
 const AdminEditarNoticia: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { actualizar } = useActualizarNoticia();
 
-  const [noticia, setNoticia] = useState<any>(null);
+  const [noticia, setNoticia] = useState<Noticia | null>(null);
   const [titulo, setTitulo] = useState("");
   const [contenido, setContenido] = useState("");
   const [imagen, setImagen] = useState<File | null>(null);
@@ -27,7 +28,7 @@ const AdminEditarNoticia: React.FC = () => {
   // 🔹 Cargar noticia existente
   useEffect(() => {
     const cargar = async () => {
-      const data = await obtenerNoticia(Number(id));
+      const data = await obtenerNoticiaPorId(Number(id));
       if (data) {
         setNoticia(data);
         setTitulo(data.tituloNoticia);
@@ -73,7 +74,7 @@ const AdminEditarNoticia: React.FC = () => {
       });
 
       setTimeout(() => navigate("/admin/noticias"), 1000);
-    } catch (error) {
+    } catch {
       setAlerta({
         visible: true,
         mensaje: "Error al actualizar la noticia.",
@@ -92,7 +93,7 @@ const AdminEditarNoticia: React.FC = () => {
           contenido={contenido}
           onTituloChange={setTitulo}
           onContenidoChange={setContenido}
-          onImagenChange={(e) => setImagen(e.target.files?.[0] || null)}
+          onImagenChange={setImagen}
           imagenActual={noticia?.imagenNoticia || null}
         />
 

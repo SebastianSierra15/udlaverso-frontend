@@ -59,7 +59,7 @@ const FormNuevaNoticia: React.FC = () => {
       });
 
       setTimeout(() => navigate("/admin/noticias"), 1000);
-    } catch (error) {
+    } catch {
       // ❌ Error
       setAlerta({
         visible: true,
@@ -83,7 +83,7 @@ const FormNuevaNoticia: React.FC = () => {
           contenido={contenido}
           onTituloChange={setTitulo}
           onContenidoChange={setContenido}
-          onImagenChange={(e) => setImagen(e.target.files?.[0] || null)}
+          onImagenChange={setImagen}
         />
 
         <div className="flex justify-end gap-3">

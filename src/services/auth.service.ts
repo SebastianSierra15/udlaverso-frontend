@@ -1,6 +1,7 @@
 import axios from "axios";
+import { appConfig } from "../config";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8090";
+const API_URL = appConfig.apiUrl || "http://localhost:8090";
 
 export const loginService = async (correo: string, contrasenia: string) => {
   const res = await axios.post(`${API_URL}/auth/login`, {

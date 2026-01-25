@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useAuth } from "../../hooks/useAuth";
 import { useProyecto } from "../../hooks/useProyecto";
-import { AnaliticaController } from "../../controllers/analiticaController";
+import { registrarAnalitica } from "../../services/analiticas.service";
 import HeroProyectoIndividual from "../../components/Proyectos/organisms/HeroProyectoIndividual";
 import DetalleProyecto from "../../components/Proyectos/organisms/DetalleProyecto";
 import ProyectoDetalleSkeleton from "../../components/Proyectos/organisms/ProyectoDetalleSkeleton";
@@ -18,12 +18,14 @@ const ProyectoDetalle: React.FC = () => {
 
   useEffect(() => {
     if (proyecto?.idProyecto) {
-      AnaliticaController.registrarVistaProyecto(
-        Number(proyecto.idProyecto),
-        user?.idUsuario
-      );
+      registrarAnalitica({
+        idProyecto: Number(proyecto.idProyecto),
+        idUsuario: user?.idUsuario ?? null,
+        idTipoAnalitica: 1,
+        descripcionAnalitica: "VisualizaciÃ³n de un proyecto",
+      });
     }
-  }, [proyecto?.idProyecto]);
+  }, [proyecto?.idProyecto, user?.idUsuario]);
 
   useEffect(() => {
     if (!cargando && (error || !proyecto)) {

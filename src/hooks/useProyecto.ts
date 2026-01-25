@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Proyecto } from "../types/Proyecto.type";
-import { obtenerProyectoPorNombreController } from "../controllers/proyectosController";
+import { obtenerProyectoPorNombre } from "../services/proyectos.service";
 
 export const useProyecto = (nombre?: string) => {
   const [proyecto, setProyecto] = useState<Proyecto | null>(null);
@@ -15,18 +15,16 @@ export const useProyecto = (nombre?: string) => {
         setCargando(true);
         setError(null);
 
-        const data = await obtenerProyectoPorNombreController(nombre);
-
-        if (!data) {
-          setError("No se encontró el proyecto solicitado.");
-          setProyecto(null);
-        } else {
-          setProyecto(data);
-        }
+        const data = await obtenerProyectoPorNombre(nombre);
+        setProyecto(data);
       } catch (error: unknown) {
         const err = error as ApiError;
         console.error("❌ Error en useProyecto:", err);
-        setError("Error al cargar el proyecto.");
+        if (err.response?.status === 404) {
+          setError("No se encontró el proyecto solicitado.");
+        } else {
+          setError("Error al cargar el proyecto.");
+        }
         setProyecto(null);
       } finally {
         setCargando(false);

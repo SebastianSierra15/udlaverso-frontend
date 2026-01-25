@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { obtenerNoticias } from "../controllers/noticiasController";
+import { listarNoticias } from "../services/noticias.service";
 import type { Noticia } from "../types/Noticia.type";
 
 export const useNoticias = () => {
@@ -25,7 +25,7 @@ export const useNoticias = () => {
   const cargarNoticias = async () => {
     try {
       setCargando(true);
-      const res = await obtenerNoticias(page, size, debouncedQ, orden);
+      const res = await listarNoticias(page, size, debouncedQ, orden);
       setNoticias(res.content);
       setTotal(res.total);
       setPages(res.pages);

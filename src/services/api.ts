@@ -1,7 +1,10 @@
 import axios from "axios";
+import { appConfig } from "../config";
+import { STORAGE_KEYS } from "../constants";
+import { ROUTES } from "../routes";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: appConfig.apiUrl,
   headers: {
     "Content-Type": "application/json",
   },
@@ -21,7 +24,7 @@ api.interceptors.request.use((config) => {
   const isPublic = publicEndpoints.some((path) => config.url?.startsWith(path));
 
   if (!isPublic) {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(STORAGE_KEYS.token);
     if (token) config.headers.Authorization = `Bearer ${token}`;
   }
 
@@ -41,8 +44,8 @@ api.interceptors.response.use(
       (status === 403 && typeof data === "string" && data.includes("JWT"))
     ) {
       console.warn("⚠️ Token expirado o inválido. Redirigiendo a login...");
-      localStorage.removeItem("token");
-      window.location.href = "/login";
+      localStorage.removeItem(STORAGE_KEYS.token);
+      window.location.href = ROUTES.login;
       return Promise.reject(new Error("Sesión expirada"));
     }
 

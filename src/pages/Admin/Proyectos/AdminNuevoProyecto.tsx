@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useCrearProyecto } from "../../../hooks/useCrearProyectos";
 import { useCategorias } from "../../../hooks/useCategorias";
 import type { ProyectoData } from "../../../types/Proyecto.type";
+import { STORAGE_KEYS } from "../../../constants";
+import { ROUTES } from "../../../routes";
 import Stepper from "../../../components/Admin/molecules/Stepper";
 import PasoDatosBasicos from "../../../components/Admin/organisms/PasoDatosBasicos";
 import PasoContenido from "../../../components/Admin/organisms/PasoContenido";
@@ -118,7 +120,7 @@ const AdminNuevoProyecto = () => {
   const handleGuardarProyecto = async () => {
     if (!validarPaso()) return;
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(STORAGE_KEYS.token);
     if (!token) {
       mostrarAlerta("Debes iniciar sesión para crear un proyecto.", "error");
       return;
@@ -145,8 +147,8 @@ const AdminNuevoProyecto = () => {
         "success"
       );
 
-      setTimeout(() => navigate("/admin/proyectos"), 1000);
-    } catch (error) {
+      setTimeout(() => navigate(ROUTES.adminProyectos), 1000);
+    } catch {
       mostrarAlerta(
         "Error al crear el proyecto o permisos insuficientes.",
         "error"

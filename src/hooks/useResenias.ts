@@ -1,24 +1,31 @@
 import { useState, useEffect } from "react";
 import type { Resenia } from "../types/Resenia.type";
 import {
-  crearReseniaController,
-  actualizarReseniaController,
-  eliminarReseniaController,
-  obtenerReseniasPorProyectoController,
-} from "../controllers/reseniasController";
+  crearReseniaService,
+  actualizarReseniaService,
+  eliminarReseniaService,
+  obtenerReseniasPorProyectoService,
+} from "../services/resenias.service";
+import { STORAGE_KEYS } from "../constants";
 
 export const useResenias = (proyectoId: number, usuarioId?: number) => {
   const [resenias, setResenias] = useState<Resenia[]>([]);
   const [miResenia, setMiResenia] = useState<Resenia | null>(null);
 
-  const token = localStorage.getItem("token") || "";
+  const token = localStorage.getItem(STORAGE_KEYS.token) || "";
 
   const cargar = async () => {
-    const data = await obtenerReseniasPorProyectoController(proyectoId);
-    setResenias(data);
-    if (usuarioId) {
-      const propia = data.find((r) => r.usuarioId === usuarioId);
-      if (propia) setMiResenia(propia);
+    try {
+      const data = await obtenerReseniasPorProyectoService(proyectoId);
+      setResenias(data);
+      if (usuarioId) {
+        const propia = data.find((r) => r.usuarioId === usuarioId);
+        if (propia) setMiResenia(propia);
+      }
+    } catch (error) {
+      console.error("Error cargando reseÃ±as:", error);
+      setResenias([]);
+      setMiResenia(null);
     }
   };
 
@@ -27,36 +34,42 @@ export const useResenias = (proyectoId: number, usuarioId?: number) => {
   }, [proyectoId, usuarioId]);
 
   const crear = async (comentario: string, estrellas: number) => {
-    const nueva = await crearReseniaController(
-      proyectoId,
-      { comentarioResenia: comentario, valoracionResenia: estrellas },
-      token
-    );
-    if (nueva) {
+    try {
+      const nueva = await crearReseniaService(
+        proyectoId,
+        { comentarioResenia: comentario, valoracionResenia: estrellas },
+        token
+      );
       setResenias([nueva, ...resenias]);
       setMiResenia(nueva);
+    } catch (error) {
+      console.error("Error creando reseÃ±a:", error);
     }
   };
 
   const editar = async (id: number, comentario: string, estrellas: number) => {
-    const actualizada = await actualizarReseniaController(
-      id,
-      { comentarioResenia: comentario, valoracionResenia: estrellas },
-      token
-    );
-    if (actualizada) {
+    try {
+      const actualizada = await actualizarReseniaService(
+        id,
+        { comentarioResenia: comentario, valoracionResenia: estrellas },
+        token
+      );
       setResenias((prev) =>
         prev.map((r) => (r.idResenia === id ? actualizada : r))
       );
       setMiResenia(actualizada);
+    } catch (error) {
+      console.error("Error actualizando reseÃ±a:", error);
     }
   };
 
   const eliminar = async (id: number) => {
-    const ok = await eliminarReseniaController(id, token);
-    if (ok) {
+    try {
+      await eliminarReseniaService(id, token);
       setResenias((prev) => prev.filter((r) => r.idResenia !== id));
       setMiResenia(null);
+    } catch (error) {
+      console.error("Error eliminando reseÃ±a:", error);
     }
   };
 

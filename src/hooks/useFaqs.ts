@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { obtenerFaqs } from "../controllers/faqsController";
+import { listarFaqs } from "../services/faqs.service";
 import type { Faq } from "../types/Faq.type";
 
 export const useFaqs = () => {
@@ -9,8 +9,13 @@ export const useFaqs = () => {
   useEffect(() => {
     const fetchFaqs = async () => {
       setCargando(true);
-      const data = await obtenerFaqs();
-      setFaqs(data);
+      try {
+        const data = await listarFaqs();
+        setFaqs(data);
+      } catch (error) {
+        console.error("Error al obtener las FAQs:", error);
+        setFaqs([]);
+      }
       setCargando(false);
     };
     fetchFaqs();

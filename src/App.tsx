@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./Layouts/Layout";
-import LayoutAdmin from "./Layouts/LayoutAdmin";
+import Layout from "./layouts/Layout";
+import LayoutAdmin from "./layouts/LayoutAdmin";
 import ScrollToTop from "./components/utils/ScrollTop";
 import RutaProtegida from "./components/Shared/organisms/RutaProtegida";
+import { ROUTES } from "./routes";
 // Páginas públicas
 import Inicio from "./pages/Inicio/Inicio";
 import Login from "./pages/Auth/Login";
@@ -36,31 +37,28 @@ function App() {
       <ScrollToTop />
 
       <Routes>
-        <Route path="/error" element={<ErrorGeneral />} />
-        <Route path="*" element={<Error404 />} />
+        <Route path={ROUTES.error} element={<ErrorGeneral />} />
+        <Route path={ROUTES.notFound} element={<Error404 />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/registrarse" element={<Registrarse />} />
-        <Route path="/recuperar" element={<RecuperarContrasenia />} />
+        <Route path={ROUTES.login} element={<Login />} />
+        <Route path={ROUTES.registrarse} element={<Registrarse />} />
+        <Route path={ROUTES.recuperar} element={<RecuperarContrasenia />} />
 
         <Route element={<Layout />}>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/acerca-de" element={<AcercaDe />} />
-          <Route path="/como-empezar" element={<ComoEmpezar />} />
-          <Route path="/proyectos" element={<Proyectos />} />
-          <Route path="/proyectos/:nombre" element={<ProyectoDetalle />} />
-          <Route path="/noticias" element={<Noticias />} />
-          <Route path="/noticias/:titulo" element={<NoticiaDetalle />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/preguntas-frecuentes" element={<FAQ />} />
-          <Route
-            path="/terminos-y-condiciones"
-            element={<TerminosYCondiciones />}
-          />
+          <Route path={ROUTES.home} element={<Inicio />} />
+          <Route path={ROUTES.acercaDe} element={<AcercaDe />} />
+          <Route path={ROUTES.comoEmpezar} element={<ComoEmpezar />} />
+          <Route path={ROUTES.proyectos} element={<Proyectos />} />
+          <Route path={ROUTES.proyectoDetalle} element={<ProyectoDetalle />} />
+          <Route path={ROUTES.noticias} element={<Noticias />} />
+          <Route path={ROUTES.noticiaDetalle} element={<NoticiaDetalle />} />
+          <Route path={ROUTES.contacto} element={<Contacto />} />
+          <Route path={ROUTES.faq} element={<FAQ />} />
+          <Route path={ROUTES.terminos} element={<TerminosYCondiciones />} />
         </Route>
 
         <Route
-          path="/admin"
+          path={ROUTES.admin}
           element={
             <RutaProtegida permisosRequeridos={["ver_panel_admin"]}>
               <LayoutAdmin />
@@ -76,7 +74,7 @@ function App() {
             }
           />
           <Route
-            path="resenias"
+            path={ROUTES.adminResenias}
             element={
               <RutaProtegida permisosRequeridos={["moderar_reseñas"]}>
                 <AdminComentarios />
@@ -84,7 +82,7 @@ function App() {
             }
           />
           <Route
-            path="noticias"
+            path={ROUTES.adminNoticias}
             element={
               <RutaProtegida permisosRequeridos={["ver_noticias"]}>
                 <AdminNoticias />
@@ -92,7 +90,7 @@ function App() {
             }
           />
           <Route
-            path="noticias/nueva-noticia"
+            path={ROUTES.adminNoticiasNueva}
             element={
               <RutaProtegida permisosRequeridos={["crear_noticias"]}>
                 <AdminNuevaNoticia />
@@ -100,7 +98,7 @@ function App() {
             }
           />
           <Route
-            path="noticias/editar/:id"
+            path={ROUTES.adminNoticiasEditar}
             element={
               <RutaProtegida permisosRequeridos={["editar_noticias"]}>
                 <AdminEditarNoticia />
@@ -108,7 +106,7 @@ function App() {
             }
           />
           <Route
-            path="preguntas-frecuentes"
+            path={ROUTES.adminFaq}
             element={
               <RutaProtegida permisosRequeridos={["gestionar_faq"]}>
                 <AdminFAQ />
@@ -116,7 +114,7 @@ function App() {
             }
           />
           <Route
-            path="proyectos"
+            path={ROUTES.adminProyectos}
             element={
               <RutaProtegida permisosRequeridos={["ver_proyectos"]}>
                 <AdminProyectos />
@@ -124,7 +122,7 @@ function App() {
             }
           />
           <Route
-            path="proyectos/nuevo-proyecto"
+            path={ROUTES.adminProyectosNuevo}
             element={
               <RutaProtegida permisosRequeridos={["crear_proyectos"]}>
                 <AdminNuevoProyecto />
@@ -132,7 +130,7 @@ function App() {
             }
           />
           <Route
-            path="proyectos/editar/:nombre"
+            path={ROUTES.adminProyectosEditar}
             element={
               <RutaProtegida permisosRequeridos={["editar_proyectos"]}>
                 <AdminEditarProyecto />

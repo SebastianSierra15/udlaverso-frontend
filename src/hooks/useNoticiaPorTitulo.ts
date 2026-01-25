@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { obtenerNoticiaPorTitulo } from "../controllers/noticiasController";
+import { obtenerNoticiaPorTitulo } from "../services/noticias.service";
 import type { Noticia } from "../types/Noticia.type";
 
 export const useNoticiaPorTitulo = (titulo: string) => {

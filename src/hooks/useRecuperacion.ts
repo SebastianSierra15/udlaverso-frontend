@@ -1,9 +1,14 @@
 import { useState } from "react";
 import {
-  enviarCodigoController,
-  verificarCodigoController,
-  restablecerContraseniaController,
-} from "../controllers/authController";
+  enviarCodigoService,
+  verificarCodigoService,
+  restablecerContraseniaService,
+} from "../services/auth.service";
+
+type ApiMensaje = {
+  mensaje?: string;
+  error?: string;
+};
 
 export const useRecuperacion = () => {
   const [loading, setLoading] = useState(false);
@@ -14,14 +19,19 @@ export const useRecuperacion = () => {
   const enviarCodigo = async (correo: string) => {
     setLoading(true);
     try {
-      const res = await enviarCodigoController(correo, "recuperacion");
-      setMensaje(res.mensaje);
-      setCodigoEnviado(res.success);
-      return res;
+      const res = (await enviarCodigoService(correo, "recuperacion")) as ApiMensaje;
+      const mensaje = res.mensaje || "Código enviado al correo.";
+      setMensaje(mensaje);
+      setCodigoEnviado(true);
+      return { success: true, mensaje };
     } catch (error) {
       console.error("❌ Error en enviarCodigo:", error);
-      setMensaje("Error al enviar el código. Intenta nuevamente.");
-      return { success: false, mensaje: "Error al enviar el código." };
+      const err = error as ApiError;
+      const mensaje =
+        err.response?.data?.error ||
+        "Error al enviar el código. Intenta nuevamente.";
+      setMensaje(mensaje);
+      return { success: false, mensaje };
     } finally {
       setLoading(false);
     }
@@ -30,18 +40,21 @@ export const useRecuperacion = () => {
   const verificarCodigo = async (correo: string, codigo: string) => {
     setLoading(true);
     try {
-      const res = await verificarCodigoController(
+      const res = (await verificarCodigoService(
         correo,
         codigo,
         "recuperacion"
-      );
-      setMensaje(res.mensaje);
-      setCodigoVerificado(res.success);
-      return res;
+      )) as ApiMensaje;
+      const mensaje = res.mensaje || "Código verificado correctamente.";
+      setMensaje(mensaje);
+      setCodigoVerificado(true);
+      return { success: true, mensaje };
     } catch (error) {
       console.error("❌ Error en verificarCodigo:", error);
-      setMensaje("Error al verificar el código.");
-      return { success: false, mensaje: "Error al verificar el código." };
+      const err = error as ApiError;
+      const mensaje = err.response?.data?.error || "Error al verificar el código.";
+      setMensaje(mensaje);
+      return { success: false, mensaje };
     } finally {
       setLoading(false);
     }
@@ -54,13 +67,21 @@ export const useRecuperacion = () => {
   ) => {
     setLoading(true);
     try {
-      const res = await restablecerContraseniaController(correo, codigo, nueva);
-      setMensaje(res.mensaje);
-      return res;
+      const res = (await restablecerContraseniaService(
+        correo,
+        codigo,
+        nueva
+      )) as ApiMensaje;
+      const mensaje = res.mensaje || "Contraseña restablecida correctamente.";
+      setMensaje(mensaje);
+      return { success: true, mensaje };
     } catch (error) {
       console.error("❌ Error en restablecerContrasenia:", error);
-      setMensaje("Error al restablecer la contraseña.");
-      return { success: false, mensaje: "Error al restablecer la contraseña." };
+      const err = error as ApiError;
+      const mensaje =
+        err.response?.data?.error || "Error al restablecer la contraseña.";
+      setMensaje(mensaje);
+      return { success: false, mensaje };
     } finally {
       setLoading(false);
     }

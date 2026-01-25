@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { appConfig } from "../../../config";
 import CampoTexto from "../atoms/CampoTexto";
 import EditorTexto from "./EditorTexto";
 import VistaPreviaImagen from "../atoms/VistaPreviaImagen";
@@ -8,7 +9,7 @@ type Props = {
   contenido: string;
   onTituloChange: (v: string) => void;
   onContenidoChange: (v: string) => void;
-  onImagenChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onImagenChange: (file: File | null) => void;
   imagenActual?: string | null;
 };
 
@@ -24,7 +25,7 @@ const FormularioNoticia: React.FC<Props> = ({
 
   useEffect(() => {
     if (imagenActual) {
-      setVistaPrevia(`${import.meta.env.VITE_API_URL}${imagenActual}`);
+      setVistaPrevia(`${appConfig.apiUrl}${imagenActual}`);
     }
   }, [imagenActual]);
 
@@ -34,7 +35,7 @@ const FormularioNoticia: React.FC<Props> = ({
       const url = URL.createObjectURL(archivo);
       setVistaPrevia(url);
     }
-    onImagenChange(e);
+    onImagenChange(archivo ?? null);
   };
 
   const eliminarImagen = () => {
@@ -42,8 +43,8 @@ const FormularioNoticia: React.FC<Props> = ({
     // limpiar input visualmente
     const input = document.getElementById("imagen-noticia") as HTMLInputElement;
     if (input) input.value = "";
-    // enviar evento vacío para notificar al padre
-    onImagenChange({ target: { files: null } } as any);
+    // notificar al padre
+    onImagenChange(null);
   };
 
   // limpiar URL creada en memoria

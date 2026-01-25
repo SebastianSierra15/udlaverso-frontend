@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { eliminarProyectoController } from "../controllers/proyectosController";
+import { eliminarProyectoService } from "../services/proyectos.service";
 
 /**
  * Hook para manejar la eliminación de proyectos
@@ -12,12 +12,11 @@ export function useEliminarProyecto() {
     setLoading(true);
     setError(null);
     try {
-      const ok = await eliminarProyectoController(id);
-      if (ok) return true;
-      setError("No se pudo eliminar el proyecto.");
-      return false;
-    } catch (err: any) {
-      setError(err.message || "Error desconocido al eliminar proyecto");
+      await eliminarProyectoService(id);
+      return true;
+    } catch (err: unknown) {
+      const error = err as Error;
+      setError(error.message || "Error desconocido al eliminar proyecto");
       return false;
     } finally {
       setLoading(false);

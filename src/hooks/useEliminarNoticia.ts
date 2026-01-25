@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as noticiasController from "../controllers/noticiasController";
+import { eliminarNoticia } from "../services/noticias.service";
 
 export const useEliminarNoticia = () => {
   const [cargando, setCargando] = useState(false);
@@ -10,10 +10,11 @@ export const useEliminarNoticia = () => {
     setCargando(true);
     setError(null);
     try {
-      await noticiasController.eliminarNoticia(id);
+      await eliminarNoticia(id);
       setExito(true);
-    } catch (err: any) {
-      setError(err?.message || "Error al eliminar la noticia");
+    } catch (err: unknown) {
+      const error = err as Error;
+      setError(error.message || "Error al eliminar la noticia");
     } finally {
       setCargando(false);
     }
