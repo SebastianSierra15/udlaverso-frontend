@@ -1,18 +1,19 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useAuth } from "../../hooks/useAuth";
-import { useProyecto } from "../../hooks/useProyecto";
-import { registrarAnalitica } from "../../services/analiticas.service";
-import HeroProyectoIndividual from "../../components/Proyectos/organisms/HeroProyectoIndividual";
-import DetalleProyecto from "../../components/Proyectos/organisms/DetalleProyecto";
-import ProyectoDetalleSkeleton from "../../components/Proyectos/organisms/ProyectoDetalleSkeleton";
+import { registrarAnalitica } from "../../services";
+import { useAuth, useProyecto } from "../../hooks";
+import {
+  HeroProyectoIndividual,
+  DetalleProyecto,
+  ProyectoDetalleSkeleton,
+} from "../../components/Proyectos";
 
-const ProyectoDetalle: React.FC = () => {
+export const ProyectoDetalle: React.FC = () => {
   const { nombre } = useParams<{ nombre: string }>();
   const navigate = useNavigate();
   const { proyecto, cargando, error } = useProyecto(
-    decodeURIComponent(nombre || "")
+    decodeURIComponent(nombre || ""),
   );
   const { user } = useAuth();
 
@@ -59,5 +60,3 @@ const ProyectoDetalle: React.FC = () => {
     </>
   );
 };
-
-export default ProyectoDetalle;

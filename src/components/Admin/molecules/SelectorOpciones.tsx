@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import EtiquetaSeleccion from "../atoms/EtiquetaSeleccion";
-import TooltipInfo from "../atoms/Tooltip";
+import { useState } from "react";
+import { EtiquetaSeleccion, TooltipInfo } from "../atoms";
 
 type Props = {
   label?: string;
@@ -13,7 +12,7 @@ type Props = {
   placeholder?: string;
 };
 
-const SelectorOpciones: React.FC<Props> = ({
+export const SelectorOpciones: React.FC<Props> = ({
   label = "Seleccionar opciones",
   tooltip,
   opciones,
@@ -38,7 +37,7 @@ const SelectorOpciones: React.FC<Props> = ({
       setError(
         `Solo puedes seleccionar ${maxSeleccion} opción${
           maxSeleccion > 1 ? "es" : ""
-        }.`
+        }.`,
       );
       return;
     }
@@ -100,12 +99,12 @@ const SelectorOpciones: React.FC<Props> = ({
         <div className="flex flex-wrap gap-2 mt-2">
           {seleccionadas.map((opt) => {
             const encontrado = opciones.find((o) =>
-              typeof o === "string" ? o === opt : o.value === opt
+              typeof o === "string" ? o === opt : o.value === opt,
             );
             const label =
               typeof encontrado === "string"
                 ? encontrado
-                : encontrado?.label ?? opt;
+                : (encontrado?.label ?? opt);
 
             return (
               <EtiquetaSeleccion
@@ -120,5 +119,3 @@ const SelectorOpciones: React.FC<Props> = ({
     </div>
   );
 };
-
-export default SelectorOpciones;

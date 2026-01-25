@@ -1,10 +1,10 @@
-import EtiquetaTecnologia from "../atoms/EtiquetaTecnologia";
+import { EtiquetaTecnologia } from "../atoms";
 
 interface Props {
   tecnologias: string[];
 }
 
-const ListaTecnologias: React.FC<Props> = ({ tecnologias }) => (
+export const ListaTecnologias: React.FC<Props> = ({ tecnologias }) => (
   <div>
     <p className="text-udlaverso-negro font-semibold mb-1">
       Tecnologías utilizadas:
@@ -16,5 +16,3 @@ const ListaTecnologias: React.FC<Props> = ({ tecnologias }) => (
     </div>
   </div>
 );
-
-export default ListaTecnologias;

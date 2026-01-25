@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import Pregunta from "../atoms/Pregunta";
-import Respuesta from "../atoms/Respuesta";
+import { Pregunta, Respuesta } from "../atoms";
 
 interface ItemFAQProps {
   pregunta: string;
   respuesta: string;
 }
 
-const ItemFAQ: React.FC<ItemFAQProps> = ({ pregunta, respuesta }) => {
+export const ItemFAQ: React.FC<ItemFAQProps> = ({ pregunta, respuesta }) => {
   const [abierto, setAbierto] = useState(false);
 
   return (
@@ -42,5 +41,3 @@ const ItemFAQ: React.FC<ItemFAQProps> = ({ pregunta, respuesta }) => {
     </div>
   );
 };
-
-export default ItemFAQ;

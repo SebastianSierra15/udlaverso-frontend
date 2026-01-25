@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { convertirAWebp } from "../../../utils/convertirAWebp";
-import CampoTexto from "../atoms/CampoTexto";
-import VistaPreviaImagen from "../atoms/VistaPreviaImagen";
-import LabelConTooltip from "../atoms/LabelConTooltip";
-import GaleriaImagenes from "../molecules/GaleriaImagenes";
+import { CampoTexto, VistaPreviaImagen, LabelConTooltip } from "../atoms";
+import { GaleriaImagenes } from "../molecules";
 
 interface Props {
   data: {
@@ -19,7 +17,7 @@ interface Props {
 
 type ArchivoConPreview = File & { preview?: string };
 
-const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
+export const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
   const [errores, setErrores] = useState({
     hero: "",
     galeria: "",
@@ -30,7 +28,7 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
 
   const actualizar = <K extends keyof Props["data"]>(
     campo: K,
-    valor: Props["data"][K]
+    valor: Props["data"][K],
   ) => {
     onChange({ ...data, [campo]: valor });
   };
@@ -206,7 +204,7 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
           archivos={data.galeria ?? []}
           onChange={async ({ archivos, urls, eliminadas }) => {
             const convertidos = await Promise.all(
-              archivos.map((f) => convertirAWebp(f))
+              archivos.map((f) => convertirAWebp(f)),
             );
 
             onChange({
@@ -260,5 +258,3 @@ const PasoImagenes: React.FC<Props> = ({ data, onChange }) => {
     </div>
   );
 };
-
-export default PasoImagenes;

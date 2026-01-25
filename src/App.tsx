@@ -1,35 +1,30 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./layouts/Layout";
-import LayoutAdmin from "./layouts/LayoutAdmin";
-import ScrollToTop from "./components/utils/ScrollTop";
-import RutaProtegida from "./components/Shared/organisms/RutaProtegida";
 import { ROUTES } from "./routes";
+import { Layout, LayoutAdmin } from "./layouts";
+import { ScrollToTop, RutaProtegida } from "./components/Shared";
 // Páginas públicas
-import Inicio from "./pages/Inicio/Inicio";
-import Login from "./pages/Auth/Login";
-import Registrarse from "./pages/Auth/Registrarse";
-import RecuperarContrasenia from "./pages/Auth/RecuperarContrasenia";
-import AcercaDe from "./pages/AcercaDe/AcercaDe";
-import Proyectos from "./pages/Proyectos/Proyectos";
-import ProyectoDetalle from "./pages/Proyectos/ProyectoDetalle";
-import Noticias from "./pages/Noticias/Noticias";
-import NoticiaDetalle from "./pages/Noticias/NoticiaDetalle";
-import Contacto from "./pages/Contacto/Contacto";
-import FAQ from "./pages/FAQ/FAQ";
-import ComoEmpezar from "./pages/ComoEmpezar/ComoEmpezar";
-import TerminosYCondiciones from "./pages/Legales/TerminosYCondiciones";
-import Error404 from "./pages/Error/Error404";
-import ErrorGeneral from "./pages/Error/ErrorGeneral";
+import { Inicio } from "./pages/Inicio";
+import { Login, Registrarse, RecuperarContrasenia } from "./pages/Auth";
+import { AcercaDe } from "./pages/AcercaDe";
+import { Proyectos, ProyectoDetalle } from "./pages/Proyectos";
+import { Noticias, NoticiaDetalle } from "./pages/Noticias";
+import { Contacto } from "./pages/Contacto";
+import { FAQ } from "./pages/FAQ";
+import { ComoEmpezar } from "./pages/ComoEmpezar";
+import { TerminosYCondiciones } from "./pages/Legales";
+import { Error404, ErrorGeneral } from "./pages/Error";
 // Páginas admin
-import Admin from "./pages/Admin/Admin";
-import AdminComentarios from "./pages/Admin/Comentarios/AdminComentarios";
-import AdminFAQ from "./pages/Admin/FAQ/AdminFAQ";
-import AdminNoticias from "./pages/Admin/Noticias/AdminNoticias";
-import AdminNuevaNoticia from "./pages/Admin/Noticias/AdminNuevaNoticia";
-import AdminEditarNoticia from "./pages/Admin/Noticias/AdminEditarNoticia";
-import AdminProyectos from "./pages/Admin/Proyectos/AdminProyectos";
-import AdminNuevoProyecto from "./pages/Admin/Proyectos/AdminNuevoProyecto";
-import AdminEditarProyecto from "./pages/Admin/Proyectos/AdminEditarProyecto";
+import {
+  Admin,
+  AdminComentarios,
+  AdminFAQ,
+  AdminNoticias,
+  AdminNuevaNoticia,
+  AdminEditarNoticia,
+  AdminProyectos,
+  AdminNuevoProyecto,
+  AdminEditarProyecto,
+} from "./pages/Admin";
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Imagen from "../atoms/Imagen";
+import { Imagen } from "../atoms";
 
 interface ImagenAnimadaProps {
   src: string;
@@ -7,7 +7,7 @@ interface ImagenAnimadaProps {
   invertir?: boolean;
 }
 
-const ImagenAnimada: React.FC<ImagenAnimadaProps> = ({
+export const ImagenAnimada: React.FC<ImagenAnimadaProps> = ({
   src,
   alt,
   invertir = false,
@@ -33,5 +33,3 @@ const ImagenAnimada: React.FC<ImagenAnimadaProps> = ({
     </motion.div>
   );
 };
-
-export default ImagenAnimada;

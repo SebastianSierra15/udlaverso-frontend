@@ -1,5 +1,4 @@
-import React from "react";
-import TooltipInfo from "./Tooltip";
+import { TooltipInfo } from "./Tooltip";
 
 type Props = {
   texto: string;
@@ -7,7 +6,11 @@ type Props = {
   obligatorio?: boolean;
 };
 
-const LabelConTooltip: React.FC<Props> = ({ texto, tooltip, obligatorio }) => {
+export const LabelConTooltip: React.FC<Props> = ({
+  texto,
+  tooltip,
+  obligatorio,
+}) => {
   return (
     <label className="text-sm font-semibold text-gray-700 flex items-center gap-1">
       {texto}
@@ -16,5 +19,3 @@ const LabelConTooltip: React.FC<Props> = ({ texto, tooltip, obligatorio }) => {
     </label>
   );
 };
-
-export default LabelConTooltip;

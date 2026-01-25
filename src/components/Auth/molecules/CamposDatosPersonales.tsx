@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import InputFlotante from "../atoms/InputFlotante";
+import { InputFlotante } from "../atoms";
 
 interface Formulario {
   nombre: string;
@@ -17,7 +17,7 @@ interface Props {
   setForm: Dispatch<SetStateAction<Formulario>>;
 }
 
-const CamposDatosPersonales: React.FC<Props> = ({ form, setForm }) => (
+export const CamposDatosPersonales: React.FC<Props> = ({ form, setForm }) => (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
     <InputFlotante
       id="nombre"
@@ -39,5 +39,3 @@ const CamposDatosPersonales: React.FC<Props> = ({ form, setForm }) => (
     />
   </div>
 );
-
-export default CamposDatosPersonales;

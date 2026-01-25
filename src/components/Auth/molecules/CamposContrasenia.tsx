@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import InputFlotante from "../atoms/InputFlotante";
+import { InputFlotante } from "../atoms";
 
 interface Formulario {
   nombre: string;
@@ -17,7 +17,7 @@ interface Props {
   setForm: Dispatch<SetStateAction<Formulario>>;
 }
 
-const CamposContrasenia: React.FC<Props> = ({ form, setForm }) => (
+export const CamposContrasenia: React.FC<Props> = ({ form, setForm }) => (
   <>
     <InputFlotante
       id="contrasena"
@@ -43,5 +43,3 @@ const CamposContrasenia: React.FC<Props> = ({ form, setForm }) => (
     />
   </>
 );
-
-export default CamposContrasenia;

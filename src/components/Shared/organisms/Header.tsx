@@ -1,10 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../hooks/useAuth";
-import MenuUsuario from "../molecules/MenuUsuario";
-import Boton from "../atoms/Boton";
+import { useAuth } from "../../../hooks";
+import { Boton } from "../atoms";
+import { MenuUsuario } from "../molecules";
 
-const Header = () => {
+export const Header = () => {
   const [isTop, setIsTop] = useState(true);
   const { user, logout } = useAuth();
 
@@ -133,5 +133,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

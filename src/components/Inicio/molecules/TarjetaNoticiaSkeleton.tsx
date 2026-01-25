@@ -1,4 +1,4 @@
-const TarjetaNoticiaSkeleton: React.FC = () => {
+export const TarjetaNoticiaSkeleton: React.FC = () => {
   return (
     <div className="flex bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden p-4 animate-pulse">
       {/* Imagen */}
@@ -17,5 +17,3 @@ const TarjetaNoticiaSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export default TarjetaNoticiaSkeleton;

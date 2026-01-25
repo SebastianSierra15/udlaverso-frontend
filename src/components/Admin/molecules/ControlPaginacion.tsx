@@ -1,4 +1,4 @@
-import BotonPagina from "../atoms/BotonPagina";
+import { BotonPagina } from "../atoms";
 
 type Props = {
   pagina: number;
@@ -10,7 +10,7 @@ type Props = {
   nombreEntidad?: string;
 };
 
-const ControlPaginacion: React.FC<Props> = ({
+export const ControlPaginacion: React.FC<Props> = ({
   pagina,
   totalPaginas,
   onCambioPagina,
@@ -55,5 +55,3 @@ const ControlPaginacion: React.FC<Props> = ({
     </div>
   </div>
 );
-
-export default ControlPaginacion;

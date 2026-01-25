@@ -1,12 +1,10 @@
-import React from "react";
-
 interface Props {
   icon: React.ReactNode;
   texto: string;
   link?: string;
 }
 
-const IconoContacto: React.FC<Props> = ({ icon, texto, link }) => {
+export const IconoContacto: React.FC<Props> = ({ icon, texto, link }) => {
   const contenido = (
     <div className="flex items-center gap-3 text-udlaverso-gris hover:text-udlaverso-verde transition-colors">
       {icon}
@@ -22,5 +20,3 @@ const IconoContacto: React.FC<Props> = ({ icon, texto, link }) => {
     contenido
   );
 };
-
-export default IconoContacto;

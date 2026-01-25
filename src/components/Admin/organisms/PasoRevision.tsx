@@ -1,6 +1,5 @@
-import HeroProyectoIndividual from "../../Proyectos/organisms/HeroProyectoIndividual";
-import ProyectoTemplate from "../../Proyectos/templates/ProyectoTemplate";
-import type { Proyecto } from "../../../types/Proyecto.type";
+import type { Proyecto } from "../../../types";
+import { HeroProyectoIndividual, ProyectoTemplate } from "../../Proyectos";
 
 interface Props {
   datosBasicos: {
@@ -24,7 +23,7 @@ interface Props {
   };
 }
 
-const PasoRevision: React.FC<Props> = ({
+export const PasoRevision: React.FC<Props> = ({
   datosBasicos,
   contenido,
   imagenes,
@@ -33,8 +32,8 @@ const PasoRevision: React.FC<Props> = ({
     ...(imagenes.hero
       ? [URL.createObjectURL(imagenes.hero)]
       : imagenes.heroUrl
-      ? [imagenes.heroUrl]
-      : []),
+        ? [imagenes.heroUrl]
+        : []),
     ...(imagenes.galeria.length
       ? imagenes.galeria.map((img) => URL.createObjectURL(img))
       : imagenes.galeriaUrls || []),
@@ -89,5 +88,3 @@ const PasoRevision: React.FC<Props> = ({
     </div>
   );
 };
-
-export default PasoRevision;

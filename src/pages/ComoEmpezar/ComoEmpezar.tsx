@@ -1,8 +1,7 @@
-// AGREGAR
 import { Helmet } from "react-helmet-async";
-import ComoEmpezarTemplate from "../../components/ComoEmpezar/templates/ComoEmpezarTemplate";
+import { ComoEmpezarTemplate } from "../../components/ComoEmpezar";
 
-const ComoEmpezar: React.FC = () => (
+export const ComoEmpezar: React.FC = () => (
   <>
     <Helmet>
       <title>Como empezar - UdlaVerso</title>
@@ -15,5 +14,3 @@ const ComoEmpezar: React.FC = () => (
     <ComoEmpezarTemplate />
   </>
 );
-
-export default ComoEmpezar;

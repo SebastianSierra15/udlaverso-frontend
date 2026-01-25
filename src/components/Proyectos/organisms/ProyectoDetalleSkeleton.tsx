@@ -1,6 +1,6 @@
 import { FaRegEye } from "react-icons/fa6";
 
-const ProyectoDetalleSkeleton = () => {
+export const ProyectoDetalleSkeleton = () => {
   return (
     <>
       {/* Hero del proyecto (imagen + overlay simulada) */}
@@ -88,5 +88,3 @@ const ProyectoDetalleSkeleton = () => {
     </>
   );
 };
-
-export default ProyectoDetalleSkeleton;

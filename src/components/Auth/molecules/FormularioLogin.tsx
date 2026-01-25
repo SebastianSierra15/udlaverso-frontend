@@ -1,6 +1,5 @@
-import InputTexto from "../atoms/InputTexto";
-import EnlaceRecuperar from "../atoms/EnlaceRecuperar";
-import BotonesLogin from "./BotonesLogin";
+import { InputTexto, EnlaceRecuperar } from "../atoms";
+import { BotonesLogin } from "./BotonesLogin";
 
 interface Props {
   correo: string;
@@ -11,7 +10,7 @@ interface Props {
   loading: boolean;
 }
 
-const FormularioLogin: React.FC<Props> = ({
+export const FormularioLogin: React.FC<Props> = ({
   correo,
   contrasenia,
   setCorreo,
@@ -51,5 +50,3 @@ const FormularioLogin: React.FC<Props> = ({
     </form>
   );
 };
-
-export default FormularioLogin;

@@ -1,6 +1,6 @@
-import TarjetaProyectoListadoSkeleton from "../molecules/TarjetaProyectoListadoSkeleton";
+import { TarjetaProyectoListadoSkeleton } from "../molecules";
 
-const GridProyectosSkeleton: React.FC = () => {
+export const GridProyectosSkeleton: React.FC = () => {
   const placeholders = Array.from({ length: 6 });
 
   return (
@@ -11,5 +11,3 @@ const GridProyectosSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export default GridProyectosSkeleton;

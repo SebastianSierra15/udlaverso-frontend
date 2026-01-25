@@ -3,8 +3,6 @@ interface ParrafoProps {
   clase?: string;
 }
 
-const Parrafo: React.FC<ParrafoProps> = ({ texto, clase = "" }) => (
+export const Parrafo: React.FC<ParrafoProps> = ({ texto, clase = "" }) => (
   <p className={`text-base leading-relaxed ${clase}`}>{texto}</p>
 );
-
-export default Parrafo;

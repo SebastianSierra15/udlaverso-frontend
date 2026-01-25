@@ -2,7 +2,7 @@ interface Props {
   onClose: () => void;
 }
 
-const BotonCierreModal: React.FC<Props> = ({ onClose }) => (
+export const BotonCierreModal: React.FC<Props> = ({ onClose }) => (
   <button
     onClick={onClose}
     className="absolute top-3 right-4 text-gray-400 hover:text-udlaverso-verde text-lg"
@@ -10,5 +10,3 @@ const BotonCierreModal: React.FC<Props> = ({ onClose }) => (
     ✕
   </button>
 );
-
-export default BotonCierreModal;

@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { animate } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
-import Boton from "../../Shared/atoms/Boton";
-import BotonEnlace from "../../Shared/atoms/BotonEnlace";
+import { Boton, BotonEnlace } from "../../Shared";
 
-const Hero = () => {
+export const Hero = () => {
   const navigate = useNavigate();
 
   const scrollToNext = () => {
@@ -72,5 +71,3 @@ const Hero = () => {
     </section>
   );
 };
-
-export default Hero;

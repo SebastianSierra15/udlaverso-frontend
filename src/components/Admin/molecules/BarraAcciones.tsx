@@ -1,4 +1,4 @@
-import BotonAdmin from "../atoms/BotonAdmin";
+import { BotonAdmin } from "../atoms";
 
 type Props = {
   onNuevo?: () => void;
@@ -7,7 +7,7 @@ type Props = {
   valor?: string;
 };
 
-const BarraAcciones: React.FC<Props> = ({
+export const BarraAcciones: React.FC<Props> = ({
   onNuevo,
   onBuscar,
   placeholder = "Buscar...",
@@ -43,5 +43,3 @@ const BarraAcciones: React.FC<Props> = ({
     </div>
   );
 };
-
-export default BarraAcciones;

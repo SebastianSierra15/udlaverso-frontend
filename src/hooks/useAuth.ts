@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { loginService } from "../services/auth.service";
+import { loginSchema } from "../schemas";
 import { registrarAnalitica } from "../services/analiticas.service";
 import { STORAGE_KEYS } from "../constants";
 import { ROUTES } from "../routes";
@@ -38,6 +39,12 @@ export const useAuth = () => {
     contrasenia: string
   ): Promise<boolean> => {
     try {
+      const validacion = loginSchema.safeParse({ correo, contrasenia });
+      if (!validacion.success) {
+        setError(validacion.error.issues[0]?.message || "Datos invalidos");
+        return false;
+      }
+
       setLoading(true);
       setError(null);
 

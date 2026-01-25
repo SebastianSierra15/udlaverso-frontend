@@ -15,7 +15,7 @@ interface Props {
   mostrarTogglePassword?: boolean;
 }
 
-const InputFlotante: React.FC<Props> = ({
+export const InputFlotante: React.FC<Props> = ({
   id,
   tipo = "text",
   etiqueta,
@@ -96,5 +96,3 @@ const InputFlotante: React.FC<Props> = ({
     </div>
   );
 };
-
-export default InputFlotante;

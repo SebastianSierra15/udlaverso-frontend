@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import FormularioRecuperar from "../molecules/FormularioRecuperar";
+import { FormularioRecuperar } from "../molecules";
 
-const TarjetaRecuperar: React.FC = () => {
+export const TarjetaRecuperar: React.FC = () => {
   return (
     <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-xl p-10 w-[90%] max-w-md flex flex-col items-center">
       <Link to="/" className="mb-6">
@@ -21,5 +21,3 @@ const TarjetaRecuperar: React.FC = () => {
     </div>
   );
 };
-
-export default TarjetaRecuperar;

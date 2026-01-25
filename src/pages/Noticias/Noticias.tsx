@@ -1,12 +1,14 @@
 import { Helmet } from "react-helmet-async";
-import { useNoticias } from "../../hooks/useNoticias";
-import HeroNoticias from "../../components/Noticias/organisms/HeroNoticias";
-import BarraBusquedaNoticias from "../../components/Noticias/molecules/BarraBusquedaNoticias";
-import GridNoticias from "../../components/Noticias/organisms/GridNoticias";
-import Paginacion from "../../components/Shared/molecules/Paginacion";
-import GridNoticiasSkeleton from "../../components/Noticias/organisms/GridNoticiasSkeleton";
+import { useNoticias } from "../../hooks";
+import {
+  HeroNoticias,
+  BarraBusquedaNoticias,
+  GridNoticias,
+  GridNoticiasSkeleton,
+} from "../../components/Noticias";
+import { Paginacion } from "../../components/Shared";
 
-const Noticias: React.FC = () => {
+export const Noticias: React.FC = () => {
   const {
     noticias,
     total,
@@ -79,5 +81,3 @@ const Noticias: React.FC = () => {
     </>
   );
 };
-
-export default Noticias;

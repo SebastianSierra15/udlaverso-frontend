@@ -1,11 +1,9 @@
-import React from "react";
-
 interface Props {
   icono: React.ReactNode;
   url: string;
 }
 
-const IconoRedSocial: React.FC<Props> = ({ icono, url }) => {
+export const IconoRedSocial: React.FC<Props> = ({ icono, url }) => {
   return (
     <a
       href={url}
@@ -17,5 +15,3 @@ const IconoRedSocial: React.FC<Props> = ({ icono, url }) => {
     </a>
   );
 };
-
-export default IconoRedSocial;

@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import FormNuevaNoticia from "../../../components/Admin/organisms/FormNuevaNoticia";
+import { FormNuevaNoticia } from "../../../components/Admin";
 
-const AdminNuevaNoticia: React.FC = () => (
+export const AdminNuevaNoticia: React.FC = () => (
   <>
     <Helmet>
       <title>Nueva Noticia | UdlaVerso</title>
@@ -10,5 +10,3 @@ const AdminNuevaNoticia: React.FC = () => (
     <FormNuevaNoticia />
   </>
 );
-
-export default AdminNuevaNoticia;

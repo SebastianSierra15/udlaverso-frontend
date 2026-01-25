@@ -6,7 +6,7 @@ import {
   FaNewspaper,
   // FaQuestionCircle,
 } from "react-icons/fa";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks";
 
 const enlaces = [
   {
@@ -41,12 +41,12 @@ const enlaces = [
   // },
 ];
 
-const SidebarAdmin: React.FC = () => {
+export const SidebarAdmin: React.FC = () => {
   const location = useLocation();
   const { user } = useAuth();
 
   const enlacesVisibles = enlaces.filter((e) =>
-    user?.permisos?.some((p) => p.nombrePermiso === e.permiso)
+    user?.permisos?.some((p) => p.nombrePermiso === e.permiso),
   );
 
   return (
@@ -90,5 +90,3 @@ const SidebarAdmin: React.FC = () => {
     </aside>
   );
 };
-
-export default SidebarAdmin;

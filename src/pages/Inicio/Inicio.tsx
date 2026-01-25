@@ -1,12 +1,14 @@
 import { Helmet } from "react-helmet-async";
-import Hero from "../../components/Inicio/organisms/Hero";
-import Introduccion from "../../components/Inicio/organisms/Introduccion";
-import CarruselProyectos from "../../components/Inicio/organisms/CarruselProyectos";
-import ExperienciasInteractivas from "../../components/Inicio/organisms/ExperienciasInteractivas";
-import Estadisticas from "../../components/Inicio/organisms/Estadisticas";
-import NoticiasRecientes from "../../components/Inicio/organisms/NoticiasRecientes";
+import {
+  Hero,
+  Introduccion,
+  CarruselProyectos,
+  ExperienciasInteractivas,
+  Estadisticas,
+  NoticiasRecientes,
+} from "../../components/Inicio";
 
-function Inicio() {
+export function Inicio() {
   return (
     <>
       {/* Metadatos */}
@@ -38,5 +40,3 @@ function Inicio() {
     </>
   );
 }
-
-export default Inicio;

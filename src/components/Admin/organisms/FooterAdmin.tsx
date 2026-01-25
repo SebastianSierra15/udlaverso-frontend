@@ -1,4 +1,4 @@
-const FooterAdmin: React.FC = () => {
+export const FooterAdmin: React.FC = () => {
   return (
     <div className="text-center text-xs text-udlaverso-gris">
       <p>
@@ -18,5 +18,3 @@ const FooterAdmin: React.FC = () => {
     </div>
   );
 };
-
-export default FooterAdmin;

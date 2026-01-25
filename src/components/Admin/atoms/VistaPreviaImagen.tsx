@@ -6,7 +6,7 @@ type Props = {
   onRemove?: () => void;
 };
 
-const VistaPreviaImagen: React.FC<Props> = ({
+export const VistaPreviaImagen: React.FC<Props> = ({
   src,
   alt = "Imagen",
   onRemove,
@@ -28,5 +28,3 @@ const VistaPreviaImagen: React.FC<Props> = ({
     )}
   </div>
 );
-
-export default VistaPreviaImagen;

@@ -1,5 +1,4 @@
-import React from "react";
-import Estrella from "../atoms/Estrella";
+import { Estrella } from "../atoms";
 
 interface EstrellasValoracionProps {
   valor: number;
@@ -8,7 +7,7 @@ interface EstrellasValoracionProps {
   interactiva?: boolean;
 }
 
-const EstrellasValoracion: React.FC<EstrellasValoracionProps> = ({
+export const EstrellasValoracion: React.FC<EstrellasValoracionProps> = ({
   valor,
   onChange,
   grande = false,
@@ -30,5 +29,3 @@ const EstrellasValoracion: React.FC<EstrellasValoracionProps> = ({
     </div>
   );
 };
-
-export default EstrellasValoracion;

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useProyectosMasVistos } from "../../../hooks/useProyectosMasVistos";
-import TarjetaProyecto from "../molecules/TarjetaProyecto";
-import CarruselProyectosSkeleton from "./CarruselProyectosSkeleton";
+import { useEffect, useState } from "react";
+import { useProyectosMasVistos } from "../../../hooks";
+import { TarjetaProyecto } from "../molecules";
+import { CarruselProyectosSkeleton } from "./CarruselProyectosSkeleton";
 
-const CarruselProyectos: React.FC = () => {
+export const CarruselProyectos: React.FC = () => {
   const { proyectos, cargando } = useProyectosMasVistos(10);
   const [visible, setVisible] = useState(4);
 
@@ -57,5 +57,3 @@ const CarruselProyectos: React.FC = () => {
     </section>
   );
 };
-
-export default CarruselProyectos;

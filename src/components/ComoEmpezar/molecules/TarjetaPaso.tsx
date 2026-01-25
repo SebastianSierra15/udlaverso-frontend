@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import IconPaso from "../atoms/IconPaso";
-import Etiqueta from "../atoms/Etiqueta";
+import { IconPaso, Etiqueta } from "../atoms";
 
 type Paso = {
   texto: string;
@@ -15,7 +14,7 @@ type Props = {
   videoUrl?: string;
 };
 
-const TarjetaPaso: React.FC<Props> = ({
+export const TarjetaPaso: React.FC<Props> = ({
   titulo,
   resumen,
   pasos,
@@ -88,5 +87,3 @@ const TarjetaPaso: React.FC<Props> = ({
     </div>
   </motion.article>
 );
-
-export default TarjetaPaso;

@@ -4,7 +4,7 @@ interface Props {
   visible: boolean;
 }
 
-const ImagenProyecto: React.FC<Props> = ({ src, alt, visible }) => (
+export const ImagenProyecto: React.FC<Props> = ({ src, alt, visible }) => (
   <img
     src={src}
     alt={alt}
@@ -14,5 +14,3 @@ const ImagenProyecto: React.FC<Props> = ({ src, alt, visible }) => (
     }`}
   />
 );
-
-export default ImagenProyecto;

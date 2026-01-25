@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import TarjetaPaso from "../molecules/TarjetaPaso";
 import { comoEmpezar } from "../../../content/ComoEmpezar";
+import { TarjetaPaso } from "../molecules";
 
-const AccordionGuia: React.FC = () => {
+export const AccordionGuia: React.FC = () => {
   const [openId, setOpenId] = useState<string | null>(comoEmpezar[0].id);
 
   return (
@@ -66,5 +66,3 @@ const AccordionGuia: React.FC = () => {
     </div>
   );
 };
-
-export default AccordionGuia;

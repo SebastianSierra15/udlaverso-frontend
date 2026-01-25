@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import SeccionNoticias from "../../../components/Admin/organisms/SeccionNoticias";
+import { SeccionNoticias } from "../../../components/Admin";
 
-const AdminNoticias: React.FC = () => (
+export const AdminNoticias: React.FC = () => (
   <>
     <Helmet>
       <title>Noticias | UdlaVerso</title>
@@ -10,5 +10,3 @@ const AdminNoticias: React.FC = () => (
     <SeccionNoticias />
   </>
 );
-
-export default AdminNoticias;

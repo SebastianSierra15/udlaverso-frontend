@@ -3,7 +3,7 @@ interface Props {
   alt: string;
 }
 
-const ImagenNoticiaGrande: React.FC<Props> = ({ src, alt }) => (
+export const ImagenNoticiaGrande: React.FC<Props> = ({ src, alt }) => (
   <img
     src={src}
     alt={alt}
@@ -12,5 +12,3 @@ const ImagenNoticiaGrande: React.FC<Props> = ({ src, alt }) => (
     decoding="async"
   />
 );
-
-export default ImagenNoticiaGrande;

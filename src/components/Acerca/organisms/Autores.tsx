@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Parrafo from "../atoms/Parrafo";
+import { Parrafo } from "../atoms";
 
 const autores = [
   {
@@ -19,7 +19,7 @@ const autores = [
   },
 ];
 
-const Autores: React.FC = () => {
+export const Autores: React.FC = () => {
   return (
     <section className="py-16 px-6 md:px-10 bg-white">
       <h2 className="text-3xl md:text-3xl font-extrabold text-udlaverso-negro leading-tight mb-14 text-center">
@@ -56,5 +56,3 @@ const Autores: React.FC = () => {
     </section>
   );
 };
-
-export default Autores;

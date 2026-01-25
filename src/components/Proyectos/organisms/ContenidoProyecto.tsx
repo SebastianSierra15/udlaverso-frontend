@@ -1,7 +1,9 @@
-import GaleriaProyecto from "../molecules/GaleriaProyecto";
-import InfoProyecto from "../molecules/InfoProyecto";
-import DescripcionLarga from "../molecules/DescripcionLarga";
-import VideoProyecto from "../molecules/VideoProyecto";
+import {
+  GaleriaProyecto,
+  InfoProyecto,
+  DescripcionLarga,
+  VideoProyecto,
+} from "../molecules";
 
 interface Props {
   autor: string;
@@ -16,7 +18,7 @@ interface Props {
   titulo: string;
 }
 
-const ContenidoProyecto: React.FC<Props> = ({
+export const ContenidoProyecto: React.FC<Props> = ({
   autor,
   fecha,
   tecnologias,
@@ -49,5 +51,3 @@ const ContenidoProyecto: React.FC<Props> = ({
     </div>
   </div>
 );
-
-export default ContenidoProyecto;

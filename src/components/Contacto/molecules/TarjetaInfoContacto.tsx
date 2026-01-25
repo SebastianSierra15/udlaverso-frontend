@@ -1,8 +1,8 @@
 import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaClock } from "react-icons/fa";
-import IconoContacto from "../atoms/IconoContacto";
-import EnlaceInstitucional from "./EnlaceInstitucional";
+import { IconoContacto } from "../atoms";
+import { EnlaceInstitucional } from "./EnlaceInstitucional";
 
-const TarjetaInfoContacto: React.FC = () => (
+export const TarjetaInfoContacto: React.FC = () => (
   <div className="flex flex-col gap-5 bg-white p-6 md:p-7 rounded-2xl shadow-md border border-gray-100 h-full">
     <h3 className="text-2xl font-extrabold text-udlaverso-negro">
       Universidad de la Amazonia
@@ -51,5 +51,3 @@ const TarjetaInfoContacto: React.FC = () => (
     />
   </div>
 );
-
-export default TarjetaInfoContacto;

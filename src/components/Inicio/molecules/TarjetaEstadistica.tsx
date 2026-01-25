@@ -7,7 +7,7 @@ interface Props {
   duracion?: number;
 }
 
-const TarjetaEstadistica: React.FC<Props> = ({
+export const TarjetaEstadistica: React.FC<Props> = ({
   valor,
   texto,
   duracion = 2,
@@ -51,5 +51,3 @@ const TarjetaEstadistica: React.FC<Props> = ({
     </motion.div>
   );
 };
-
-export default TarjetaEstadistica;

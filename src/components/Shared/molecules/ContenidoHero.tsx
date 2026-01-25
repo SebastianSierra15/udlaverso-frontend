@@ -3,7 +3,7 @@ interface ContenidoHeroProps {
   descripcion: string;
 }
 
-const ContenidoHero: React.FC<ContenidoHeroProps> = ({
+export const ContenidoHero: React.FC<ContenidoHeroProps> = ({
   titulo,
   descripcion,
 }) => {
@@ -19,5 +19,3 @@ const ContenidoHero: React.FC<ContenidoHeroProps> = ({
     </div>
   );
 };
-
-export default ContenidoHero;

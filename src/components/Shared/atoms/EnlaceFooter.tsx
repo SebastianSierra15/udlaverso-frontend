@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -6,7 +5,7 @@ interface Props {
   ruta: string;
 }
 
-const EnlaceFooter: React.FC<Props> = ({ texto, ruta }) => {
+export const EnlaceFooter: React.FC<Props> = ({ texto, ruta }) => {
   // Detecta si el enlace es externo (http o https)
   const esExterno = ruta.startsWith("http://") || ruta.startsWith("https://");
 
@@ -32,5 +31,3 @@ const EnlaceFooter: React.FC<Props> = ({ texto, ruta }) => {
     </Link>
   );
 };
-
-export default EnlaceFooter;

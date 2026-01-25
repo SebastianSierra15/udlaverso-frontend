@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import SeccionFAQ from "../../../components/Admin/organisms/SeccionFAQ";
+import { SeccionFAQ } from "../../../components/Admin";
 
-const AdminFAQ: React.FC = () => (
+export const AdminFAQ: React.FC = () => (
   <>
     <Helmet>
       <title>Preguntas frecuentes | UdlaVerso</title>
@@ -10,5 +10,3 @@ const AdminFAQ: React.FC = () => (
     <SeccionFAQ />
   </>
 );
-
-export default AdminFAQ;

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useNoticiasRecientes } from "../../../hooks/useNoticiasRecientes";
-import Boton from "../../Shared/atoms/Boton";
-import TarjetaNoticia from "../molecules/TarjetaNoticia";
-import NoticiasRecientesSkeleton from "./NoticiasRecientesSkeleton";
+import { useNoticiasRecientes } from "../../../hooks";
+import { Boton } from "../../Shared";
+import { TarjetaNoticia } from "../molecules";
+import { NoticiasRecientesSkeleton } from "./NoticiasRecientesSkeleton";
 
-const NoticiasRecientes: React.FC = () => {
+export const NoticiasRecientes: React.FC = () => {
   const { noticias, cargando } = useNoticiasRecientes();
 
   return (
@@ -45,5 +45,3 @@ const NoticiasRecientes: React.FC = () => {
     </section>
   );
 };
-
-export default NoticiasRecientes;

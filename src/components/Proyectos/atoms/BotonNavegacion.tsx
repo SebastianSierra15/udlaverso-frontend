@@ -5,7 +5,7 @@ interface Props {
   onClick: () => void;
 }
 
-const BotonNavegacion: React.FC<Props> = ({ direccion, onClick }) => {
+export const BotonNavegacion: React.FC<Props> = ({ direccion, onClick }) => {
   const Icono = direccion === "izquierda" ? FaChevronLeft : FaChevronRight;
 
   return (
@@ -19,5 +19,3 @@ const BotonNavegacion: React.FC<Props> = ({ direccion, onClick }) => {
     </button>
   );
 };
-
-export default BotonNavegacion;

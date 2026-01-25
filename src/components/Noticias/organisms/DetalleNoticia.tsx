@@ -1,5 +1,5 @@
-import BotonVolver from "../atoms/BotonVolver";
-import FechaPublicacion from "../atoms/FechaPublicacion";
+import { BotonVolver } from "../atoms";
+import { FechaPublicacion } from "../atoms";
 
 interface Props {
   titulo: string;
@@ -8,7 +8,7 @@ interface Props {
   contenido: string;
 }
 
-const DetalleNoticia: React.FC<Props> = ({
+export const DetalleNoticia: React.FC<Props> = ({
   titulo,
   fecha,
   imagen,
@@ -45,5 +45,3 @@ const DetalleNoticia: React.FC<Props> = ({
     </article>
   );
 };
-
-export default DetalleNoticia;

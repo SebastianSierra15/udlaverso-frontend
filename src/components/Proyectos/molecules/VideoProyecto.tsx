@@ -5,7 +5,7 @@ interface Props {
   titulo: string;
 }
 
-const VideoProyecto: React.FC<Props> = ({ videoUrl, titulo }) => {
+export const VideoProyecto: React.FC<Props> = ({ videoUrl, titulo }) => {
   const embedUrl = formatearYoutubeEmbed(videoUrl);
 
   if (!embedUrl) return null;
@@ -27,5 +27,3 @@ const VideoProyecto: React.FC<Props> = ({ videoUrl, titulo }) => {
     </section>
   );
 };
-
-export default VideoProyecto;

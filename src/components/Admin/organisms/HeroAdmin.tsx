@@ -1,8 +1,8 @@
 import { FaHome } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks";
 
-const HeroAdmin: React.FC = () => {
+export const HeroAdmin: React.FC = () => {
   const { logout } = useAuth();
 
   return (
@@ -46,5 +46,3 @@ const HeroAdmin: React.FC = () => {
     </header>
   );
 };
-
-export default HeroAdmin;

@@ -1,11 +1,13 @@
 import { Helmet } from "react-helmet-async";
-import HeroSection from "../../components/Acerca/organisms/HeroSection";
-import SeccionImagenTexto from "../../components/Acerca/organisms/SeccionImagenTexto";
-import SeccionUniversidad from "../../components/Acerca/organisms/SeccionUniversidad";
-import SeccionCaracteristicas from "../../components/Acerca/organisms/SeccionCaracteristica";
-import Autores from "../../components/Acerca/organisms/Autores";
+import {
+  HeroSection,
+  SeccionImagenTexto,
+  SeccionUniversidad,
+  SeccionCaracteristicas,
+  Autores,
+} from "../../components/Acerca";
 
-const AcercaDe: React.FC = () => {
+export const AcercaDe: React.FC = () => {
   return (
     <>
       <Helmet>
@@ -49,5 +51,3 @@ const AcercaDe: React.FC = () => {
     </>
   );
 };
-
-export default AcercaDe;

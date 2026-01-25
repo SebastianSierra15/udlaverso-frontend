@@ -1,8 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Header from "../components/Shared/organisms/Header";
-import Footer from "../components/Shared/organisms/Footer";
+import { Header, Footer } from "../components/Shared";
 
-const Layout = () => {
+export const Layout = () => {
   return (
     <>
       <Header />
@@ -15,5 +14,3 @@ const Layout = () => {
     </>
   );
 };
-
-export default Layout;

@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import PanelEstadisticas from "../../components/Admin/organisms/PanelEstadisticas";
+import { PanelEstadisticas } from "../../components/Admin";
 
-const Admin: React.FC = () => (
+export const Admin: React.FC = () => (
   <>
     <Helmet>
       <title> Administración | UdlaVerso</title>
@@ -10,5 +10,3 @@ const Admin: React.FC = () => (
     <PanelEstadisticas />
   </>
 );
-
-export default Admin;

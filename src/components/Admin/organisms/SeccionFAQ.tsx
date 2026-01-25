@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { useFaqs } from "../../../hooks/useFaqs";
-import TablaSimple from "../molecules/TablaSimple";
-import BarraAcciones from "../molecules/BarraAcciones";
+import { useFaqs } from "../../../hooks";
+import { TablaSimple, BarraAcciones } from "../molecules";
 
 type Fila = {
   pregunta: string;
@@ -15,7 +14,7 @@ type Fila = {
   }[];
 };
 
-const SeccionFAQ: React.FC = () => {
+export const SeccionFAQ: React.FC = () => {
   const [q, setQ] = useState("");
   const { faqs, cargando } = useFaqs();
 
@@ -68,7 +67,7 @@ const SeccionFAQ: React.FC = () => {
         </div>
       ),
     },
-  ]
+  ];
 
   return (
     <section id="faq" className="space-y-3">
@@ -86,5 +85,3 @@ const SeccionFAQ: React.FC = () => {
     </section>
   );
 };
-
-export default SeccionFAQ;

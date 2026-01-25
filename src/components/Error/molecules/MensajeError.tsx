@@ -5,7 +5,7 @@ interface Props {
   onClick: () => void;
 }
 
-const MensajeError: React.FC<Props> = ({
+export const MensajeError: React.FC<Props> = ({
   titulo,
   descripcion,
   botonTexto,
@@ -28,5 +28,3 @@ const MensajeError: React.FC<Props> = ({
     </div>
   );
 };
-
-export default MensajeError;

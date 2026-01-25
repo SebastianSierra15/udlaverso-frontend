@@ -1,8 +1,6 @@
-import React from "react";
 import { motion } from "framer-motion";
-import EstrellasValoracion from "../../Proyectos/molecules/EstrellasValoracion";
-import ContadorVisitas from "../../Proyectos/atoms/ContadorVisitas";
-import BotonAdmin from "../atoms/BotonAdmin";
+import { BotonAdmin } from "../atoms";
+import { EstrellasValoracion, ContadorVisitas } from "../../Proyectos";
 
 interface Proyecto {
   id: string;
@@ -22,7 +20,7 @@ interface Props {
   onClose: () => void;
 }
 
-const ModalVistaProyecto: React.FC<Props> = ({ proyecto, onClose }) => {
+export const ModalVistaProyecto: React.FC<Props> = ({ proyecto, onClose }) => {
   const abrirProyecto = () => window.open(proyecto.linkProyecto, "_blank");
 
   return (
@@ -105,5 +103,3 @@ const ModalVistaProyecto: React.FC<Props> = ({ proyecto, onClose }) => {
     </div>
   );
 };
-
-export default ModalVistaProyecto;

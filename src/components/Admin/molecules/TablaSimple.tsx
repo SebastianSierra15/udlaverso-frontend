@@ -1,5 +1,5 @@
-import SelectorCantidad from "../atoms/SelectorCantidad";
-import ControlPaginacion from "./ControlPaginacion";
+import { SelectorCantidad } from "../atoms";
+import { ControlPaginacion } from "./ControlPaginacion";
 
 type Columna<T> = {
   id: keyof T | string;
@@ -21,7 +21,7 @@ type Props<T> = {
   onCambioCantidad?: (cantidad: number) => void;
 };
 
-function TablaSimple<T extends Record<string, unknown>>({
+export function TablaSimple<T extends Record<string, unknown>>({
   columnas,
   filas,
   vacio = "Sin registros",
@@ -110,5 +110,3 @@ function TablaSimple<T extends Record<string, unknown>>({
     </div>
   );
 }
-
-export default TablaSimple;

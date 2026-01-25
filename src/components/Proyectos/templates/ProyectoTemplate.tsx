@@ -1,12 +1,10 @@
-import type { Proyecto } from "../../../types/Proyecto.type";
-import DetalleProyecto from "../organisms/DetalleProyecto";
+import type { Proyecto } from "../../../types";
+import { DetalleProyecto } from "../organisms";
 
 interface Props {
   proyecto: Proyecto;
 }
 
-const ProyectoTemplate: React.FC<Props> = ({ proyecto }) => (
+export const ProyectoTemplate: React.FC<Props> = ({ proyecto }) => (
   <DetalleProyecto {...proyecto} linkProyecto={"#"} />
 );
-
-export default ProyectoTemplate;

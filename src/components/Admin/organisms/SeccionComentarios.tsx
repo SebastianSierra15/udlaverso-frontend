@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { FaCheck, FaTrash } from "react-icons/fa";
-import TablaSimple from "../molecules/TablaSimple";
-import BarraAcciones from "../molecules/BarraAcciones";
+import { TablaSimple, BarraAcciones } from "../molecules";
 
 type Fila = {
   proyecto: string;
@@ -34,7 +33,7 @@ const mock: Fila[] = [
   },
 ];
 
-const SeccionComentarios: React.FC = () => {
+export const SeccionComentarios: React.FC = () => {
   const [q, setQ] = useState("");
 
   const filas = useMemo(
@@ -43,7 +42,7 @@ const SeccionComentarios: React.FC = () => {
         .filter(
           (f) =>
             f.proyecto.toLowerCase().includes(q.toLowerCase()) ||
-            f.usuario.toLowerCase().includes(q.toLowerCase())
+            f.usuario.toLowerCase().includes(q.toLowerCase()),
         )
         .map((f) => ({
           ...f,
@@ -62,7 +61,7 @@ const SeccionComentarios: React.FC = () => {
             },
           ],
         })),
-    [q]
+    [q],
   );
 
   const columnas = [
@@ -90,7 +89,7 @@ const SeccionComentarios: React.FC = () => {
         </div>
       ),
     },
-  ]
+  ];
 
   return (
     <section id="comentarios" className="space-y-3">
@@ -113,5 +112,3 @@ const SeccionComentarios: React.FC = () => {
     </section>
   );
 };
-
-export default SeccionComentarios;

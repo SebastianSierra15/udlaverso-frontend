@@ -1,7 +1,6 @@
 import { useState } from "react";
-import InputFlotante from "../atoms/InputFlotante";
-import Boton from "../../Shared/atoms/Boton";
-import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
+import { InputFlotante } from "../atoms";
+import { Boton, AlertaEmergente } from "../../Shared";
 
 interface Props {
   correo: string;
@@ -11,7 +10,7 @@ interface Props {
   mensaje?: string | null;
 }
 
-const VerificarCodigo: React.FC<Props> = ({
+export const VerificarCodigo: React.FC<Props> = ({
   correo,
   onVerificar,
   onReenviar,
@@ -90,5 +89,3 @@ const VerificarCodigo: React.FC<Props> = ({
     </>
   );
 };
-
-export default VerificarCodigo;

@@ -6,9 +6,9 @@ import {
   FaChalkboardTeacher,
   FaCode,
 } from "react-icons/fa";
-import TarjetaCaracteristica from "../molecules/TarjetaCaracteristica";
+import { TarjetaCaracteristica } from "../molecules";
 
-const SeccionCaracteristicas: React.FC = () => {
+export const SeccionCaracteristicas: React.FC = () => {
   const caracteristicas = [
     {
       icono: <FaVrCardboard className="text-3xl text-udlaverso-verde" />,
@@ -68,5 +68,3 @@ const SeccionCaracteristicas: React.FC = () => {
     </section>
   );
 };
-
-export default SeccionCaracteristicas;

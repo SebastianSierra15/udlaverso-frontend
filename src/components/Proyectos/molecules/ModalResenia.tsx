@@ -1,5 +1,5 @@
-import BotonCierreModal from "../atoms/BotonCierreModal";
-import FormularioResenia from "./FormularioResenia";
+import { BotonCierreModal } from "../atoms";
+import { FormularioResenia } from "./FormularioResenia";
 
 interface Props {
   onClose: () => void;
@@ -10,7 +10,7 @@ interface Props {
   };
 }
 
-const ModalResenia: React.FC<Props> = ({
+export const ModalResenia: React.FC<Props> = ({
   onClose,
   onSubmit,
   valoresIniciales,
@@ -36,5 +36,3 @@ const ModalResenia: React.FC<Props> = ({
     </div>
   </div>
 );
-
-export default ModalResenia;

@@ -1,4 +1,4 @@
-const TarjetaProyectoSkeleton: React.FC = () => {
+export const TarjetaProyectoSkeleton: React.FC = () => {
   return (
     <div className="relative block rounded-xl shadow-md overflow-hidden bg-gray-100 animate-pulse">
       {/* Imagen simulada */}
@@ -12,5 +12,3 @@ const TarjetaProyectoSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export default TarjetaProyectoSkeleton;

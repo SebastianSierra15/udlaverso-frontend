@@ -7,7 +7,7 @@ interface Props {
   interactiva?: boolean;
 }
 
-const Estrella: React.FC<Props> = ({
+export const Estrella: React.FC<Props> = ({
   activa,
   onClick,
   grande = false,
@@ -24,5 +24,3 @@ const Estrella: React.FC<Props> = ({
     `}
   />
 );
-
-export default Estrella;

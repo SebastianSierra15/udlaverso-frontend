@@ -5,7 +5,7 @@ interface Props {
   onChange: (valor: string) => void;
 }
 
-const FiltroSelect: React.FC<Props> = ({
+export const FiltroSelect: React.FC<Props> = ({
   label = "Categoría",
   opciones,
   valor,
@@ -32,11 +32,9 @@ const FiltroSelect: React.FC<Props> = ({
             <option key={`${op.id}-${op.nombre}`} value={op.nombre}>
               {op.nombre}
             </option>
-          )
+          ),
         )}
       </select>
     </div>
   );
 };
-
-export default FiltroSelect;

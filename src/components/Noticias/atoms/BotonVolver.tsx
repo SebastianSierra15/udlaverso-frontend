@@ -5,7 +5,7 @@ interface Props {
   texto?: string;
 }
 
-const BotonVolver: React.FC<Props> = ({ to, texto = "← Volver" }) => {
+export const BotonVolver: React.FC<Props> = ({ to, texto = "← Volver" }) => {
   return (
     <Link
       to={to}
@@ -15,5 +15,3 @@ const BotonVolver: React.FC<Props> = ({ to, texto = "← Volver" }) => {
     </Link>
   );
 };
-
-export default BotonVolver;

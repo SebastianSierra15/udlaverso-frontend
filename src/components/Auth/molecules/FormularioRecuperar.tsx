@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import InputFlotante from "../atoms/InputFlotante";
-import Boton from "../../Shared/atoms/Boton";
-import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
-import { useRecuperacion } from "../../../hooks/useRecuperacion";
+import { useRecuperacion } from "../../../hooks";
+import { InputFlotante } from "../atoms";
+import { Boton, AlertaEmergente } from "../../Shared";
 
-const FormularioRecuperar: React.FC = () => {
+export const FormularioRecuperar: React.FC = () => {
   const [correo, setCorreo] = useState("");
   const [codigo, setCodigo] = useState("");
   const [nueva, setNueva] = useState("");
@@ -31,7 +30,7 @@ const FormularioRecuperar: React.FC = () => {
 
   const mostrarAlerta = (
     mensaje: string,
-    tipo: "error" | "success" | "info" | "warning" = "info"
+    tipo: "error" | "success" | "info" | "warning" = "info",
   ) => setAlerta({ visible: true, mensaje, tipo });
 
   const handleEnviarCodigo = async (e: React.FormEvent) => {
@@ -172,5 +171,3 @@ const FormularioRecuperar: React.FC = () => {
     </div>
   );
 };
-
-export default FormularioRecuperar;

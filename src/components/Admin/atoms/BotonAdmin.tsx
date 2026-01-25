@@ -1,5 +1,3 @@
-import React from "react";
-
 type Variante = "principal" | "secundario" | "peligro";
 
 interface Props {
@@ -20,7 +18,7 @@ const coloresPorVariante: Record<Variante, string> = {
     "bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-400",
 };
 
-const BotonAdmin: React.FC<Props> = ({
+export const BotonAdmin: React.FC<Props> = ({
   texto,
   onClick,
   variante = "principal",
@@ -37,5 +35,3 @@ const BotonAdmin: React.FC<Props> = ({
     {texto}
   </button>
 );
-
-export default BotonAdmin;

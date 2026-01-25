@@ -1,6 +1,6 @@
-import TarjetaEstadistica from "../molecules/TarjetaEstadistica";
+import { TarjetaEstadistica } from "../molecules";
 
-const Estadisticas: React.FC = () => {
+export const Estadisticas: React.FC = () => {
   const data = [
     { valor: 40, texto: "Proyectos publicados" },
     { valor: 100, texto: "Estudiantes involucrados" },
@@ -22,5 +22,3 @@ const Estadisticas: React.FC = () => {
     </section>
   );
 };
-
-export default Estadisticas;

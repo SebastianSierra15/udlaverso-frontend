@@ -1,6 +1,4 @@
-import React from "react";
-import CampoTexto from "../atoms/CampoTexto";
-import CampoTextoArea from "../atoms/CampoTextoArea";
+import { CampoTexto, CampoTextoArea } from "../atoms";
 
 interface Props {
   data: {
@@ -12,7 +10,7 @@ interface Props {
   onChange: (nuevaData: Props["data"]) => void;
 }
 
-const PasoDatosBasicos: React.FC<Props> = ({ data, onChange }) => {
+export const PasoDatosBasicos: React.FC<Props> = ({ data, onChange }) => {
   const actualizar = (campo: keyof Props["data"], valor: string) => {
     onChange({ ...data, [campo]: valor });
   };
@@ -70,5 +68,3 @@ const PasoDatosBasicos: React.FC<Props> = ({ data, onChange }) => {
     </div>
   );
 };
-
-export default PasoDatosBasicos;

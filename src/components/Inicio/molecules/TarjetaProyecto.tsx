@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   descripcion?: string;
 }
 
-const TarjetaProyecto: React.FC<Props> = ({
+export const TarjetaProyecto: React.FC<Props> = ({
   titulo,
   imagenes,
   descripcion,
@@ -28,7 +28,7 @@ const TarjetaProyecto: React.FC<Props> = ({
   return (
     <Link
       to={`/proyectos/${encodeURIComponent(
-        (titulo || "proyecto-sin-nombre").toLowerCase().replace(/\s+/g, "-")
+        (titulo || "proyecto-sin-nombre").toLowerCase().replace(/\s+/g, "-"),
       )}`}
       className="relative block rounded-xl shadow-md overflow-hidden transition-transform hover:shadow-lg hover:scale-105 duration-300 cursor-pointer isolation-isolate"
       onMouseEnter={() => setHover(true)}
@@ -70,5 +70,3 @@ const TarjetaProyecto: React.FC<Props> = ({
     </Link>
   );
 };
-
-export default TarjetaProyecto;

@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const BotonPagina: React.FC<Props> = ({
+export const BotonPagina: React.FC<Props> = ({
   activo = false,
   deshabilitado = false,
   onClick,
@@ -23,5 +23,3 @@ const BotonPagina: React.FC<Props> = ({
     {children}
   </button>
 );
-
-export default BotonPagina;

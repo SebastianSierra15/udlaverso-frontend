@@ -1,4 +1,3 @@
-import React from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 type Props = {
@@ -7,7 +6,7 @@ type Props = {
   deshabilitado?: boolean;
 };
 
-const BotonFlecha: React.FC<Props> = ({
+export const BotonFlecha: React.FC<Props> = ({
   direccion,
   onClick,
   deshabilitado,
@@ -27,5 +26,3 @@ const BotonFlecha: React.FC<Props> = ({
     </button>
   );
 };
-
-export default BotonFlecha;

@@ -8,7 +8,7 @@ interface Props {
   ariaLabel?: string;
 }
 
-const Paginacion: React.FC<Props> = ({
+export const Paginacion: React.FC<Props> = ({
   pagina,
   totalPaginas,
   onChange,
@@ -84,7 +84,7 @@ const Paginacion: React.FC<Props> = ({
           >
             {num}
           </button>
-        )
+        ),
       )}
 
       {/* Botón siguiente */}
@@ -113,5 +113,3 @@ const Paginacion: React.FC<Props> = ({
     </nav>
   );
 };
-
-export default Paginacion;

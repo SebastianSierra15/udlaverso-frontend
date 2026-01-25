@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import Estrella from "../atoms/Estrella";
-import BotonAccion from "../atoms/BotonAccion";
+import { Estrella, BotonAccion } from "../atoms";
 
 interface Props {
   onSubmit: (comentario: string, estrellas: number) => void;
@@ -10,11 +9,14 @@ interface Props {
   };
 }
 
-const FormularioResenia: React.FC<Props> = ({ onSubmit, valoresIniciales }) => {
+export const FormularioResenia: React.FC<Props> = ({
+  onSubmit,
+  valoresIniciales,
+}) => {
   const [comentario, setComentario] = useState("");
   const [estrellas, setEstrellas] = useState(0);
 
-  // 🧩 Cargar valores iniciales cuando se edita
+  // Cargar valores iniciales cuando se edita
   useEffect(() => {
     if (valoresIniciales) {
       setComentario(valoresIniciales.comentario);
@@ -62,5 +64,3 @@ const FormularioResenia: React.FC<Props> = ({ onSubmit, valoresIniciales }) => {
     </form>
   );
 };
-
-export default FormularioResenia;

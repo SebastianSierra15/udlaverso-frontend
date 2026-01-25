@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import FormularioLogin from "../molecules/FormularioLogin";
+import { FormularioLogin } from "../molecules";
 
 interface Props {
   correo: string;
@@ -10,7 +10,7 @@ interface Props {
   loading: boolean;
 }
 
-const TarjetaLogin: React.FC<Props> = ({
+export const TarjetaLogin: React.FC<Props> = ({
   correo,
   contrasenia,
   setCorreo,
@@ -40,5 +40,3 @@ const TarjetaLogin: React.FC<Props> = ({
     </div>
   );
 };
-
-export default TarjetaLogin;

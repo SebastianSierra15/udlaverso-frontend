@@ -1,5 +1,4 @@
-import { memo } from "react";
-import TarjetaNoticiaGrande from "../molecules/TarjetaNoticiaGrande";
+import { TarjetaNoticiaGrande } from "../molecules";
 
 interface Noticia {
   id: number;
@@ -13,7 +12,7 @@ interface Props {
   noticias: Noticia[];
 }
 
-const GridNoticias: React.FC<Props> = ({ noticias }) => {
+export const GridNoticias: React.FC<Props> = ({ noticias }) => {
   if (!noticias.length)
     return (
       <p className="text-center text-udlaverso-gris mt-10">
@@ -36,5 +35,3 @@ const GridNoticias: React.FC<Props> = ({ noticias }) => {
     </div>
   );
 };
-
-export default memo(GridNoticias);

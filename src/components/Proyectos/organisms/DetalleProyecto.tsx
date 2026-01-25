@@ -1,16 +1,18 @@
-import type { Proyecto } from "../../../types/Proyecto.type";
-import TituloAccionProyecto from "../molecules/TituloAccionProyecto";
-import CategoriaSocialProyecto from "../molecules/CategoriaSocialProyecto";
-import EstrellasValoracion from "../molecules/EstrellasValoracion";
-import ContadorVisitas from "../atoms/ContadorVisitas";
-import ContenidoProyecto from "./ContenidoProyecto";
-import ReseniasProyecto from "./ReseniasProyecto";
+import type { Proyecto } from "../../../types";
+import {
+  TituloAccionProyecto,
+  CategoriaSocialProyecto,
+  EstrellasValoracion,
+} from "../molecules";
+import { ContadorVisitas } from "../atoms";
+import { ContenidoProyecto } from "./ContenidoProyecto";
+import { ReseniasProyecto } from "./ReseniasProyecto";
 
 type Props = Proyecto & {
   linkProyecto?: string;
 };
 
-const DetalleProyecto: React.FC<Props> = ({
+export const DetalleProyecto: React.FC<Props> = ({
   idProyecto,
   nombreProyecto,
   categoriaNombre,
@@ -60,5 +62,3 @@ const DetalleProyecto: React.FC<Props> = ({
     </section>
   );
 };
-
-export default DetalleProyecto;

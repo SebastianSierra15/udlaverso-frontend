@@ -2,7 +2,7 @@ interface Props {
   descripcion: string;
 }
 
-const DescripcionLarga: React.FC<Props> = ({ descripcion }) => (
+export const DescripcionLarga: React.FC<Props> = ({ descripcion }) => (
   <section>
     <h2 className="text-xl font-semibold text-udlaverso-negro mb-2">
       Sobre este proyecto
@@ -14,5 +14,3 @@ const DescripcionLarga: React.FC<Props> = ({ descripcion }) => (
     />
   </section>
 );
-
-export default DescripcionLarga;

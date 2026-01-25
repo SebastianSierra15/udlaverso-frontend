@@ -1,7 +1,7 @@
-import ItemFAQ from "../molecules/ItemFAQ";
-import { useFaqs } from "../../../hooks/useFaqs";
+import { useFaqs } from "../../../hooks";
+import { ItemFAQ } from "../molecules";
 
-const ListaFAQ: React.FC = () => {
+export const ListaFAQ: React.FC = () => {
   const { faqs, cargando } = useFaqs();
 
   if (cargando)
@@ -38,5 +38,3 @@ const ListaFAQ: React.FC = () => {
     </section>
   );
 };
-
-export default ListaFAQ;

@@ -1,14 +1,11 @@
 import { useMemo, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { useNoticias } from "../../../hooks/useNoticias";
-import { useEliminarNoticia } from "../../../hooks/useEliminarNoticia";
-import type { Noticia } from "../../../types/Noticia.type";
-import TablaSimple from "../molecules/TablaSimple";
-import BarraAcciones from "../molecules/BarraAcciones";
-import InsigniaEstado from "../atoms/InsigniaEstado";
-import ConfirmacionGlobal from "../../Shared/molecules/ConfirmacionGlobal";
-import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
+import { useNoticias, useEliminarNoticia } from "../../../hooks";
+import type { Noticia } from "../../../types";
+import { InsigniaEstado } from "../atoms";
+import { TablaSimple, BarraAcciones } from "../molecules";
+import { ConfirmacionGlobal, AlertaEmergente } from "../../Shared";
 
 type Fila = {
   titulo: string;
@@ -22,7 +19,7 @@ type Fila = {
   }[];
 };
 
-const SeccionNoticias: React.FC = () => {
+export const SeccionNoticias: React.FC = () => {
   const {
     noticias,
     setNoticias,
@@ -67,7 +64,7 @@ const SeccionNoticias: React.FC = () => {
       await eliminar(noticiaSeleccionada.idNoticia);
 
       const nuevasNoticias = noticias.filter(
-        (n) => n.idNoticia !== noticiaSeleccionada.idNoticia
+        (n) => n.idNoticia !== noticiaSeleccionada.idNoticia,
       );
 
       setNoticias(nuevasNoticias);
@@ -201,5 +198,3 @@ const SeccionNoticias: React.FC = () => {
     </section>
   );
 };
-
-export default SeccionNoticias;

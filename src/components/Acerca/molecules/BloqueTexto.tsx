@@ -1,11 +1,11 @@
-import Parrafo from "../atoms/Parrafo";
+import { Parrafo } from "../atoms";
 
 interface BloqueTextoProps {
   titulo: string;
   texto: string;
 }
 
-const BloqueTexto: React.FC<BloqueTextoProps> = ({ titulo, texto }) => {
+export const BloqueTexto: React.FC<BloqueTextoProps> = ({ titulo, texto }) => {
   return (
     <div className="w-full md:w-1/2 space-y-10">
       <h2 className="text-3xl md:text-3xl font-extrabold text-udlaverso-negro leading-tight mb-4">
@@ -19,5 +19,3 @@ const BloqueTexto: React.FC<BloqueTextoProps> = ({ titulo, texto }) => {
     </div>
   );
 };
-
-export default BloqueTexto;

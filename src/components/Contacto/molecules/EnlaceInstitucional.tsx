@@ -1,12 +1,10 @@
-import React from "react";
-
 interface Props {
   logoSrc?: string;
   nombre?: string;
   url?: string;
 }
 
-const EnlaceInstitucional: React.FC<Props> = ({
+export const EnlaceInstitucional: React.FC<Props> = ({
   logoSrc = "/logo/logo-udla.webp",
   nombre = "Universidad de la Amazonia",
   url = "https://www.uniamazonia.edu.co",
@@ -38,5 +36,3 @@ const EnlaceInstitucional: React.FC<Props> = ({
     </div>
   );
 };
-
-export default EnlaceInstitucional;

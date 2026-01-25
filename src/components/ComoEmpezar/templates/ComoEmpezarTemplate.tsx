@@ -1,7 +1,6 @@
-import HeroComoEmpezar from "../organisms/HeroComoEmpezar";
-import AccordionGuia from "../organisms/AcordionGuia";
+import { HeroComoEmpezar, AccordionGuia } from "../organisms";
 
-const ComoEmpezarTemplate: React.FC = () => (
+export const ComoEmpezarTemplate: React.FC = () => (
   <>
     <HeroComoEmpezar />
 
@@ -10,5 +9,3 @@ const ComoEmpezarTemplate: React.FC = () => (
     </section>
   </>
 );
-
-export default ComoEmpezarTemplate;

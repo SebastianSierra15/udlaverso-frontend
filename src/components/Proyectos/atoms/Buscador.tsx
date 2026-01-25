@@ -6,7 +6,7 @@ interface Props {
   placeholder?: string;
 }
 
-const Buscador: React.FC<Props> = ({
+export const Buscador: React.FC<Props> = ({
   valor,
   onChange,
   placeholder = "Buscar proyecto...",
@@ -25,5 +25,3 @@ const Buscador: React.FC<Props> = ({
     </div>
   );
 };
-
-export default Buscador;

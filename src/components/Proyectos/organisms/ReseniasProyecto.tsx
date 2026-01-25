@@ -1,20 +1,17 @@
 import { useState } from "react";
-import { useAuth } from "../../../hooks/useAuth";
-import { useResenias } from "../../../hooks/useResenias";
-import type { Resenia } from "../../../types/Resenia.type";
-import TarjetaResenia from "../molecules/TarjetaResenia";
-import ModalResenia from "../molecules/ModalResenia";
-import ModalConfirmacion from "../molecules/ModalConfirmacion";
-import Boton from "../../Shared/atoms/Boton";
+import { useAuth, useResenias } from "../../../hooks";
+import type { Resenia } from "../../../types";
+import { TarjetaResenia, ModalResenia, ModalConfirmacion } from "../molecules";
+import { Boton } from "../../Shared";
 
 interface Props {
   idProyecto: number | string;
 }
 
-const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
+export const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
   const { user } = useAuth();
   const puedeEscribir = user?.permisos?.some(
-    (p) => p.nombrePermiso === "escribir_reseña"
+    (p) => p.nombrePermiso === "escribir_reseña",
   );
 
   const {
@@ -36,7 +33,7 @@ const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
     ? [
         miResenia,
         ...reseñasActualizadas.filter(
-          (r) => r.idResenia !== miResenia.idResenia
+          (r) => r.idResenia !== miResenia.idResenia,
         ),
       ]
     : reseñasActualizadas;
@@ -132,7 +129,7 @@ const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
               await editar(
                 reseniaSeleccionada.idResenia,
                 comentario,
-                estrellas
+                estrellas,
               );
             }
             setMostrarModal(false);
@@ -184,5 +181,3 @@ const ReseniasProyecto: React.FC<Props> = ({ idProyecto }) => {
     </div>
   );
 };
-
-export default ReseniasProyecto;

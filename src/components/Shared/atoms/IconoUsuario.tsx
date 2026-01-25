@@ -5,9 +5,7 @@ interface IconoUsuarioProps {
   tamano?: string;
 }
 
-const IconoUsuario: React.FC<IconoUsuarioProps> = ({
+export const IconoUsuario: React.FC<IconoUsuarioProps> = ({
   color = "text-udlaverso-gris",
   tamano = "text-2xl",
 }) => <FaUserCircle className={`${color} ${tamano}`} />;
-
-export default IconoUsuario;

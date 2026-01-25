@@ -1,5 +1,5 @@
-import TooltipInfo from "./Tooltip";
 import { useState } from "react";
+import { TooltipInfo } from "./Tooltip";
 
 type Props = {
   label: string;
@@ -12,7 +12,7 @@ type Props = {
   obligatorio?: boolean;
 };
 
-const CampoTextoArea: React.FC<Props> = ({
+export const CampoTextoArea: React.FC<Props> = ({
   label,
   placeholder,
   maxLength,
@@ -71,5 +71,3 @@ const CampoTextoArea: React.FC<Props> = ({
     </div>
   );
 };
-
-export default CampoTextoArea;

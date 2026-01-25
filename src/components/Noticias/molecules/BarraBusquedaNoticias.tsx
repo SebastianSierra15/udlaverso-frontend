@@ -1,5 +1,5 @@
 import { FaSearch } from "react-icons/fa";
-import ContadorResultados from "../../Proyectos/atoms/ContadorResultados";
+import { ContadorResultados } from "../../Proyectos";
 
 interface Props {
   total: number;
@@ -9,7 +9,7 @@ interface Props {
   onOrdenar: (valor: string) => void;
 }
 
-const BarraBusquedaNoticias: React.FC<Props> = ({
+export const BarraBusquedaNoticias: React.FC<Props> = ({
   total,
   busqueda,
   onBuscar,
@@ -50,5 +50,3 @@ const BarraBusquedaNoticias: React.FC<Props> = ({
     </div>
   );
 };
-
-export default BarraBusquedaNoticias;

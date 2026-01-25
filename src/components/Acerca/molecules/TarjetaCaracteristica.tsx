@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import Parrafo from "../atoms/Parrafo";
-import Subtitulo from "../atoms/Subtitulo";
+import { Parrafo, Subtitulo } from "../atoms";
 
 interface TarjetaCaracteristicaProps {
   icono: React.ReactNode;
@@ -9,7 +8,7 @@ interface TarjetaCaracteristicaProps {
   delay?: number;
 }
 
-const TarjetaCaracteristica: React.FC<TarjetaCaracteristicaProps> = ({
+export const TarjetaCaracteristica: React.FC<TarjetaCaracteristicaProps> = ({
   icono,
   titulo,
   descripcion,
@@ -37,5 +36,3 @@ const TarjetaCaracteristica: React.FC<TarjetaCaracteristicaProps> = ({
     </motion.div>
   );
 };
-
-export default TarjetaCaracteristica;

@@ -1,11 +1,11 @@
-import type { Proyecto } from "../../../types/Proyecto.type";
-import TarjetaProyectoListado from "../molecules/TarjetaProyectoListado";
+import type { Proyecto } from "../../../types";
+import { TarjetaProyectoListado } from "../molecules";
 
 interface Props {
   proyectos: Proyecto[];
 }
 
-const GridProyectos: React.FC<Props> = ({ proyectos }) => {
+export const GridProyectos: React.FC<Props> = ({ proyectos }) => {
   if (!proyectos.length) {
     return (
       <div className="bg-white border border-gray-200 rounded-xl p-6 text-center text-udlaverso-gris mt-6">
@@ -29,5 +29,3 @@ const GridProyectos: React.FC<Props> = ({ proyectos }) => {
     </div>
   );
 };
-
-export default GridProyectos;

@@ -1,7 +1,9 @@
-import ImagenNoticia from "../atoms/ImagenNoticia";
-import TituloNoticia from "../atoms/TituloNoticia";
-import DescripcionNoticia from "../atoms/DescripcionNoticia";
-import EnlaceLeerMas from "../atoms/EnlaceLeerMas";
+import {
+  ImagenNoticia,
+  TituloNoticia,
+  DescripcionNoticia,
+  EnlaceLeerMas,
+} from "../atoms";
 
 interface Props {
   titulo: string;
@@ -10,7 +12,7 @@ interface Props {
   ruta?: string;
 }
 
-const TarjetaNoticia: React.FC<Props> = ({
+export const TarjetaNoticia: React.FC<Props> = ({
   titulo,
   descripcion,
   imagen = "/images/hero.png",
@@ -29,5 +31,3 @@ const TarjetaNoticia: React.FC<Props> = ({
     </div>
   );
 };
-
-export default TarjetaNoticia;

@@ -4,24 +4,27 @@ import {
   FaWhatsapp,
   FaLink,
 } from "react-icons/fa6";
-import BotonRedSocial from "../atoms/BotonRedSocial";
+import { BotonRedSocial } from "../atoms";
 
 type BotonCompartirProps = {
   url: string;
   titulo: string;
 };
 
-const BotonCompartir: React.FC<BotonCompartirProps> = ({ url, titulo }) => {
+export const BotonCompartir: React.FC<BotonCompartirProps> = ({
+  url,
+  titulo,
+}) => {
   const compartir = (red: "facebook" | "twitter" | "whatsapp") => {
     const enlaces: Record<"facebook" | "twitter" | "whatsapp", string> = {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-        url
+        url,
       )}`,
       twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-        url
+        url,
       )}&text=${encodeURIComponent(titulo)}`,
       whatsapp: `https://wa.me/?text=${encodeURIComponent(
-        `${titulo} - ${url}`
+        `${titulo} - ${url}`,
       )}`,
     };
     window.open(enlaces[red], "_blank", "noopener,noreferrer");
@@ -60,5 +63,3 @@ const BotonCompartir: React.FC<BotonCompartirProps> = ({ url, titulo }) => {
     </div>
   );
 };
-
-export default BotonCompartir;

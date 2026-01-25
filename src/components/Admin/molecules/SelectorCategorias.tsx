@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import EtiquetaSeleccion from "../atoms/EtiquetaSeleccion";
+import { useState } from "react";
+import { EtiquetaSeleccion } from "../atoms";
 
 type Props = {
   label?: string;
@@ -11,7 +11,7 @@ type Props = {
   obligatorio?: boolean;
 };
 
-const SelectorCategorias: React.FC<Props> = ({
+export const SelectorCategorias: React.FC<Props> = ({
   label = "Categorías del proyecto *",
   tooltip,
   categoriasDisponibles,
@@ -94,5 +94,3 @@ const SelectorCategorias: React.FC<Props> = ({
     </div>
   );
 };
-
-export default SelectorCategorias;

@@ -4,7 +4,7 @@ interface Props {
   tipo?: "404" | "error";
 }
 
-const IconoError: React.FC<Props> = ({ tipo = "error" }) => {
+export const IconoError: React.FC<Props> = ({ tipo = "error" }) => {
   const color = tipo === "404" ? "text-udlaverso-verde" : "text-udlaverso-rojo";
   return (
     <div className="flex justify-center mb-6">
@@ -12,5 +12,3 @@ const IconoError: React.FC<Props> = ({ tipo = "error" }) => {
     </div>
   );
 };
-
-export default IconoError;

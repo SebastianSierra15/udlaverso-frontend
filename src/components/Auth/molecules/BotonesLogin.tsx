@@ -1,11 +1,11 @@
-import Boton from "../../Shared/atoms/Boton";
 import { Link } from "react-router-dom";
+import { Boton } from "../../Shared";
 
 interface Props {
   loading?: boolean;
 }
 
-const BotonesLogin: React.FC<Props> = ({ loading }) => (
+export const BotonesLogin: React.FC<Props> = ({ loading }) => (
   <div className="flex flex-col gap-5 mt-6 w-full">
     {/* Botón principal */}
     <Boton
@@ -29,5 +29,3 @@ const BotonesLogin: React.FC<Props> = ({ loading }) => (
     </Link>
   </div>
 );
-
-export default BotonesLogin;

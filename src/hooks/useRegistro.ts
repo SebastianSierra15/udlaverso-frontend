@@ -5,6 +5,7 @@ import {
   verificarCodigoService,
 } from "../services/auth.service";
 import type { RegistroForm } from "../types/RegistroForm.type";
+import { registroSchema } from "../schemas";
 
 type ApiMensaje = {
   mensaje?: string;
@@ -69,6 +70,14 @@ export const useRegistro = () => {
     if (loading || registroExitoso) {
       console.warn("Intento duplicado de registro ignorado");
       return { success: false, mensaje: "Registro en proceso o completado..." };
+    }
+
+    const validacion = registroSchema.safeParse(formData);
+    if (!validacion.success) {
+      const mensaje =
+        validacion.error.issues[0]?.message || "Datos de registro invalidos.";
+      setMensaje(mensaje);
+      return { success: false, mensaje };
     }
 
     setLoading(true);

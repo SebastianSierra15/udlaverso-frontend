@@ -7,7 +7,7 @@ interface Props {
   onCancelar: () => void;
 }
 
-const ModalConfirmacion: React.FC<Props> = ({
+export const ModalConfirmacion: React.FC<Props> = ({
   titulo,
   mensaje,
   textoConfirmar = "Aceptar",
@@ -39,5 +39,3 @@ const ModalConfirmacion: React.FC<Props> = ({
     </div>
   </div>
 );
-
-export default ModalConfirmacion;

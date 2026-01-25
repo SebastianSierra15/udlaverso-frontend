@@ -1,8 +1,5 @@
-import React from "react";
-import SelectorOpciones from "../molecules/SelectorOpciones";
-import EditorTexto from "../molecules/EditorTexto";
-import CampoEtiquetas from "../molecules/CampoEtiquetas";
-import type { Categoria } from "../../../types/Categoria.type";
+import { SelectorOpciones, EditorTexto, CampoEtiquetas } from "../molecules";
+import type { Categoria } from "../../../types";
 
 interface Props {
   data: {
@@ -17,7 +14,7 @@ interface Props {
   error: string | null;
 }
 
-const PasoContenido: React.FC<Props> = ({
+export const PasoContenido: React.FC<Props> = ({
   data,
   onChange,
   categorias,
@@ -26,7 +23,7 @@ const PasoContenido: React.FC<Props> = ({
 }) => {
   const actualizar = <K extends keyof Props["data"]>(
     campo: K,
-    valor: Props["data"][K]
+    valor: Props["data"][K],
   ) => {
     onChange({ ...data, [campo]: valor });
   };
@@ -89,5 +86,3 @@ const PasoContenido: React.FC<Props> = ({
     </div>
   );
 };
-
-export default PasoContenido;

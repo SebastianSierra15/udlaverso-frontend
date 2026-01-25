@@ -1,6 +1,6 @@
-import BotonVolver from "../atoms/BotonVolver";
+import { BotonVolver } from "../atoms";
 
-const DetalleNoticiaSkeleton: React.FC = () => {
+export const DetalleNoticiaSkeleton: React.FC = () => {
   return (
     <article className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden animate-pulse">
       {/* Imagen simulada */}
@@ -31,5 +31,3 @@ const DetalleNoticiaSkeleton: React.FC = () => {
     </article>
   );
 };
-
-export default DetalleNoticiaSkeleton;

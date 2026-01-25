@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import { useRegistro } from "../../hooks/useRegistro";
-import TarjetaRegistro from "../../components/Auth/organisms/TarjetaRegistro";
-import AlertaEmergente from "../../components/Shared/atoms/AlertaEmergente";
-import type { RegistroForm } from "../../types/RegistroForm.type";
+import type { RegistroForm } from "../../types";
+import { useRegistro } from "../../hooks";
+import { TarjetaRegistro } from "../../components/Auth";
+import { AlertaEmergente } from "../../components/Shared";
 
-const Registrarse: React.FC = () => {
+export const Registrarse: React.FC = () => {
   const navigate = useNavigate();
   const { registrar, loading } = useRegistro();
   const [alerta, setAlerta] = useState({
@@ -17,7 +17,7 @@ const Registrarse: React.FC = () => {
 
   const mostrarAlerta = (
     mensaje: string,
-    tipo: "error" | "success" | "info" | "warning" = "info"
+    tipo: "error" | "success" | "info" | "warning" = "info",
   ) => {
     setAlerta({ visible: true, mensaje, tipo });
   };
@@ -69,5 +69,3 @@ const Registrarse: React.FC = () => {
     </>
   );
 };
-
-export default Registrarse;

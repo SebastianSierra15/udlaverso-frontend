@@ -1,8 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import HeroContacto from "../../components/Contacto/organisms/HeroContacto";
-import SeccionInfoContacto from "../../components/Contacto/organisms/SeccionInfoContacto";
+import { HeroContacto, SeccionInfoContacto } from "../../components/Contacto";
 
-const Contacto: React.FC = () => {
+export const Contacto: React.FC = () => {
   return (
     <>
       <Helmet>
@@ -19,5 +18,3 @@ const Contacto: React.FC = () => {
     </>
   );
 };
-
-export default Contacto;

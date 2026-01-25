@@ -1,6 +1,6 @@
-import ContenidoHero from "../../Shared/molecules/ContenidoHero";
+import { ContenidoHero } from "../../Shared";
 
-const HeroContacto: React.FC = () => (
+export const HeroContacto: React.FC = () => (
   <section className="relative h-[60vh] flex items-center justify-center text-white">
     <img
       src="/images/caseta.webp"
@@ -15,5 +15,3 @@ const HeroContacto: React.FC = () => (
     />
   </section>
 );
-
-export default HeroContacto;

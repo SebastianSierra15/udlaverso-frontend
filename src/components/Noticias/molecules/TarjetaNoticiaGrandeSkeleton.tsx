@@ -1,4 +1,4 @@
-const TarjetaNoticiaGrandeSkeleton: React.FC = () => {
+export const TarjetaNoticiaGrandeSkeleton: React.FC = () => {
   return (
     <div className="block bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden animate-pulse">
       {/* Imagen simulada */}
@@ -22,5 +22,3 @@ const TarjetaNoticiaGrandeSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export default TarjetaNoticiaGrandeSkeleton;

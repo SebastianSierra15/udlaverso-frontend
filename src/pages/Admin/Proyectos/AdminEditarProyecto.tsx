@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useCategorias } from "../../../hooks/useCategorias";
-import { useProyecto } from "../../../hooks/useProyecto";
-import { useEditarProyecto } from "../../../hooks/useEditarProyecto";
-import { validarNombreProyecto } from "../../../services/proyectos.service";
-import type { ProyectoData } from "../../../types/Proyecto.type";
+import type { ProyectoData } from "../../../types";
+import { useCategorias, useProyecto, useEditarProyecto } from "../../../hooks";
+import { validarNombreProyecto } from "../../../services";
 import { STORAGE_KEYS } from "../../../constants";
 import { ROUTES } from "../../../routes";
-import Stepper from "../../../components/Admin/molecules/Stepper";
-import PasoDatosBasicos from "../../../components/Admin/organisms/PasoDatosBasicos";
-import PasoContenido from "../../../components/Admin/organisms/PasoContenido";
-import PasoImagenes from "../../../components/Admin/organisms/PasoImagenes";
-import PasoRevision from "../../../components/Admin/organisms/PasoRevision";
-import BotonAdmin from "../../../components/Admin/atoms/BotonAdmin";
-import AlertaEmergente from "../../../components/Shared/atoms/AlertaEmergente";
-import ConfirmacionGlobal from "../../../components/Shared/molecules/ConfirmacionGlobal";
+import {
+  Stepper,
+  PasoDatosBasicos,
+  PasoContenido,
+  PasoImagenes,
+  PasoRevision,
+  BotonAdmin,
+} from "../../../components/Admin";
+import {
+  AlertaEmergente,
+  ConfirmacionGlobal,
+} from "../../../components/Shared";
 
-const AdminEditarProyecto = () => {
+export const AdminEditarProyecto = () => {
   const { nombre } = useParams<{ nombre: string }>();
   const navigate = useNavigate();
   const {
@@ -47,7 +49,7 @@ const AdminEditarProyecto = () => {
 
   const mostrarAlerta = (
     mensaje: string,
-    tipo: "error" | "success" | "info" | "warning" = "info"
+    tipo: "error" | "success" | "info" | "warning" = "info",
   ) => setAlerta({ visible: true, mensaje, tipo });
 
   const cerrarAlerta = () =>
@@ -143,7 +145,7 @@ const AdminEditarProyecto = () => {
       ) {
         const { disponible } = await validarNombreProyecto(
           datosBasicos.titulo.trim(),
-          Number(proyecto!.idProyecto)
+          Number(proyecto!.idProyecto),
         );
 
         if (!disponible) {
@@ -159,7 +161,7 @@ const AdminEditarProyecto = () => {
         contenido.descripcionDetallada.trim().length === 0
       ) {
         mostrarAlerta(
-          "Completa todos los campos del paso Contenido y Herramientas."
+          "Completa todos los campos del paso Contenido y Herramientas.",
         );
         return false;
       }
@@ -211,18 +213,18 @@ const AdminEditarProyecto = () => {
 
       const actualizado = await editarProyecto(
         Number(proyecto!.idProyecto),
-        data
+        data,
       );
 
       mostrarAlerta(
         `Proyecto actualizado con éxito (ID: ${actualizado.idProyecto})`,
-        "success"
+        "success",
       );
       navigate(ROUTES.adminProyectos);
     } catch {
       mostrarAlerta(
         "Error al actualizar el proyecto o permisos insuficientes.",
-        "error"
+        "error",
       );
     }
   };
@@ -318,5 +320,3 @@ const AdminEditarProyecto = () => {
     </section>
   );
 };
-
-export default AdminEditarProyecto;

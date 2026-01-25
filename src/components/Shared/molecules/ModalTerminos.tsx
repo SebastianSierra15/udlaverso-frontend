@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
-import IconoEscudo from "../atoms/IconoEscudo";
-import IconoCerrar from "../atoms/IconoCerrar";
-import BotonModal from "../atoms/BotonModal";
+import { IconoEscudo, IconoCerrar, BotonModal } from "../atoms";
 
 interface Props {
   visible: boolean;
@@ -9,7 +7,11 @@ interface Props {
   onDecision: (accepted: boolean) => void;
 }
 
-const ModalTerminos: React.FC<Props> = ({ visible, onClose, onDecision }) => {
+export const ModalTerminos: React.FC<Props> = ({
+  visible,
+  onClose,
+  onDecision,
+}) => {
   if (!visible) return null;
 
   return (
@@ -147,5 +149,3 @@ const ModalTerminos: React.FC<Props> = ({ visible, onClose, onDecision }) => {
     </div>
   );
 };
-
-export default ModalTerminos;

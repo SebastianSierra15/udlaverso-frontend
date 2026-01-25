@@ -11,7 +11,7 @@ interface PropiedadesBoton {
   cargando?: boolean;
 }
 
-const Boton: React.FC<PropiedadesBoton> = ({
+export const Boton: React.FC<PropiedadesBoton> = ({
   texto,
   onClick,
   variante = "principal",
@@ -67,5 +67,3 @@ const Boton: React.FC<PropiedadesBoton> = ({
     </button>
   );
 };
-
-export default Boton;

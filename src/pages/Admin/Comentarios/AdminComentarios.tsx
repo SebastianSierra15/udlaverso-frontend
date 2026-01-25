@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import SeccionComentarios from "../../../components/Admin/organisms/SeccionComentarios";
+import { SeccionComentarios } from "../../../components/Admin";
 
-const AdminComentarios: React.FC = () => (
+export const AdminComentarios: React.FC = () => (
   <>
     <Helmet>
       <title>Comentarios | UdlaVerso</title>
@@ -10,5 +10,3 @@ const AdminComentarios: React.FC = () => (
     <SeccionComentarios />
   </>
 );
-
-export default AdminComentarios;

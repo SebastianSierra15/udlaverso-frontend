@@ -1,12 +1,10 @@
-import React from "react";
-
 interface Props {
   icon: React.ReactNode;
   label: string;
   onClick: () => void;
 }
 
-const BotonRedSocial: React.FC<Props> = ({ icon, label, onClick }) => (
+export const BotonRedSocial: React.FC<Props> = ({ icon, label, onClick }) => (
   <button
     onClick={onClick}
     aria-label={label}
@@ -16,5 +14,3 @@ const BotonRedSocial: React.FC<Props> = ({ icon, label, onClick }) => (
     {icon}
   </button>
 );
-
-export default BotonRedSocial;

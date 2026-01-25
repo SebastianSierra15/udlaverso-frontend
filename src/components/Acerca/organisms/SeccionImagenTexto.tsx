@@ -1,5 +1,4 @@
-import ImagenAnimada from "../molecules/ImagenAnimada";
-import BloqueTexto from "../molecules/BloqueTexto";
+import { ImagenAnimada, BloqueTexto } from "../molecules";
 
 interface SeccionImagenTextoProps {
   titulo: string;
@@ -11,7 +10,7 @@ interface SeccionImagenTextoProps {
   direccionGradient?: "up" | "down";
 }
 
-const SeccionImagenTexto: React.FC<SeccionImagenTextoProps> = ({
+export const SeccionImagenTexto: React.FC<SeccionImagenTextoProps> = ({
   titulo,
   texto,
   imgSrc,
@@ -39,5 +38,3 @@ const SeccionImagenTexto: React.FC<SeccionImagenTextoProps> = ({
     </section>
   );
 };
-
-export default SeccionImagenTexto;

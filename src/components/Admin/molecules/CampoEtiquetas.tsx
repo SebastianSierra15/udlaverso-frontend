@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import EtiquetaSeleccion from "../atoms/EtiquetaSeleccion";
-import TooltipInfo from "../atoms/Tooltip";
+import { useState } from "react";
+import { EtiquetaSeleccion, TooltipInfo } from "../atoms";
 
 type Props = {
   label: string;
@@ -12,7 +11,7 @@ type Props = {
   obligatorio?: boolean;
 };
 
-const CampoEtiquetas: React.FC<Props> = ({
+export const CampoEtiquetas: React.FC<Props> = ({
   label,
   placeholder,
   tooltip,
@@ -87,5 +86,3 @@ const CampoEtiquetas: React.FC<Props> = ({
     </div>
   );
 };
-
-export default CampoEtiquetas;

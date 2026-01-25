@@ -1,12 +1,11 @@
 import { FaTimes } from "react-icons/fa";
-import React from "react";
 
 type Props = {
   texto: string;
   onRemove: () => void;
 };
 
-const EtiquetaSeleccion: React.FC<Props> = ({ texto, onRemove }) => (
+export const EtiquetaSeleccion: React.FC<Props> = ({ texto, onRemove }) => (
   <div className="flex items-center bg-udlaverso-verde/10 text-udlaverso-verde font-medium text-sm px-3 py-1 rounded-full gap-2">
     <span>{texto}</span>
     <button
@@ -18,5 +17,3 @@ const EtiquetaSeleccion: React.FC<Props> = ({ texto, onRemove }) => (
     </button>
   </div>
 );
-
-export default EtiquetaSeleccion;

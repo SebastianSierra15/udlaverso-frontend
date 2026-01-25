@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import Miniatura from "../atoms/Miniatura";
+import { Miniatura } from "../atoms";
 
 interface Props {
   imagenes: string[];
@@ -7,7 +7,7 @@ interface Props {
   onSeleccionar: (i: number) => void;
 }
 
-const ListaMiniaturas: React.FC<Props> = ({
+export const ListaMiniaturas: React.FC<Props> = ({
   imagenes,
   activa,
   onSeleccionar,
@@ -53,7 +53,7 @@ const ListaMiniaturas: React.FC<Props> = ({
     // Bloquear arrastre nativo de imágenes
     const imgs = contenedor.querySelectorAll("img");
     imgs.forEach((img) =>
-      img.addEventListener("dragstart", (e) => e.preventDefault())
+      img.addEventListener("dragstart", (e) => e.preventDefault()),
     );
 
     return () => {
@@ -62,7 +62,7 @@ const ListaMiniaturas: React.FC<Props> = ({
       contenedor.removeEventListener("mouseup", onMouseUp);
       contenedor.removeEventListener("mouseleave", onMouseLeave);
       imgs.forEach((img) =>
-        img.removeEventListener("dragstart", (e) => e.preventDefault())
+        img.removeEventListener("dragstart", (e) => e.preventDefault()),
       );
     };
   }, []);
@@ -98,5 +98,3 @@ const ListaMiniaturas: React.FC<Props> = ({
     </div>
   );
 };
-
-export default ListaMiniaturas;

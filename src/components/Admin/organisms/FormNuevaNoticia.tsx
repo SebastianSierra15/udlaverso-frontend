@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCrearNoticia } from "../../../hooks/useCrearNoticia";
-import FormularioNoticia from "../molecules/FormularioNoticia";
-import BotonAdmin from "../atoms/BotonAdmin";
-import ConfirmacionGlobal from "../../Shared/molecules/ConfirmacionGlobal";
-import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
+import { useCrearNoticia } from "../../../hooks";
+import { BotonAdmin } from "../atoms";
+import { FormularioNoticia } from "../molecules";
+import { ConfirmacionGlobal, AlertaEmergente } from "../../Shared";
 
-const FormNuevaNoticia: React.FC = () => {
+export const FormNuevaNoticia: React.FC = () => {
   const navigate = useNavigate();
   const { crear } = useCrearNoticia();
 
@@ -122,5 +121,3 @@ const FormNuevaNoticia: React.FC = () => {
     </section>
   );
 };
-
-export default FormNuevaNoticia;

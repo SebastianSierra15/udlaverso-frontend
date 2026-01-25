@@ -1,8 +1,6 @@
-import React from "react";
-import Descripcion from "../molecules/Descripcion";
-import VideoPresentacion from "../molecules/VideoPresentacion";
+import { Descripcion, VideoPresentacion } from "../molecules";
 
-const Introduccion: React.FC = () => {
+export const Introduccion: React.FC = () => {
   const linkVideo = "https://www.youtube.com/watch?v=mUWpgcWZImk";
 
   const urlEmbed = linkVideo.replace("watch?v=", "embed/");
@@ -24,5 +22,3 @@ const Introduccion: React.FC = () => {
     </section>
   );
 };
-
-export default Introduccion;

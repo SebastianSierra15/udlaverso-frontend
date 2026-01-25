@@ -4,7 +4,7 @@ interface Props {
   onClick: () => void;
 }
 
-const Miniatura: React.FC<Props> = ({ src, activa, onClick }) => (
+export const Miniatura: React.FC<Props> = ({ src, activa, onClick }) => (
   <img
     src={src}
     alt="Miniatura"
@@ -17,5 +17,3 @@ const Miniatura: React.FC<Props> = ({ src, activa, onClick }) => (
     }`}
   />
 );
-
-export default Miniatura;

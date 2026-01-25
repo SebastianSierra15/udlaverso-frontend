@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import TarjetaRecuperar from "../../components/Auth/organisms/TarjetaRecuperar";
+import { TarjetaRecuperar } from "../../components/Auth";
 
-const RecuperarContrasenia: React.FC = () => {
+export const RecuperarContrasenia: React.FC = () => {
   return (
     <>
       <Helmet>
@@ -28,5 +28,3 @@ const RecuperarContrasenia: React.FC = () => {
     </>
   );
 };
-
-export default RecuperarContrasenia;

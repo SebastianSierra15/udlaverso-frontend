@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useRegistro } from "../../../hooks/useRegistro";
-import CheckboxTerminos from "../atoms/CheckboxTerminos";
-import Boton from "../../Shared/atoms/Boton";
-import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
-import CamposDatosPersonales from "../molecules/CamposDatosPersonales";
-import CamposCorreo from "../molecules/CamposCorreo";
-import CamposContrasenia from "../molecules/CamposContrasenia";
-import VerificarCodigo from "./VerificarCodigo";
-import type { RegistroForm } from "../../../types/RegistroForm.type";
+import { useRegistro } from "../../../hooks";
+import { registroCorreoSchema, registroSchema } from "../../../schemas";
+import type { RegistroForm } from "../../../types";
+import { CheckboxTerminos } from "../atoms";
+import { Boton, AlertaEmergente } from "../../Shared";
+import { CamposDatosPersonales } from "./CamposDatosPersonales";
+import { CamposCorreo } from "./CamposCorreo";
+import { CamposContrasenia } from "./CamposContrasenia";
+import { VerificarCodigo } from "./VerificarCodigo";
 
 interface Props {
   onSubmit: (form: RegistroForm) => void;
   loading?: boolean;
 }
 
-const FormularioRegistro: React.FC<Props> = ({ onSubmit }) => {
+export const FormularioRegistro: React.FC<Props> = ({ onSubmit }) => {
   const [cooldown, setCooldown] = useState(false);
   const [bloqueado, setBloqueado] = useState(false);
 
@@ -27,7 +27,7 @@ const FormularioRegistro: React.FC<Props> = ({ onSubmit }) => {
 
   const mostrarAlerta = (
     mensaje: string,
-    tipo: "error" | "success" | "info" | "warning" = "info"
+    tipo: "error" | "success" | "info" | "warning" = "info",
   ) => {
     setAlerta({ visible: true, mensaje, tipo });
   };
@@ -58,12 +58,19 @@ const FormularioRegistro: React.FC<Props> = ({ onSubmit }) => {
     setCooldown(true);
     setTimeout(() => setCooldown(false), 5000);
 
-    if (!form.correo) {
-      mostrarAlerta("Debes ingresar un correo válido.", "warning");
+    const validacion = registroCorreoSchema.safeParse({
+      correo: form.correo,
+      esInstitucional: form.esInstitucional,
+    });
+    if (!validacion.success) {
+      mostrarAlerta(
+        validacion.error.issues[0]?.message || "Correo invalido.",
+        "warning",
+      );
       return;
     }
     const res = await enviarCodigo(
-      form.esInstitucional ? `${form.correo}@udla.edu.co` : form.correo
+      form.esInstitucional ? `${form.correo}@udla.edu.co` : form.correo,
     );
     mostrarAlerta(res.mensaje, res.success ? "success" : "error");
   };
@@ -71,7 +78,7 @@ const FormularioRegistro: React.FC<Props> = ({ onSubmit }) => {
   const handleVerificarCodigo = async (codigo: string) => {
     const res = await verificarCodigo(
       form.esInstitucional ? `${form.correo}@udla.edu.co` : form.correo,
-      codigo
+      codigo,
     );
     mostrarAlerta(res.mensaje, res.success ? "success" : "error");
   };
@@ -81,35 +88,13 @@ const FormularioRegistro: React.FC<Props> = ({ onSubmit }) => {
     setBloqueado(true);
 
     try {
-      if (form.contrasena !== form.confirmarContrasena) {
-        mostrarAlerta("Las contraseñas no coinciden.", "error");
-        return;
-      }
-
-      const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#^_])[A-Za-z\d@$!%*?&.#^_]{8,64}$/;
-
-      if (!passwordRegex.test(form.contrasena)) {
+      const validacion = registroSchema.safeParse(form);
+      if (!validacion.success) {
         mostrarAlerta(
-          "La contraseña debe tener entre 8 y 64 caracteres, con al menos una mayúscula, una minúscula, un número y un carácter especial.",
-          "warning"
+          validacion.error.issues[0]?.message ||
+            "Revisa los datos del formulario.",
+          "warning",
         );
-        return;
-      }
-
-      if (
-        !form.esInstitucional &&
-        form.correo.toLowerCase().endsWith("@udla.edu.co")
-      ) {
-        mostrarAlerta(
-          "Has ingresado un correo institucional, por favor marca la opción 'Pertenezco a la Universidad de la Amazonia' para continuar.",
-          "warning"
-        );
-        return;
-      }
-
-      if (!form.terminos) {
-        mostrarAlerta("Debes aceptar los términos y condiciones.", "warning");
         return;
       }
 
@@ -219,5 +204,3 @@ const FormularioRegistro: React.FC<Props> = ({ onSubmit }) => {
     </>
   );
 };
-
-export default FormularioRegistro;

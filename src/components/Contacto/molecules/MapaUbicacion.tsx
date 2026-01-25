@@ -1,6 +1,4 @@
-import React from "react";
-
-const MapaUbicacion: React.FC = () => {
+export const MapaUbicacion: React.FC = () => {
   return (
     <div className="w-full h-full rounded-2xl overflow-hidden shadow-md border border-gray-200 min-h-[430px] flex-1">
       <iframe
@@ -17,5 +15,3 @@ const MapaUbicacion: React.FC = () => {
     </div>
   );
 };
-
-export default MapaUbicacion;

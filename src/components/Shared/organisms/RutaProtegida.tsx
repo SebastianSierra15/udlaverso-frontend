@@ -1,12 +1,15 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks";
 
 interface Props {
   children: React.ReactNode;
   permisosRequeridos?: string[];
 }
 
-const RutaProtegida: React.FC<Props> = ({ children, permisosRequeridos }) => {
+export const RutaProtegida: React.FC<Props> = ({
+  children,
+  permisosRequeridos,
+}) => {
   const { user, loadingUser } = useAuth();
 
   if (loadingUser) {
@@ -26,5 +29,3 @@ const RutaProtegida: React.FC<Props> = ({ children, permisosRequeridos }) => {
 
   return <>{children}</>;
 };
-
-export default RutaProtegida;

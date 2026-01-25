@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { appConfig } from "../../../config";
-import CampoTexto from "../atoms/CampoTexto";
-import EditorTexto from "./EditorTexto";
-import VistaPreviaImagen from "../atoms/VistaPreviaImagen";
+import { CampoTexto, VistaPreviaImagen } from "../atoms";
+import { EditorTexto } from "./EditorTexto";
 
 type Props = {
   titulo: string;
@@ -13,7 +12,7 @@ type Props = {
   imagenActual?: string | null;
 };
 
-const FormularioNoticia: React.FC<Props> = ({
+export const FormularioNoticia: React.FC<Props> = ({
   titulo,
   contenido,
   onTituloChange,
@@ -110,5 +109,3 @@ const FormularioNoticia: React.FC<Props> = ({
     </div>
   );
 };
-
-export default FormularioNoticia;

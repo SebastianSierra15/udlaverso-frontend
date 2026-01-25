@@ -1,13 +1,15 @@
-import React from "react";
-import TituloProyecto from "../atoms/TituloProyecto";
-import Boton from "../../Shared/atoms/Boton";
+import { TituloProyecto } from "../atoms";
+import { Boton } from "../../Shared";
 
 interface Props {
   titulo: string;
   linkProyecto?: string;
 }
 
-const TituloAccionProyecto: React.FC<Props> = ({ titulo, linkProyecto }) => {
+export const TituloAccionProyecto: React.FC<Props> = ({
+  titulo,
+  linkProyecto,
+}) => {
   const enlace =
     linkProyecto?.trim() ||
     "https://www.mediafire.com/file/yi7wyivkcffq3lb/UA3D-Viwer.exe";
@@ -27,5 +29,3 @@ const TituloAccionProyecto: React.FC<Props> = ({ titulo, linkProyecto }) => {
     </div>
   );
 };
-
-export default TituloAccionProyecto;

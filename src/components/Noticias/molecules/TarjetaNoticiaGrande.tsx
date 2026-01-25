@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
-import { memo } from "react";
-import ImagenNoticiaGrande from "../atoms/ImagenNoticiaGrande";
-import TituloNoticia from "../atoms/TituloNoticia";
-import FechaPublicacion from "../atoms/FechaPublicacion";
+import { ImagenNoticiaGrande, TituloNoticia, FechaPublicacion } from "../atoms";
 
 interface Props {
   titulo: string;
@@ -12,7 +9,7 @@ interface Props {
   ruta: string;
 }
 
-const TarjetaNoticiaGrande: React.FC<Props> = ({
+export const TarjetaNoticiaGrande: React.FC<Props> = ({
   titulo,
   descripcion,
   fecha,
@@ -36,5 +33,3 @@ const TarjetaNoticiaGrande: React.FC<Props> = ({
     </div>
   </Link>
 );
-
-export default memo(TarjetaNoticiaGrande);

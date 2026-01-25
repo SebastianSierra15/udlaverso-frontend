@@ -1,7 +1,7 @@
-import BloqueAutorFecha from "../molecules/BloqueAutorFecha";
-import ListaTecnologias from "../molecules/ListaTecnologias";
-import BloqueDescripcion from "../molecules/BloqueDescripcion";
-import BloqueObjetivos from "../molecules/BloqueObjetivos";
+import { BloqueAutorFecha } from "./BloqueAutorFecha";
+import { ListaTecnologias } from "./ListaTecnologias";
+import { BloqueDescripcion } from "./BloqueDescripcion";
+import { BloqueObjetivos } from "./BloqueObjetivos";
 
 interface Props {
   autor: string;
@@ -11,7 +11,7 @@ interface Props {
   objetivos: string;
 }
 
-const InfoProyecto: React.FC<Props> = ({
+export const InfoProyecto: React.FC<Props> = ({
   autor,
   fecha,
   tecnologias,
@@ -28,5 +28,3 @@ const InfoProyecto: React.FC<Props> = ({
     <BloqueObjetivos objetivos={objetivos} />
   </div>
 );
-
-export default InfoProyecto;

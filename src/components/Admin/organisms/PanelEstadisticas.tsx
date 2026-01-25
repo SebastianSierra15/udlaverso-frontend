@@ -27,7 +27,7 @@ const colores = {
   pie: ["#15803d", "#fb923c", "#9ca3af"],
 };
 
-const PanelEstadisticas: React.FC = () => {
+export const PanelEstadisticas: React.FC = () => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="bg-white border rounded-2xl p-4">
@@ -80,5 +80,3 @@ const PanelEstadisticas: React.FC = () => {
     </section>
   );
 };
-
-export default PanelEstadisticas;

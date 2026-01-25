@@ -1,7 +1,6 @@
-import HeroFAQ from "../../components/FAQ/organisms/HeroFAQ";
-import ListaFAQ from "../../components/FAQ/organisms/ListaFAQ";
+import { HeroFAQ, ListaFAQ } from "../../components/FAQ";
 
-const FAQ: React.FC = () => {
+export const FAQ: React.FC = () => {
   return (
     <>
       <HeroFAQ />
@@ -10,5 +9,3 @@ const FAQ: React.FC = () => {
     </>
   );
 };
-
-export default FAQ;

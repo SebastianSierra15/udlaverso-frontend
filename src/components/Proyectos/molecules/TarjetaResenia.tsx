@@ -1,5 +1,4 @@
-import Estrella from "../atoms/Estrella";
-import AvatarUsuario from "../atoms/AvatarUsuario";
+import { Estrella, AvatarUsuario } from "../atoms";
 
 interface Props {
   usuario: string;
@@ -11,7 +10,7 @@ interface Props {
   onEliminar?: () => void;
 }
 
-const TarjetaResenia: React.FC<Props> = ({
+export const TarjetaResenia: React.FC<Props> = ({
   usuario,
   comentario,
   estrellas,
@@ -58,5 +57,3 @@ const TarjetaResenia: React.FC<Props> = ({
     )}
   </div>
 );
-
-export default TarjetaResenia;

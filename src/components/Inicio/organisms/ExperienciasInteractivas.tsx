@@ -1,4 +1,4 @@
-import TarjetaExperiencia from "../molecules/TarjetaExperiencia";
+import { TarjetaExperiencia } from "../molecules";
 
 const experiencias = [
   {
@@ -21,7 +21,7 @@ const experiencias = [
   },
 ];
 
-const ExperienciasInteractivas = () => {
+export const ExperienciasInteractivas = () => {
   return (
     <section className="bg-gradient-to-b to-white from-udlaverso-verde/10 py-16 px-6 md:px-20 text-center">
       <h2 className="text-3xl font-extrabold text-udlaverso-negro mb-12">
@@ -42,5 +42,3 @@ const ExperienciasInteractivas = () => {
     </section>
   );
 };
-
-export default ExperienciasInteractivas;

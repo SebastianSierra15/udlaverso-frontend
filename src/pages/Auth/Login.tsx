@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import TarjetaLogin from "../../components/Auth/organisms/TarjetaLogin";
-import AlertaEmergente from "../../components/Shared/atoms/AlertaEmergente";
+import { useAuth } from "../../hooks";
 import { STORAGE_KEYS } from "../../constants";
 import { ROUTES } from "../../routes";
+import { TarjetaLogin } from "../../components/Auth";
+import { AlertaEmergente } from "../../components/Shared";
 
-const Login: React.FC = () => {
+export const Login: React.FC = () => {
   const { login, loading, error } = useAuth();
   const [correo, setCorreo] = useState("");
   const [contrasenia, setContrasenia] = useState("");
@@ -80,5 +80,3 @@ const Login: React.FC = () => {
     </>
   );
 };
-
-export default Login;

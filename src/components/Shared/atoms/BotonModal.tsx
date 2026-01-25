@@ -5,7 +5,7 @@ interface Props {
   tipo?: "button" | "submit";
 }
 
-const BotonModal: React.FC<Props> = ({
+export const BotonModal: React.FC<Props> = ({
   texto,
   variante = "principal",
   onClick,
@@ -24,5 +24,3 @@ const BotonModal: React.FC<Props> = ({
     </button>
   );
 };
-
-export default BotonModal;

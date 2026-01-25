@@ -6,7 +6,7 @@ interface Props {
   claseExtra?: string;
 }
 
-const BotonAccion: React.FC<Props> = ({
+export const BotonAccion: React.FC<Props> = ({
   texto,
   onClick,
   color = "verde",
@@ -17,8 +17,8 @@ const BotonAccion: React.FC<Props> = ({
     color === "rojo"
       ? "bg-red-500 hover:bg-red-600 text-white"
       : color === "gris"
-      ? "bg-gray-200 hover:bg-gray-300 text-gray-700"
-      : "bg-udlaverso-verde hover:bg-udlaverso-verdeOscuro text-white";
+        ? "bg-gray-200 hover:bg-gray-300 text-gray-700"
+        : "bg-udlaverso-verde hover:bg-udlaverso-verdeOscuro text-white";
 
   return (
     <button
@@ -31,5 +31,3 @@ const BotonAccion: React.FC<Props> = ({
     </button>
   );
 };
-
-export default BotonAccion;

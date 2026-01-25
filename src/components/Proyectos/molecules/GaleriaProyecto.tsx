@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import ImagenPrincipal from "../molecules/ImagenPrincipal";
-import ListaMiniaturas from "../molecules/ListaMiniaturas";
+import { ImagenPrincipal } from "./ImagenPrincipal";
+import { ListaMiniaturas } from "./ListaMiniaturas";
 
 interface Props {
   imagenes: string[];
 }
 
-const GaleriaProyecto: React.FC<Props> = ({ imagenes }) => {
+export const GaleriaProyecto: React.FC<Props> = ({ imagenes }) => {
   const [indice, setIndice] = useState(0);
 
   // Navegación con flechas del teclado
@@ -40,5 +40,3 @@ const GaleriaProyecto: React.FC<Props> = ({ imagenes }) => {
     </div>
   );
 };
-
-export default GaleriaProyecto;

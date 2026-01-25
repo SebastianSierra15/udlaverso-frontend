@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useNoticiaPorTitulo } from "../../hooks/useNoticiaPorTitulo";
-import HeroNoticias from "../../components/Noticias/organisms/HeroNoticias";
-import DetalleNoticia from "../../components/Noticias/organisms/DetalleNoticia";
-import DetalleNoticiaSkeleton from "../../components/Noticias/organisms/DetalleNoticiaSkeleton";
+import { useNoticiaPorTitulo } from "../../hooks";
+import {
+  HeroNoticias,
+  DetalleNoticia,
+  DetalleNoticiaSkeleton,
+} from "../../components/Noticias";
 
-const NoticiaDetalle: React.FC = () => {
+export const NoticiaDetalle: React.FC = () => {
   const { titulo } = useParams<{ titulo: string }>();
   const navigate = useNavigate();
   const tituloDecodificado = decodeURIComponent(titulo || "");
@@ -53,5 +55,3 @@ const NoticiaDetalle: React.FC = () => {
     </>
   );
 };
-
-export default NoticiaDetalle;

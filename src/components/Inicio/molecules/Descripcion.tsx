@@ -1,8 +1,7 @@
-import React from "react";
-import Texto from "../atoms/Texto";
+import { Texto } from "../atoms";
 import { Link } from "react-router-dom";
 
-const Descripcion: React.FC = () => {
+export const Descripcion: React.FC = () => {
   return (
     <div className="flex flex-col justify-center md:pr-6 gap-4 max-w-xl">
       <h2 className="text-3xl md:text-3xl font-extrabold text-udlaverso-negro leading-tight">
@@ -30,5 +29,3 @@ const Descripcion: React.FC = () => {
     </div>
   );
 };
-
-export default Descripcion;

@@ -4,7 +4,7 @@ type Props = {
   nombreEntidad?: string;
 };
 
-const SelectorCantidad: React.FC<Props> = ({
+export const SelectorCantidad: React.FC<Props> = ({
   valor,
   onChange,
   nombreEntidad = "registros",
@@ -25,5 +25,3 @@ const SelectorCantidad: React.FC<Props> = ({
     <span>{nombreEntidad} por página</span>
   </div>
 );
-
-export default SelectorCantidad;

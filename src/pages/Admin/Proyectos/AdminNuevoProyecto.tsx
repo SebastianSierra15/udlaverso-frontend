@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCrearProyecto } from "../../../hooks/useCrearProyectos";
-import { useCategorias } from "../../../hooks/useCategorias";
-import type { ProyectoData } from "../../../types/Proyecto.type";
+import type { ProyectoData } from "../../../types";
+import { useCrearProyecto, useCategorias } from "../../../hooks";
 import { STORAGE_KEYS } from "../../../constants";
 import { ROUTES } from "../../../routes";
-import Stepper from "../../../components/Admin/molecules/Stepper";
-import PasoDatosBasicos from "../../../components/Admin/organisms/PasoDatosBasicos";
-import PasoContenido from "../../../components/Admin/organisms/PasoContenido";
-import PasoImagenes from "../../../components/Admin/organisms/PasoImagenes";
-import PasoRevision from "../../../components/Admin/organisms/PasoRevision";
-import BotonAdmin from "../../../components/Admin/atoms/BotonAdmin";
-import AlertaEmergente from "../../../components/Shared/atoms/AlertaEmergente";
-import ConfirmacionGlobal from "../../../components/Shared/molecules/ConfirmacionGlobal";
+import {
+  Stepper,
+  PasoDatosBasicos,
+  PasoContenido,
+  PasoImagenes,
+  PasoRevision,
+  BotonAdmin,
+} from "../../../components/Admin";
+import {
+  AlertaEmergente,
+  ConfirmacionGlobal,
+} from "../../../components/Shared";
 
-const AdminNuevoProyecto = () => {
+export const AdminNuevoProyecto = () => {
   const navigate = useNavigate();
 
   const { crearProyecto } = useCrearProyecto();
@@ -36,7 +39,7 @@ const AdminNuevoProyecto = () => {
 
   const mostrarAlerta = (
     mensaje: string,
-    tipo: typeof alerta.tipo = "error"
+    tipo: typeof alerta.tipo = "error",
   ) => {
     setAlerta({ visible: true, mensaje, tipo });
   };
@@ -85,7 +88,7 @@ const AdminNuevoProyecto = () => {
         contenido.descripcionDetallada.trim().length === 0
       ) {
         mostrarAlerta(
-          "Completa todos los campos del paso Contenido y Herramientas."
+          "Completa todos los campos del paso Contenido y Herramientas.",
         );
         return false;
       }
@@ -101,7 +104,7 @@ const AdminNuevoProyecto = () => {
         !regexYoutube.test(imagenes.video)
       ) {
         mostrarAlerta(
-          "Debes subir una imagen principal, al menos 3 imágenes y un video válido de YouTube."
+          "Debes subir una imagen principal, al menos 3 imágenes y un video válido de YouTube.",
         );
         return false;
       }
@@ -144,14 +147,14 @@ const AdminNuevoProyecto = () => {
       const nuevoProyecto = await crearProyecto(data);
       mostrarAlerta(
         `Proyecto creado con éxito (ID: ${nuevoProyecto.idProyecto})`,
-        "success"
+        "success",
       );
 
       setTimeout(() => navigate(ROUTES.adminProyectos), 1000);
     } catch {
       mostrarAlerta(
         "Error al crear el proyecto o permisos insuficientes.",
-        "error"
+        "error",
       );
     }
   };
@@ -228,5 +231,3 @@ const AdminNuevoProyecto = () => {
     </section>
   );
 };
-
-export default AdminNuevoProyecto;

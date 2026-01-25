@@ -1,11 +1,9 @@
-import React from "react";
-
 interface PropiedadesTarjetaProyecto {
   titulo: string;
   imagen: string;
 }
 
-const TarjetaProyecto: React.FC<PropiedadesTarjetaProyecto> = ({
+export const TarjetaProyecto: React.FC<PropiedadesTarjetaProyecto> = ({
   titulo,
   imagen,
 }) => {
@@ -24,5 +22,3 @@ const TarjetaProyecto: React.FC<PropiedadesTarjetaProyecto> = ({
     </div>
   );
 };
-
-export default TarjetaProyecto;

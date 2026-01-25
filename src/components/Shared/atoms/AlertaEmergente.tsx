@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FiAlertCircle, FiCheckCircle, FiInfo, FiX } from "react-icons/fi";
 
 interface Props {
@@ -24,7 +24,7 @@ const iconos = {
   warning: <FiAlertCircle className="text-xl mr-2" />,
 };
 
-const AlertaEmergente: React.FC<Props> = ({
+export const AlertaEmergente: React.FC<Props> = ({
   mensaje,
   tipo = "info",
   visible,
@@ -66,5 +66,3 @@ const AlertaEmergente: React.FC<Props> = ({
     </AnimatePresence>
   );
 };
-
-export default AlertaEmergente;

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const ContenidoHeroTerminos: React.FC = () => (
+export const ContenidoHeroTerminos: React.FC = () => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -17,5 +17,3 @@ const ContenidoHeroTerminos: React.FC = () => (
     </p>
   </motion.div>
 );
-
-export default ContenidoHeroTerminos;

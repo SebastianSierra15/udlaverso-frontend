@@ -1,4 +1,4 @@
-import Boton from "./Boton";
+import { Boton } from "./Boton";
 
 interface Props {
   texto: string;
@@ -8,7 +8,7 @@ interface Props {
   modo?: "default" | "light";
 }
 
-const BotonEnlace: React.FC<Props> = ({
+export const BotonEnlace: React.FC<Props> = ({
   texto,
   href,
   nuevaPestana = true,
@@ -25,5 +25,3 @@ const BotonEnlace: React.FC<Props> = ({
     </a>
   );
 };
-
-export default BotonEnlace;

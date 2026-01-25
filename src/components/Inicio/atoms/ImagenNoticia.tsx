@@ -6,7 +6,11 @@ interface Props {
   ruta?: string;
 }
 
-const ImagenNoticia: React.FC<Props> = ({ src, alt, ruta = "/noticias" }) => {
+export const ImagenNoticia: React.FC<Props> = ({
+  src,
+  alt,
+  ruta = "/noticias",
+}) => {
   return (
     <Link to={ruta} className="flex-shrink-0">
       <img
@@ -21,5 +25,3 @@ const ImagenNoticia: React.FC<Props> = ({ src, alt, ruta = "/noticias" }) => {
     </Link>
   );
 };
-
-export default ImagenNoticia;

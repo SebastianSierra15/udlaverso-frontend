@@ -12,7 +12,7 @@ interface Props {
   autoComplete?: string;
 }
 
-const InputTexto: React.FC<Props> = ({
+export const InputTexto: React.FC<Props> = ({
   etiqueta,
   tipo = "text",
   name,
@@ -74,5 +74,3 @@ const InputTexto: React.FC<Props> = ({
     </div>
   );
 };
-
-export default InputTexto;

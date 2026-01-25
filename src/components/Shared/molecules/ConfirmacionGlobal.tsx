@@ -11,7 +11,7 @@ interface Props {
   onCancelar: () => void;
 }
 
-const ConfirmacionGlobal: React.FC<Props> = ({
+export const ConfirmacionGlobal: React.FC<Props> = ({
   visible,
   titulo = "¿Estás seguro?",
   mensaje,
@@ -73,5 +73,3 @@ const ConfirmacionGlobal: React.FC<Props> = ({
     </AnimatePresence>
   );
 };
-
-export default ConfirmacionGlobal;

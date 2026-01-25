@@ -1,7 +1,5 @@
-import BotonEnlace from "../../Shared/atoms/BotonEnlace";
-import FiltroSelect from "../atoms/FiltroSelect";
-import Buscador from "../atoms/Buscador";
-import ContadorResultados from "../atoms/ContadorResultados";
+import { FiltroSelect, Buscador, ContadorResultados } from "../atoms";
+import { BotonEnlace } from "../../Shared";
 
 interface Props {
   opciones: (string | { id: number; nombre: string })[];
@@ -12,7 +10,7 @@ interface Props {
   onBuscar: (valor: string) => void;
 }
 
-const BarraFiltros: React.FC<Props> = ({
+export const BarraFiltros: React.FC<Props> = ({
   opciones,
   seleccion,
   onChange,
@@ -44,5 +42,3 @@ const BarraFiltros: React.FC<Props> = ({
     </div>
   );
 };
-
-export default BarraFiltros;

@@ -3,7 +3,7 @@ interface Props {
   titulo: string;
 }
 
-const VideoPresentacion: React.FC<Props> = ({ url, titulo }) => {
+export const VideoPresentacion: React.FC<Props> = ({ url, titulo }) => {
   return (
     <div className="relative w-full max-w-md aspect-video rounded-2xl shadow-2xl overflow-hidden border border-white/30 bg-white/5 backdrop-blur-sm">
       <iframe
@@ -16,5 +16,3 @@ const VideoPresentacion: React.FC<Props> = ({ url, titulo }) => {
     </div>
   );
 };
-
-export default VideoPresentacion;

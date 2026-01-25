@@ -1,15 +1,11 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import { useProyectos } from "../../../hooks/useProyectos";
-import { useEliminarProyecto } from "../../../hooks/useEliminarProyecto";
+import { useProyectos, useEliminarProyecto } from "../../../hooks";
 import type { Proyecto } from "../../../types/Proyecto.type";
-import TablaSimple from "../molecules/TablaSimple";
-import BarraAcciones from "../molecules/BarraAcciones";
-import InsigniaEstado from "../atoms/InsigniaEstado";
-import ModalVistaProyecto from "../molecules/ModalVistaProyecto";
-import ConfirmacionGlobal from "../../Shared/molecules/ConfirmacionGlobal";
-import AlertaEmergente from "../../Shared/atoms/AlertaEmergente";
+import { InsigniaEstado } from "../atoms";
+import { TablaSimple, BarraAcciones, ModalVistaProyecto } from "../molecules";
+import { ConfirmacionGlobal, AlertaEmergente } from "../../Shared";
 
 type FilaProyecto = {
   id?: string | number;
@@ -26,7 +22,7 @@ type FilaProyecto = {
   }[];
 };
 
-const SeccionProyectos: React.FC = () => {
+export const SeccionProyectos: React.FC = () => {
   const navigate = useNavigate();
 
   const { eliminarProyecto } = useEliminarProyecto();
@@ -90,7 +86,7 @@ const SeccionProyectos: React.FC = () => {
               navigate(
                 `/admin/proyectos/editar/${p.nombreProyecto
                   .toLowerCase()
-                  .replace(/\s+/g, "-")}`
+                  .replace(/\s+/g, "-")}`,
               ),
           },
           {
@@ -188,7 +184,7 @@ const SeccionProyectos: React.FC = () => {
                 proyectoSeleccionado.categoriaNombre ?? "Sin categoría",
               promedio: proyectoSeleccionado.valoracionPromedio ?? 0,
               visitas: Number(
-                proyectoSeleccionado.visualizacionesProyecto ?? 0
+                proyectoSeleccionado.visualizacionesProyecto ?? 0,
               ),
               autor: proyectoSeleccionado.autorProyecto ?? "Desconocido",
               fecha:
@@ -257,5 +253,3 @@ const SeccionProyectos: React.FC = () => {
     </>
   );
 };
-
-export default SeccionProyectos;

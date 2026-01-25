@@ -3,7 +3,7 @@ interface Props {
   fecha: string;
 }
 
-const BloqueAutorFecha: React.FC<Props> = ({ autor, fecha }) => (
+export const BloqueAutorFecha: React.FC<Props> = ({ autor, fecha }) => (
   <div className="text-lg text-udlaverso-gris leading-relaxed">
     <p>
       Creado por{" "}
@@ -12,5 +12,3 @@ const BloqueAutorFecha: React.FC<Props> = ({ autor, fecha }) => (
     </p>
   </div>
 );
-
-export default BloqueAutorFecha;

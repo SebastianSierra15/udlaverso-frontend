@@ -1,13 +1,11 @@
-import React from "react";
-import TituloSeccion from "../atoms/TituloSeccion";
-import EnlaceFooter from "../atoms/EnlaceFooter";
+import { TituloSeccion, EnlaceFooter } from "../atoms";
 
 interface Props {
   titulo: string;
   enlaces: { texto: string; ruta: string }[];
 }
 
-const ListaEnlaces: React.FC<Props> = ({ titulo, enlaces }) => {
+export const ListaEnlaces: React.FC<Props> = ({ titulo, enlaces }) => {
   return (
     <div>
       <TituloSeccion texto={titulo} />
@@ -21,5 +19,3 @@ const ListaEnlaces: React.FC<Props> = ({ titulo, enlaces }) => {
     </div>
   );
 };
-
-export default ListaEnlaces;

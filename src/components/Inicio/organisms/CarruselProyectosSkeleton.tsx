@@ -1,6 +1,6 @@
-import TarjetaProyectoSkeleton from "../molecules/TarjetaProyectoSkeleton";
+import { TarjetaProyectoSkeleton } from "../molecules";
 
-const CarruselProyectosSkeleton: React.FC = () => {
+export const CarruselProyectosSkeleton: React.FC = () => {
   const placeholders = Array.from({ length: 4 });
 
   return (
@@ -15,5 +15,3 @@ const CarruselProyectosSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export default CarruselProyectosSkeleton;

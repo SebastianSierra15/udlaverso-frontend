@@ -1,4 +1,4 @@
-import BotonNavegacion from "../atoms/BotonNavegacion";
+import { BotonNavegacion } from "../atoms";
 
 interface Props {
   imagen: string;
@@ -7,7 +7,7 @@ interface Props {
   mostrarControles: boolean;
 }
 
-const ImagenPrincipal: React.FC<Props> = ({
+export const ImagenPrincipal: React.FC<Props> = ({
   imagen,
   onAnterior,
   onSiguiente,
@@ -28,5 +28,3 @@ const ImagenPrincipal: React.FC<Props> = ({
     )}
   </div>
 );
-
-export default ImagenPrincipal;

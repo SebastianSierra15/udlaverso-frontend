@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
-import IconoUsuario from "../atoms/IconoUsuario";
+import { IconoUsuario } from "../atoms";
 
 interface Permiso {
   nombrePermiso: string;
@@ -14,7 +14,7 @@ interface MenuUsuarioProps {
   colorTexto?: string;
 }
 
-const MenuUsuario: React.FC<MenuUsuarioProps> = ({
+export const MenuUsuario: React.FC<MenuUsuarioProps> = ({
   nombre,
   permisos,
   onLogout,
@@ -24,7 +24,7 @@ const MenuUsuario: React.FC<MenuUsuarioProps> = ({
   const menuRef = useRef<HTMLDivElement>(null);
 
   const puedeVerPanel = permisos.some(
-    (p) => p.nombrePermiso.toLowerCase() !== "escribir_reseña"
+    (p) => p.nombrePermiso.toLowerCase() !== "escribir_reseña",
   );
 
   useEffect(() => {
@@ -83,5 +83,3 @@ const MenuUsuario: React.FC<MenuUsuarioProps> = ({
     </div>
   );
 };
-
-export default MenuUsuario;

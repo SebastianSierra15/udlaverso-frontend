@@ -1,12 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import GrupoRedes from "../molecules/GrupoRedes";
-import ListaEnlaces from "../molecules/ListaEnlaces";
-import TextoFooter from "../atoms/TextoFooter";
-import TituloSeccion from "../atoms/TituloSeccion";
-import Copyright from "../atoms/Copyright";
+import { TextoFooter, TituloSeccion, Copyright } from "../atoms";
+import { GrupoRedes, ListaEnlaces } from "../molecules";
 
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
   return (
     <footer className="relative bg-gradient-to-t from-udlaverso-verde/10 via-white to-white border-t mt-10">
       <div className="max-w-7xl mx-auto py-10 px-6 justify-center sm:justify-normal grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -72,5 +68,3 @@ const Footer: React.FC = () => {
     </footer>
   );
 };
-
-export default Footer;

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import ModalTerminos from "../../Shared/molecules/ModalTerminos";
+import { ModalTerminos } from "../../Shared";
 
 interface Props {
   acepto: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CheckboxTerminos: React.FC<Props> = ({ acepto, onChange }) => {
+export const CheckboxTerminos: React.FC<Props> = ({ acepto, onChange }) => {
   const [mostrarModal, setMostrarModal] = useState(false);
 
   return (
@@ -43,5 +43,3 @@ const CheckboxTerminos: React.FC<Props> = ({ acepto, onChange }) => {
     </>
   );
 };
-
-export default CheckboxTerminos;

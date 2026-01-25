@@ -1,5 +1,5 @@
-import IconoError from "../atoms/IconError";
-import MensajeError from "../molecules/MensajeError";
+import { IconoError } from "../atoms";
+import { MensajeError } from "../molecules";
 
 interface Props {
   tipo?: "404" | "error";
@@ -9,7 +9,7 @@ interface Props {
   onClick: () => void;
 }
 
-const SeccionError: React.FC<Props> = ({
+export const SeccionError: React.FC<Props> = ({
   tipo = "error",
   titulo,
   descripcion,
@@ -28,5 +28,3 @@ const SeccionError: React.FC<Props> = ({
     </section>
   );
 };
-
-export default SeccionError;

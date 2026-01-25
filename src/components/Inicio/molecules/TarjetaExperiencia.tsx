@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Boton from "../../Shared/atoms/Boton";
+import { Boton } from "../../Shared";
 
 interface Props {
   imagen: string;
@@ -9,7 +9,7 @@ interface Props {
   delay?: number;
 }
 
-const TarjetaExperiencia: React.FC<Props> = ({
+export const TarjetaExperiencia: React.FC<Props> = ({
   imagen,
   titulo,
   descripcion,
@@ -54,7 +54,7 @@ const TarjetaExperiencia: React.FC<Props> = ({
           ) : (
             <Link
               to={`/proyectos/${encodeURIComponent(
-                titulo.toLowerCase().replace(/\s+/g, "-")
+                titulo.toLowerCase().replace(/\s+/g, "-"),
               )}`}
             >
               <Boton
@@ -69,5 +69,3 @@ const TarjetaExperiencia: React.FC<Props> = ({
     </motion.div>
   );
 };
-
-export default TarjetaExperiencia;

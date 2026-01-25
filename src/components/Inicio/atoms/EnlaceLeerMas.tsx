@@ -4,7 +4,7 @@ interface Props {
   ruta?: string;
 }
 
-const EnlaceLeerMas: React.FC<Props> = ({ ruta = "/noticias" }) => {
+export const EnlaceLeerMas: React.FC<Props> = ({ ruta = "/noticias" }) => {
   return (
     <div className="text-right mt-2">
       <Link
@@ -16,5 +16,3 @@ const EnlaceLeerMas: React.FC<Props> = ({ ruta = "/noticias" }) => {
     </div>
   );
 };
-
-export default EnlaceLeerMas;

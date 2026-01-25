@@ -1,6 +1,6 @@
-import TarjetaNoticiaGrandeSkeleton from "../molecules/TarjetaNoticiaGrandeSkeleton";
+import { TarjetaNoticiaGrandeSkeleton } from "../molecules";
 
-const GridNoticiasSkeleton: React.FC = () => {
+export const GridNoticiasSkeleton: React.FC = () => {
   const placeholders = Array.from({ length: 6 });
 
   return (
@@ -11,5 +11,3 @@ const GridNoticiasSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export default GridNoticiasSkeleton;

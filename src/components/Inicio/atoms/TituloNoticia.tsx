@@ -5,7 +5,10 @@ interface Props {
   ruta?: string;
 }
 
-const TituloNoticia: React.FC<Props> = ({ texto, ruta = "/noticias" }) => {
+export const TituloNoticia: React.FC<Props> = ({
+  texto,
+  ruta = "/noticias",
+}) => {
   return (
     <Link
       to={ruta}
@@ -15,5 +18,3 @@ const TituloNoticia: React.FC<Props> = ({ texto, ruta = "/noticias" }) => {
     </Link>
   );
 };
-
-export default TituloNoticia;

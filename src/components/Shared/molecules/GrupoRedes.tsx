@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FaXTwitter,
   FaInstagram,
@@ -6,9 +5,9 @@ import {
   FaFacebook,
   FaTiktok,
 } from "react-icons/fa6";
-import IconoRedSocial from "../atoms/IconoRedSocial";
+import { IconoRedSocial } from "../atoms";
 
-const GrupoRedes: React.FC = () => {
+export const GrupoRedes: React.FC = () => {
   return (
     <div className="flex gap-4 text-xl">
       <IconoRedSocial icono={<FaXTwitter />} url="https://x.com/uniamazonia" />
@@ -31,5 +30,3 @@ const GrupoRedes: React.FC = () => {
     </div>
   );
 };
-
-export default GrupoRedes;

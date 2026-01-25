@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import VistaPreviaImagen from "../atoms/VistaPreviaImagen";
-import BotonFlecha from "../atoms/BotonFlecha";
+import { useEffect, useState } from "react";
+import { VistaPreviaImagen, BotonFlecha } from "../atoms";
 
 type Props = {
   minimo?: number;
@@ -15,7 +14,7 @@ type Props = {
   }) => void;
 };
 
-const GaleriaImagenes: React.FC<Props> = ({
+export const GaleriaImagenes: React.FC<Props> = ({
   minimo = 3,
   maxVisibles = 5,
   maxImagenes = 10,
@@ -92,7 +91,7 @@ const GaleriaImagenes: React.FC<Props> = ({
     setIndice((prev) =>
       direccion === "next"
         ? Math.min(prev + 1, total - maxVisibles)
-        : Math.max(prev - 1, 0)
+        : Math.max(prev - 1, 0),
     );
   };
 
@@ -164,5 +163,3 @@ const GaleriaImagenes: React.FC<Props> = ({
     </div>
   );
 };
-
-export default GaleriaImagenes;

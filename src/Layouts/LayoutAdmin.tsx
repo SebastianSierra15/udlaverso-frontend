@@ -1,9 +1,7 @@
 import { Outlet } from "react-router-dom";
-import SidebarAdmin from "../components/Admin/organisms/SidebarAdmin";
-import HeroAdmin from "../components/Admin/organisms/HeroAdmin";
-import FooterAdmin from "../components/Admin/organisms/FooterAdmin";
+import { SidebarAdmin, HeroAdmin, FooterAdmin } from "../components/Admin";
 
-const LayoutAdmin: React.FC = () => {
+export const LayoutAdmin: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="fixed bg-white top-0 left-0 right-0 z-40 p-4">
@@ -26,5 +24,3 @@ const LayoutAdmin: React.FC = () => {
     </div>
   );
 };
-
-export default LayoutAdmin;

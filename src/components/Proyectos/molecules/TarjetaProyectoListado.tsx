@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import ImagenProyecto from "../atoms/ImagenProyecto";
-import CategoriaChip from "../atoms/CategoriaChip";
-import EstrellasValoracion from "../molecules/EstrellasValoracion";
+import { ImagenProyecto, CategoriaChip } from "../atoms";
+import { EstrellasValoracion } from "./EstrellasValoracion";
 
 interface Props {
   titulo: string;
@@ -11,7 +10,7 @@ interface Props {
   valoracion?: number;
 }
 
-const TarjetaProyectoListado: React.FC<Props> = ({
+export const TarjetaProyectoListado: React.FC<Props> = ({
   titulo,
   resumen,
   imagenes,
@@ -26,7 +25,7 @@ const TarjetaProyectoListado: React.FC<Props> = ({
     if (hover && imagenes.length > 1) {
       intervalo = setInterval(
         () => setIndice((prev) => (prev + 1) % imagenes.length),
-        1500
+        1500,
       );
     }
     return () => clearInterval(intervalo);
@@ -79,5 +78,3 @@ const TarjetaProyectoListado: React.FC<Props> = ({
     </article>
   );
 };
-
-export default TarjetaProyectoListado;

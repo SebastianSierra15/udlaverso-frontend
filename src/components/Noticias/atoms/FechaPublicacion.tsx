@@ -2,7 +2,7 @@ interface Props {
   fecha: string;
 }
 
-const FechaPublicacion: React.FC<Props> = ({ fecha }) => {
+export const FechaPublicacion: React.FC<Props> = ({ fecha }) => {
   if (!fecha) return null;
 
   const fechaObj = new Date(fecha);
@@ -19,5 +19,3 @@ const FechaPublicacion: React.FC<Props> = ({ fecha }) => {
     </p>
   );
 };
-
-export default FechaPublicacion;

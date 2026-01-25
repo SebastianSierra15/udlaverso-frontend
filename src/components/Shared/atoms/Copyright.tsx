@@ -1,6 +1,4 @@
-import React from "react";
-
-const Copyright: React.FC = () => {
+export const Copyright: React.FC = () => {
   const anio = new Date().getFullYear();
 
   return (
@@ -10,5 +8,3 @@ const Copyright: React.FC = () => {
     </p>
   );
 };
-
-export default Copyright;

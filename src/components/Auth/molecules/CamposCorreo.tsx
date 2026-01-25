@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import InputFlotante from "../atoms/InputFlotante";
+import { InputFlotante } from "../atoms";
 
 interface Formulario {
   nombre: string;
@@ -17,7 +17,7 @@ interface Props {
   setForm: Dispatch<SetStateAction<Formulario>>;
 }
 
-const CamposCorreo: React.FC<Props> = ({ form, setForm }) => (
+export const CamposCorreo: React.FC<Props> = ({ form, setForm }) => (
   <>
     {!form.esInstitucional ? (
       <>
@@ -51,5 +51,3 @@ const CamposCorreo: React.FC<Props> = ({ form, setForm }) => (
     )}
   </>
 );
-
-export default CamposCorreo;

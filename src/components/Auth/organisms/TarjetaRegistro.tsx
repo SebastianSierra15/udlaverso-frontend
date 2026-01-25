@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
-import FormularioRegistro from "../molecules/FormularioRegistro";
-import type { RegistroForm } from "../../../types/RegistroForm.type";
+import type { RegistroForm } from "../../../types";
+import { FormularioRegistro } from "../molecules";
 
 interface Props {
   onSubmit: (form: RegistroForm) => void;
   loading?: boolean;
 }
 
-const TarjetaRegistro: React.FC<Props> = ({ onSubmit, loading = false }) => {
+export const TarjetaRegistro: React.FC<Props> = ({
+  onSubmit,
+  loading = false,
+}) => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center bg-black/70 backdrop-blur-sm rounded-3xl shadow-2xl w-[90%] max-w-6xl px-6 md:px-10 lg:px-14 py-6 md:py-4 lg:py-6 md:h-screen gap-10">
       <div className="flex flex-col items-center justify-center text-center w-full md:w-[45%] lg:w-[40%] space-y-4">
@@ -36,5 +39,3 @@ const TarjetaRegistro: React.FC<Props> = ({ onSubmit, loading = false }) => {
     </div>
   );
 };
-
-export default TarjetaRegistro;

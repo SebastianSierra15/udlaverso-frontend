@@ -1,4 +1,4 @@
-import ContenidoHero from "../../Shared/molecules/ContenidoHero";
+import { ContenidoHero } from "../../Shared";
 
 interface Props {
   titulo: string;
@@ -6,7 +6,7 @@ interface Props {
   imagenFondo?: string;
 }
 
-const HeroProyectoIndividual: React.FC<Props> = ({
+export const HeroProyectoIndividual: React.FC<Props> = ({
   titulo,
   descripcion,
   imagenFondo = "/images/hero.webp",
@@ -22,5 +22,3 @@ const HeroProyectoIndividual: React.FC<Props> = ({
     <ContenidoHero titulo={titulo} descripcion={descripcion} />
   </section>
 );
-
-export default HeroProyectoIndividual;

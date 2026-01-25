@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import HeroTerminos from "../../components/Legales/organisms/HeroTerminos";
+import { HeroTerminos } from "../../components/Legales";
 
-const TerminosYCondiciones: React.FC = () => {
+export const TerminosYCondiciones: React.FC = () => {
   return (
     <main className="bg-white">
       <Helmet>
@@ -95,5 +95,3 @@ const TerminosYCondiciones: React.FC = () => {
     </main>
   );
 };
-
-export default TerminosYCondiciones;

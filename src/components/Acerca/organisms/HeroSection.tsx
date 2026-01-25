@@ -1,4 +1,4 @@
-import ContenidoHero from "../../Shared/molecules/ContenidoHero";
+import { ContenidoHero } from "../../Shared";
 
 interface HeroSectionProps {
   titulo: string;
@@ -6,7 +6,7 @@ interface HeroSectionProps {
   imagenFondo: string;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({
+export const HeroSection: React.FC<HeroSectionProps> = ({
   titulo,
   descripcion,
   imagenFondo,
@@ -25,5 +25,3 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     </section>
   );
 };
-
-export default HeroSection;

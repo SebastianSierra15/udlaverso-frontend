@@ -1,6 +1,6 @@
-import TarjetaNoticiaSkeleton from "../molecules/TarjetaNoticiaSkeleton";
+import { TarjetaNoticiaSkeleton } from "../molecules";
 
-const NoticiasRecientesSkeleton: React.FC = () => {
+export const NoticiasRecientesSkeleton: React.FC = () => {
   const placeholders = Array.from({ length: 6 });
 
   return (
@@ -13,5 +13,3 @@ const NoticiasRecientesSkeleton: React.FC = () => {
     </>
   );
 };
-
-export default NoticiasRecientesSkeleton;

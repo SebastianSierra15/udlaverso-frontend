@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import SeccionError from "../../components/Error/organisms/SeccionError";
+import { SeccionError } from "../../components/Error";
 
-const Error404: React.FC = () => {
+export const Error404: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -14,5 +14,3 @@ const Error404: React.FC = () => {
     />
   );
 };
-
-export default Error404;

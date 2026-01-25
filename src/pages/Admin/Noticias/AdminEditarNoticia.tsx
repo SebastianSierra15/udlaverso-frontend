@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { obtenerNoticiaPorId } from "../../../services/noticias.service";
-import { useActualizarNoticia } from "../../../hooks/useActualizarNoticia";
-import FormularioNoticia from "../../../components/Admin/molecules/FormularioNoticia";
-import BotonAdmin from "../../../components/Admin/atoms/BotonAdmin";
-import ConfirmacionGlobal from "../../../components/Shared/molecules/ConfirmacionGlobal";
-import AlertaEmergente from "../../../components/Shared/atoms/AlertaEmergente";
-import type { Noticia } from "../../../types/Noticia.type";
+import type { Noticia } from "../../../types";
+import { obtenerNoticiaPorId } from "../../../services";
+import { useActualizarNoticia } from "../../../hooks";
+import { FormularioNoticia } from "../../../components/Admin";
+import { BotonAdmin } from "../../../components/Admin";
+import {
+  ConfirmacionGlobal,
+  AlertaEmergente,
+} from "../../../components/Shared";
 
-const AdminEditarNoticia: React.FC = () => {
+export const AdminEditarNoticia: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { actualizar } = useActualizarNoticia();
@@ -25,7 +27,7 @@ const AdminEditarNoticia: React.FC = () => {
     tipo: "info" as "error" | "success" | "info" | "warning",
   });
 
-  // 🔹 Cargar noticia existente
+  // Cargar noticia existente
   useEffect(() => {
     const cargar = async () => {
       const data = await obtenerNoticiaPorId(Number(id));
@@ -38,7 +40,7 @@ const AdminEditarNoticia: React.FC = () => {
     cargar();
   }, [id]);
 
-  // 🔹 Validación antes de confirmar
+  // Validación antes de confirmar
   const manejarSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -54,7 +56,7 @@ const AdminEditarNoticia: React.FC = () => {
     setMostrarConfirmacion(true);
   };
 
-  // 🔹 Confirmar edición
+  // Confirmar edición
   const confirmarEdicion = async () => {
     setMostrarConfirmacion(false);
     try {
@@ -64,7 +66,7 @@ const AdminEditarNoticia: React.FC = () => {
           tituloNoticia: titulo,
           contenidoNoticia: contenido,
         },
-        imagen || undefined
+        imagen || undefined,
       );
 
       setAlerta({
@@ -132,5 +134,3 @@ const AdminEditarNoticia: React.FC = () => {
     </section>
   );
 };
-
-export default AdminEditarNoticia;

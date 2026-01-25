@@ -20,7 +20,7 @@ type Props = {
   obligatorio?: boolean;
 };
 
-const EditorTexto: React.FC<Props> = ({
+export const EditorTexto: React.FC<Props> = ({
   label,
   maxLength = 3000,
   value,
@@ -87,5 +87,3 @@ const EditorTexto: React.FC<Props> = ({
     </div>
   );
 };
-
-export default EditorTexto;

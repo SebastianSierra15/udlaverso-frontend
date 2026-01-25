@@ -11,7 +11,11 @@ interface Props {
   onPasoChange?: (nuevoPaso: number) => void;
 }
 
-const Stepper: React.FC<Props> = ({ pasoActual, total, onPasoChange }) => {
+export const Stepper: React.FC<Props> = ({
+  pasoActual,
+  total,
+  onPasoChange,
+}) => {
   return (
     <div className="flex justify-between items-center w-full max-w-2xl mx-auto mb-8">
       {Array.from({ length: total }, (_, i) => {
@@ -59,5 +63,3 @@ const Stepper: React.FC<Props> = ({ pasoActual, total, onPasoChange }) => {
     </div>
   );
 };
-
-export default Stepper;

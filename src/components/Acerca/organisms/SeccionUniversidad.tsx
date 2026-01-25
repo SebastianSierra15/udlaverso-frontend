@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import ImagenAnimada from "../molecules/ImagenAnimada";
+import { ImagenAnimada } from "../molecules";
 
-const SeccionUniversidad: React.FC = () => {
+export const SeccionUniversidad: React.FC = () => {
   return (
     <section className="py-20 px-6 md:px-20 bg-gradient-to-b from-white to-udlaverso-verde/10">
       <div className="flex flex-col md:flex-row items-center justify-between gap-10 max-w-7xl mx-auto">
@@ -43,5 +43,3 @@ const SeccionUniversidad: React.FC = () => {
     </section>
   );
 };
-
-export default SeccionUniversidad;

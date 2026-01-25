@@ -5,12 +5,10 @@ const colores: Record<Props["estado"], string> = {
   inactivo: "bg-red-100 text-red-600",
 };
 
-const InsigniaEstado: React.FC<Props> = ({ estado }) => (
+export const InsigniaEstado: React.FC<Props> = ({ estado }) => (
   <span
     className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold ${colores[estado]}`}
   >
     {estado}
   </span>
 );
-
-export default InsigniaEstado;
