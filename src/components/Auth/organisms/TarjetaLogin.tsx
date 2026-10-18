@@ -19,13 +19,13 @@ const TarjetaLogin: React.FC<Props> = ({
   loading,
 }) => {
   return (
-    <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl p-10 w-[90%] max-w-md flex flex-col items-center">
+    <div className="w-full max-w-md rounded-2xl bg-white/95 p-5 shadow-xl backdrop-blur-md sm:p-8">
       <Link to="/" className="mb-4">
         <img
           src="/logos/logo.png"
           alt="Logo UdlaVerso"
           title="Udlaverso"
-          className="w-32 hover:scale-105 transition-transform duration-300"
+          className="w-32 max-w-full hover:scale-105 transition-transform duration-300"
         />
       </Link>
 

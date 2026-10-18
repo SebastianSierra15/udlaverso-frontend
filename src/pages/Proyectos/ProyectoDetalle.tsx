@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/SEO/SEO";
+import { absoluteUrl } from "../../components/SEO/seo.utils";
 import { useAuth } from "../../hooks/useAuth";
 import { useProyecto } from "../../hooks/useProyecto";
 import { registrarAnalitica } from "../../services/analiticas.service";
@@ -37,25 +38,40 @@ const ProyectoDetalle: React.FC = () => {
 
   if (error || !proyecto) return null;
 
+  const proyectoPath = `/proyectos/${encodeURIComponent(proyecto.nombreProyecto)}`;
+  const proyectoImage = proyecto.imagenesProyecto?.[0] ?? "/images/hero.webp";
+
   return (
     <>
-      <>
-        <Helmet>
-          <title>{proyecto.nombreProyecto} - UdlaVerso</title>
-          <meta
-            name="description"
-            content={proyecto.descripcioncortaProyecto}
-          />
-        </Helmet>
+      <SEO
+        title={`${proyecto.nombreProyecto} | Proyecto UdlaVerso`}
+        description={proyecto.descripcioncortaProyecto}
+        path={proyectoPath}
+        image={proyectoImage}
+        keywords={proyecto.palabrasclaveProyecto}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: proyecto.nombreProyecto,
+          description: proyecto.descripcioncortaProyecto,
+          image: absoluteUrl(proyectoImage),
+          url: absoluteUrl(proyectoPath),
+          creator: {
+            "@type": "Person",
+            name: proyecto.autorProyecto,
+          },
+          keywords: proyecto.palabrasclaveProyecto,
+          dateCreated: proyecto.fechacreacionProyecto ?? undefined,
+        }}
+      />
 
-        <HeroProyectoIndividual
-          titulo={proyecto.nombreProyecto}
-          descripcion={proyecto.objetivoProyecto}
-          imagenFondo={proyecto.imagenesProyecto?.[0]}
-        />
+      <HeroProyectoIndividual
+        titulo={proyecto.nombreProyecto}
+        descripcion={proyecto.objetivoProyecto}
+        imagenFondo={proyecto.imagenesProyecto?.[0]}
+      />
 
-        <DetalleProyecto {...proyecto} />
-      </>
+      <DetalleProyecto {...proyecto} />
     </>
   );
 };

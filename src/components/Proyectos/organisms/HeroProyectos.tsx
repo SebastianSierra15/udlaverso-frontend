@@ -2,7 +2,7 @@ import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
 const HeroProyectos: React.FC = () => {
   return (
-    <section className="relative h-[45vh] md:h-[55vh] flex items-center justify-center overflow-hidden text-white">
+    <section className="relative min-h-[360px] h-[48vh] md:h-[55vh] flex items-center justify-center overflow-hidden text-white">
       <img
         src="/images/puente.webp"
         alt="Nuestros Proyectos"

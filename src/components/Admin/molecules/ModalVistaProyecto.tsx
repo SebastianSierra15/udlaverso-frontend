@@ -31,10 +31,10 @@ const ModalVistaProyecto: React.FC<Props> = ({ proyecto, onClose }) => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="bg-white rounded-2xl shadow-lg max-w-3xl w-full overflow-hidden"
+        className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-lg"
       >
         {/* Encabezado */}
-        <div className="flex items-center justify-between border-b px-6 py-4">
+        <div className="flex items-center justify-between border-b px-4 py-4 sm:px-6">
           <h2 className="text-lg md:text-xl font-bold text-udlaverso-negro">
             Vista rápida del proyecto
           </h2>
@@ -47,7 +47,7 @@ const ModalVistaProyecto: React.FC<Props> = ({ proyecto, onClose }) => {
         </div>
 
         {/* Contenido */}
-        <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-5 p-4 sm:p-6 md:grid-cols-2 md:gap-6">
           {/* Imagen principal */}
           <div className="flex justify-center items-center bg-gray-100 rounded-xl overflow-hidden h-56">
             <img
@@ -93,7 +93,7 @@ const ModalVistaProyecto: React.FC<Props> = ({ proyecto, onClose }) => {
         </div>
 
         {/* Botones de acción */}
-        <div className="flex justify-end items-center gap-3 border-t px-6 py-4 bg-gray-50">
+        <div className="flex flex-col-reverse items-stretch gap-2 border-t bg-gray-50 px-4 py-4 sm:flex-row sm:justify-end sm:items-center sm:gap-3 sm:px-6">
           <BotonAdmin
             texto="Ver como usuario"
             onClick={abrirProyecto}

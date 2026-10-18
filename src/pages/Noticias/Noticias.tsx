@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/SEO/SEO";
 import { useNoticias } from "../../hooks/useNoticias";
 import HeroNoticias from "../../components/Noticias/organisms/HeroNoticias";
 import BarraBusquedaNoticias from "../../components/Noticias/molecules/BarraBusquedaNoticias";
@@ -23,13 +23,13 @@ const Noticias: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Noticias - UdlaVerso</title>
-        <meta
-          name="description"
-          content="Explora las últimas noticias y actualizaciones del UdlaVerso."
-        />
-      </Helmet>
+      <SEO
+        title="Noticias sobre innovación y realidad aumentada | UdlaVerso"
+        description="Explora las últimas noticias, eventos y avances tecnológicos del UdlaVerso y la Universidad de la Amazonia."
+        path="/noticias"
+        image="/images/escenario.webp"
+        keywords="noticias UdlaVerso, innovación tecnológica, realidad aumentada"
+      />
 
       <HeroNoticias />
 

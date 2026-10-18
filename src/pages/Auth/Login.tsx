@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/SEO/SEO";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import TarjetaLogin from "../../components/Auth/organisms/TarjetaLogin";
@@ -42,15 +42,14 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Iniciar sesión - UdlaVerso</title>
-        <meta
-          name="description"
-          content="Accede al portal institucional UdlaVerso de la Universidad de la Amazonia."
-        />
-      </Helmet>
+      <SEO
+        title="Iniciar sesión | UdlaVerso"
+        description="Accede al portal institucional UdlaVerso de la Universidad de la Amazonia."
+        path="/login"
+        noindex
+      />
 
-      <section className="relative flex items-center justify-end min-h-screen px-6 md:px-20">
+      <section className="relative flex min-h-screen items-center justify-center px-4 py-8 sm:px-6 md:justify-end md:px-20">
         <img
           src="/images/hero.webp"
           alt="Fondo UdlaVerso"
@@ -59,7 +58,7 @@ const Login: React.FC = () => {
 
         <div className="absolute inset-0 bg-black/40 -z-10" />
 
-        <div className="flex justify-center md:justify-end w-full max-w-7xl">
+        <div className="flex w-full max-w-7xl justify-center md:justify-end">
           <TarjetaLogin
             correo={correo}
             contrasenia={contrasenia}

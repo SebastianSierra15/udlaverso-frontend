@@ -17,13 +17,13 @@ const ModalTerminos: React.FC<Props> = ({ visible, onClose, onDecision }) => {
       <motion.div
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-3xl shadow-2xl w-full max-w-md md:max-w-lg overflow-hidden"
+        className="max-h-[90vh] w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl md:max-w-lg"
       >
         {/* Encabezado */}
-        <div className="bg-udlaverso-verde text-white px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center justify-between bg-udlaverso-verde px-4 py-4 text-white sm:px-6">
           <div className="flex items-center gap-2">
             <IconoEscudo />
-            <h2 className="text-lg md:text-xl font-bold">
+            <h2 className="text-base font-bold sm:text-lg md:text-xl">
               Términos y Condiciones
             </h2>
           </div>
@@ -124,7 +124,7 @@ const ModalTerminos: React.FC<Props> = ({ visible, onClose, onDecision }) => {
         </div>
 
         {/* Botones inferiores */}
-        <div className="flex justify-end items-center gap-3 bg-gray-50 px-6 py-4">
+        <div className="flex flex-col-reverse items-stretch gap-2 bg-gray-50 px-4 py-4 sm:flex-row sm:justify-end sm:items-center sm:px-6">
           <BotonModal
             texto="Rechazar"
             variante="secundario"

@@ -22,7 +22,7 @@ const Boton: React.FC<PropiedadesBoton> = ({
   cargando = false,
 }) => {
   const base =
-    "flex items-center justify-center rounded-full font-semibold transition duration-300 ease-in-out text-sm md:text-base lg:text-lg px-3 md:px-4 lg:px-6 py-2 border";
+    "flex w-full sm:w-auto min-h-11 items-center justify-center rounded-full font-semibold transition duration-300 ease-in-out text-sm md:text-base lg:text-lg px-4 md:px-5 lg:px-6 py-2 border text-center";
 
   const estilos: Record<string, Record<string, string>> = {
     principal: {

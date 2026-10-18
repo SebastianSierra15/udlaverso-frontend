@@ -48,7 +48,11 @@ const MenuUsuario: React.FC<MenuUsuarioProps> = ({
   return (
     <div ref={menuRef} className="relative">
       <button
+        type="button"
         onClick={() => setAbierto(!abierto)}
+        aria-expanded={abierto}
+        aria-haspopup="menu"
+        aria-label={`Menú de usuario de ${nombre}`}
         className={`flex items-center gap-2 font-medium ${colorTexto} hover:text-udlaverso-verde transition`}
       >
         <IconoUsuario color={colorTexto} tamano="text-xl" />

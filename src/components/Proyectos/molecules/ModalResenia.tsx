@@ -15,8 +15,8 @@ const ModalResenia: React.FC<Props> = ({
   onSubmit,
   valoresIniciales,
 }) => (
-  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-    <div className="bg-white rounded-2xl w-[90%] md:w-[500px] p-6 shadow-xl relative animate-fadeIn">
+  <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 px-4 py-6">
+    <div className="relative my-auto w-full max-w-[500px] rounded-2xl bg-white p-5 shadow-xl animate-fadeIn sm:p-6">
       <BotonCierreModal onClose={onClose} />
 
       <h3 className="text-xl font-semibold text-udlaverso-negro mb-2">

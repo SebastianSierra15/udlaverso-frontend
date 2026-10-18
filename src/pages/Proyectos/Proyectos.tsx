@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/SEO/SEO";
 import { useCategorias } from "../../hooks/useCategorias";
 import { useProyectos } from "../../hooks/useProyectos";
 import HeroProyectos from "../../components/Proyectos/organisms/HeroProyectos";
@@ -34,13 +34,13 @@ const Proyectos: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Proyectos - UdlaVerso</title>
-        <meta
-          name="description"
-          content="Listado de proyectos del UdlaVerso con filtros por categoría y paginación."
-        />
-      </Helmet>
+      <SEO
+        title="Proyectos de realidad aumentada | UdlaVerso"
+        description="Explora los proyectos de realidad aumentada del UdlaVerso, filtra por categoría y descubre experiencias inmersivas creadas por la comunidad universitaria."
+        path="/proyectos"
+        image="/images/puente.webp"
+        keywords="proyectos realidad aumentada, proyectos UdlaVerso, innovación universitaria"
+      />
 
       <HeroProyectos />
 

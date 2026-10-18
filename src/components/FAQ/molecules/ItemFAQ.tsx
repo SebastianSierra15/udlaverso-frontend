@@ -15,6 +15,9 @@ const ItemFAQ: React.FC<ItemFAQProps> = ({ pregunta, respuesta }) => {
   return (
     <div className="border-b border-gray-200 py-5">
       <button
+        type="button"
+        aria-expanded={abierto}
+        aria-label={`${abierto ? "Ocultar" : "Mostrar"} respuesta: ${pregunta}`}
         className="flex justify-between items-center w-full text-left focus:outline-none"
         onClick={() => setAbierto(!abierto)}
       >

@@ -1,13 +1,16 @@
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/SEO/SEO";
 import { motion } from "framer-motion";
 import HeroTerminos from "../../components/Legales/organisms/HeroTerminos";
 
 const TerminosYCondiciones: React.FC = () => {
   return (
     <main className="bg-white">
-      <Helmet>
-        <title>Términos y Condiciones - UdlaVerso</title>
-      </Helmet>
+      <SEO
+        title="Términos y condiciones | UdlaVerso"
+        description="Consulta los términos de uso del portal UdlaVerso y las políticas de tratamiento de datos personales de la Universidad de la Amazonia."
+        path="/terminos-y-condiciones"
+        keywords="términos y condiciones UdlaVerso, tratamiento de datos, Universidad de la Amazonia"
+      />
 
       <HeroTerminos />
 

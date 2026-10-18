@@ -46,7 +46,7 @@ const AlertaEmergente: React.FC<Props> = ({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -50, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className={`fixed top-6 right-6 z-50 shadow-lg rounded-lg px-4 py-3 flex items-center ${colores[tipo]}`}
+          className={`fixed inset-x-4 top-4 z-50 mx-auto flex max-w-lg items-center rounded-lg px-4 py-3 shadow-lg sm:left-auto sm:right-6 sm:inset-x-auto ${colores[tipo]}`}
         >
           {iconos[tipo]}
           <span className="text-sm font-medium flex-1">{mensaje}</span>

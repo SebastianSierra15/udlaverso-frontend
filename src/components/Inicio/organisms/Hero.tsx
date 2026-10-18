@@ -24,7 +24,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-screen flex items-center text-white overflow-hidden">
+    <section className="relative min-h-[620px] h-screen flex items-center text-white overflow-hidden">
       {/* Imagen de fondo */}
       <img
         className="absolute top-0 left-0 w-full h-full object-cover -z-10"
@@ -35,8 +35,8 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/30 -z-10" />
 
       {/* Contenido alineado a la izquierda */}
-      <div className="w-full max-w-7xl mx-auto flex flex-col items-start text-left pl-12">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+      <div className="page-container flex flex-col items-start text-left pt-16 pb-20 sm:pt-20">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">
           UdlaVerso
         </h1>
 
@@ -45,7 +45,7 @@ const Hero = () => {
           Aumentada
         </p>
 
-        <div className="flex gap-4">
+        <div className="flex w-full max-w-xl flex-col gap-3 sm:flex-row sm:gap-4">
           <BotonEnlace
             texto="Descargar visor"
             href="https://www.mediafire.com/file/yi7wyivkcffq3lb/UA3D-Viwer.exe"
@@ -65,6 +65,8 @@ const Hero = () => {
       {/* Flecha centrada abajo */}
       <button
         onClick={scrollToNext}
+        type="button"
+        aria-label="Desplazarse a la introducción"
         className="absolute hover:text-udlaverso-verdeClaro duration-300 transition-colors bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-3xl"
       >
         <FaChevronDown />

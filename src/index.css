@@ -3,6 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-texto text-udlaverso-negro;
+    overflow-x: hidden;
+  }
+
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+  }
+
   h1,
   h2,
   h3,
@@ -12,7 +27,21 @@
     @apply font-titulo;
   }
 
-  body {
-    @apply font-texto;
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-14 sm:py-16 lg:py-20;
   }
 }

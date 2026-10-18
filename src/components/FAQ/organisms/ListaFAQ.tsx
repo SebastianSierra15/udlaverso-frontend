@@ -1,8 +1,12 @@
 import ItemFAQ from "../molecules/ItemFAQ";
-import { useFaqs } from "../../../hooks/useFaqs";
+import type { Faq } from "../../../types/Faq.type";
 
-const ListaFAQ: React.FC = () => {
-  const { faqs, cargando } = useFaqs();
+interface Props {
+  faqs: Faq[];
+  cargando: boolean;
+}
+
+const ListaFAQ: React.FC<Props> = ({ faqs, cargando }) => {
 
   if (cargando)
     return (

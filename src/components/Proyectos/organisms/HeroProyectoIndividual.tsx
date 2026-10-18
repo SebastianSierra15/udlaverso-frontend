@@ -11,11 +11,11 @@ const HeroProyectoIndividual: React.FC<Props> = ({
   descripcion,
   imagenFondo = "/images/hero.webp",
 }) => (
-  <section className="relative h-[45vh] md:h-[55vh] flex items-center justify-center text-white">
+  <section className="relative min-h-[360px] h-[48vh] md:h-[55vh] flex items-center justify-center overflow-hidden text-white">
     <img
       src={imagenFondo}
       alt={titulo}
-      className="absolute inset-0 w-full h-full object-cover"
+      className="absolute inset-0 -z-10 h-full w-full object-cover"
     />
     <div className="absolute inset-0 bg-black/60 -z-10" />
 

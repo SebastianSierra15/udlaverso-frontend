@@ -13,7 +13,7 @@ interface Props {
 
 const Stepper: React.FC<Props> = ({ pasoActual, total, onPasoChange }) => {
   return (
-    <div className="flex justify-between items-center w-full max-w-2xl mx-auto mb-8">
+    <div className="mx-auto mb-8 grid w-full max-w-2xl grid-cols-4 items-start gap-1 sm:gap-2">
       {Array.from({ length: total }, (_, i) => {
         const numero = i + 1;
         const activo = numero <= pasoActual;
@@ -22,7 +22,7 @@ const Stepper: React.FC<Props> = ({ pasoActual, total, onPasoChange }) => {
         return (
           <div
             key={i}
-            className={`flex-1 flex flex-col items-center relative ${
+            className={`relative flex min-w-0 flex-col items-center ${
               esClickeable ? "cursor-pointer group" : ""
             }`}
             onClick={() => esClickeable && onPasoChange?.(numero)}
@@ -30,7 +30,7 @@ const Stepper: React.FC<Props> = ({ pasoActual, total, onPasoChange }) => {
           >
             {i > 0 && (
               <div
-                className={`absolute top-4 left-[-50%] w-full h-1 ${
+                className={`absolute left-[-50%] top-4 -z-10 h-1 w-full ${
                   activo ? "bg-udlaverso-verde" : "bg-gray-300"
                 } -z-10`}
               />
@@ -47,7 +47,7 @@ const Stepper: React.FC<Props> = ({ pasoActual, total, onPasoChange }) => {
             </div>
 
             <span
-              className={`text-xs mt-2 text-center ${
+              className={`mt-2 text-center text-[10px] leading-tight sm:text-xs ${
                 activo ? "text-udlaverso-verde font-medium" : "text-gray-400"
               } ${esClickeable ? "group-hover:text-udlaverso-verde" : ""}`}
             >

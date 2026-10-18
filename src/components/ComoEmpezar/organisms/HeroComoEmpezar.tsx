@@ -1,7 +1,7 @@
 import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
 const HeroComoEmpezar: React.FC = () => (
-  <section className="relative h-[60vh] flex items-center justify-center text-white">
+  <section className="relative min-h-[380px] h-[55vh] md:h-[60vh] flex items-center justify-center text-white">
     <img
       src="/images/escenario.webp"
       alt="Cómo empezar en el UdlaVerso"

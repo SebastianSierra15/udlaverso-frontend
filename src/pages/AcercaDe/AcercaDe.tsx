@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/SEO/SEO";
 import HeroSection from "../../components/Acerca/organisms/HeroSection";
 import SeccionImagenTexto from "../../components/Acerca/organisms/SeccionImagenTexto";
 import SeccionUniversidad from "../../components/Acerca/organisms/SeccionUniversidad";
@@ -8,13 +8,13 @@ import Autores from "../../components/Acerca/organisms/Autores";
 const AcercaDe: React.FC = () => {
   return (
     <>
-      <Helmet>
-        <title>Acerca del UdlaVerso - Universidad de la Amazonia</title>
-        <meta
-          name="description"
-          content="Conoce el UdlaVerso, la iniciativa tecnológica de la Universidad de la Amazonia que transforma la educación mediante experiencias inmersivas y realidad aumentada."
-        />
-      </Helmet>
+      <SEO
+        title="Acerca del UdlaVerso | Universidad de la Amazonia"
+        description="Conoce el UdlaVerso, la iniciativa tecnológica de la Universidad de la Amazonia que transforma la educación mediante experiencias inmersivas y realidad aumentada."
+        path="/acerca-de"
+        image="/images/hero-acercade.webp"
+        keywords="UdlaVerso, Universidad de la Amazonia, educación inmersiva, realidad aumentada"
+      />
 
       <HeroSection
         titulo="Acerca del UdlaVerso"

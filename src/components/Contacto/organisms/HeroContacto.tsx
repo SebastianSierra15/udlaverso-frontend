@@ -1,7 +1,7 @@
 import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
 const HeroContacto: React.FC = () => (
-  <section className="relative h-[60vh] flex items-center justify-center text-white">
+  <section className="relative min-h-[380px] h-[55vh] md:h-[60vh] flex items-center justify-center text-white">
     <img
       src="/images/caseta.webp"
       alt="Contacto UdlaVerso"

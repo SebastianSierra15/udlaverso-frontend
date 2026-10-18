@@ -1,7 +1,7 @@
 import ContenidoHero from "../../Shared/molecules/ContenidoHero";
 
 const HeroFAQ: React.FC = () => (
-  <section className="relative h-[45vh] md:h-[55vh] flex items-center justify-center text-white">
+  <section className="relative min-h-[360px] h-[48vh] md:h-[55vh] flex items-center justify-center text-white">
     <img
       src="/images/bus.webp"
       alt="Preguntas Frecuentes UdlaVerso"

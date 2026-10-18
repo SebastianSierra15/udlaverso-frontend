@@ -7,7 +7,7 @@ const Layout = () => {
     <>
       <Header />
 
-      <main className="">
+      <main className="min-w-0">
         <Outlet />
       </main>
 

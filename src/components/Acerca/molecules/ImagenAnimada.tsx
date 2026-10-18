@@ -10,13 +10,12 @@ interface ImagenAnimadaProps {
 const ImagenAnimada: React.FC<ImagenAnimadaProps> = ({
   src,
   alt,
-  invertir = false,
 }) => {
   return (
     <motion.div
       className="relative w-full md:w-1/2 flex justify-center"
-      initial={{ opacity: 0, x: invertir ? 50 : -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true, amount: 0.3 }}
     >

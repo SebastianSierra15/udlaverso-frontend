@@ -12,7 +12,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   imagenFondo,
 }) => {
   return (
-    <section className="relative h-[80vh] flex items-center justify-center overflow-hidden text-white">
+    <section className="relative min-h-[420px] h-[62vh] md:h-[80vh] flex items-center justify-center overflow-hidden text-white">
       <img
         src={imagenFondo}
         alt="Fondo UdlaVerso"

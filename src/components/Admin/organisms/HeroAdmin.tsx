@@ -6,8 +6,8 @@ const HeroAdmin: React.FC = () => {
   const { logout } = useAuth();
 
   return (
-    <header className="bg-white border rounded-2xl px-5 py-3 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-sm">
-      <div className="flex items-center gap-4">
+    <header className="flex flex-col items-start justify-between gap-4 rounded-2xl border bg-white px-4 py-3 shadow-sm sm:flex-row sm:items-center sm:px-5">
+      <div className="flex items-center gap-3 sm:gap-4">
         <img
           src="/logos/logo-udla.webp"
           alt="Logo UdlaVerso"
@@ -15,7 +15,7 @@ const HeroAdmin: React.FC = () => {
         />
 
         <div>
-          <h1 className="text-xl md:text-2xl font-extrabold text-udlaverso-negro tracking-tight">
+          <h1 className="text-lg font-extrabold tracking-tight text-udlaverso-negro sm:text-xl md:text-2xl">
             Panel de Administración
           </h1>
 
@@ -25,11 +25,11 @@ const HeroAdmin: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:gap-3">
         <a
           href="/"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-gray-50 text-gray-700 hover:bg-gray-100 border transition-all"
+          className="flex items-center justify-center gap-2 rounded-lg border bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-100"
         >
           <FaHome className="w-4 h-4 text-udlaverso-verde" />
           <span>Ir al portal</span>
@@ -37,7 +37,7 @@ const HeroAdmin: React.FC = () => {
 
         <button
           onClick={logout}
-          className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-red-50 text-red-700 border border-red-100 hover:bg-red-100 hover:text-red-800 transition-all"
+          className="flex items-center justify-center gap-2 rounded-lg border border-red-100 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 transition-all hover:bg-red-100 hover:text-red-800"
         >
           <LuLogOut className="w-4 h-4" />
           <span>Cerrar sesión</span>

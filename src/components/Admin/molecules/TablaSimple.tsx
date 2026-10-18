@@ -50,7 +50,7 @@ function TablaSimple<T extends Record<string, unknown>>({
         )}
       </div>
 
-      <table className="min-w-full text-sm">
+      <table className="min-w-[640px] text-sm">
         <thead className="bg-gray-50 text-udlaverso-gris">
           <tr>
             {columnas.map((c) => (

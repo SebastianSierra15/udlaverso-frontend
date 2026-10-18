@@ -44,7 +44,7 @@ const Paginacion: React.FC<Props> = ({
 
   return (
     <nav
-      className="flex items-center justify-center gap-2 mt-8 text-sm select-none"
+      className="flex max-w-full flex-wrap items-center justify-center gap-1 sm:gap-2 mt-8 text-sm select-none"
       aria-label={ariaLabel}
     >
       {/* Botón anterior */}
@@ -60,7 +60,7 @@ const Paginacion: React.FC<Props> = ({
             pagina === 1 ? "" : "group-hover:-translate-x-1"
           }`}
         />
-        <span className={`${pagina === 1 ? "text-gray-400" : "text-black"}`}>
+        <span className={`hidden sm:inline ${pagina === 1 ? "text-gray-400" : "text-black"}`}>
           Anterior
         </span>
       </button>
@@ -102,7 +102,7 @@ const Paginacion: React.FC<Props> = ({
             pagina === totalPaginas ? "text-gray-400" : "text-black"
           }`}
         >
-          Siguiente
+          <span className="hidden sm:inline">Siguiente</span>
         </span>
         <FaArrowRight
           className={`w-4 h-4 transform transition-transform duration-300 ease-in-out ${

@@ -49,9 +49,8 @@ const SidebarAdmin: React.FC = () => {
     user?.permisos?.some((p) => p.nombrePermiso === e.permiso)
   );
 
-  return (
-    <aside className="w-full md:w-64 shrink-0">
-      <nav className="bg-white border rounded-2xl p-4 sticky top-4 shadow-sm">
+  const menu = (
+    <nav className="rounded-2xl border bg-white p-4 shadow-sm">
         <h3 className="text-base font-semibold text-udlaverso-negro/80 mb-4 tracking-tight">
           Panel de administración
         </h3>
@@ -86,7 +85,18 @@ const SidebarAdmin: React.FC = () => {
             );
           })}
         </ul>
-      </nav>
+    </nav>
+  );
+
+  return (
+    <aside className="w-full shrink-0">
+      <div className="hidden md:block">{menu}</div>
+      <details className="rounded-2xl border bg-white shadow-sm md:hidden">
+        <summary className="cursor-pointer list-none px-4 py-3 font-semibold text-udlaverso-negro/80">
+          Menú de administración
+        </summary>
+        <div className="border-t p-2">{menu}</div>
+      </details>
     </aside>
   );
 };

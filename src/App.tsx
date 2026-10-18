@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./layouts/Layout";
-import LayoutAdmin from "./layouts/LayoutAdmin";
+import Layout from "./Layouts/Layout";
+import LayoutAdmin from "./Layouts/LayoutAdmin";
 import ScrollToTop from "./components/utils/ScrollTop";
 import RutaProtegida from "./components/Shared/organisms/RutaProtegida";
 import { ROUTES } from "./routes";
